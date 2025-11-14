@@ -322,29 +322,29 @@
             <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
                 <!-- Men Card -->
                 <!-- 
-                  - Removed all 'h-' classes to let the image define the height
-                  - text-xl (smaller) on mobile, md:text-4xl (large) on desktop
+                  - Removed 'bg-white' from <a> to prevent empty space.
+                  - Cleaned up classes on <img> and text <div> for proper layering.
                 -->
-                <a href="#" class="group relative block overflow-hidden rounded-lg shadow-lg bg-white">
-                    <img src= "assets/img/men banner.jpeg" alt="Men's Shoes" class="relative w-full h-auto object-contain transition-transform duration-500 ease-in-out group-hover:scale-105">
+                <a href="#" class="group relative block overflow-hidden rounded-lg shadow-lg">
+                    <img src= "assets/img/men banner.jpeg" alt="Men's Shoes" class="block w-full h-auto transition-transform duration-500 ease-in-out group-hover:scale-105">
                     <div class="absolute inset-0 bg-black bg-opacity-30 transition-all duration-300 group-hover:bg-opacity-40"></div>
-                    <div class="relative h-full flex items-center justify-center absolute inset-0">
+                    <div class="absolute inset-0 flex items-center justify-center">
                         <h2 class="text-white text-xl md:text-4xl font-extrabold tracking-wider uppercase transition-all duration-300 group-hover:scale-110">Men</h2>
                     </div>
                 </a>
                 <!-- Women Card -->
-                <a href="#" class="group relative block overflow-hidden rounded-lg shadow-lg bg-white">
-                    <img src="assets/img/womenbanner.jpeg" alt="Women's Shoes" class="relative w-full h-auto object-contain transition-transform duration-500 ease-in-out group-hover:scale-105">
+                <a href="#" class="group relative block overflow-hidden rounded-lg shadow-lg">
+                    <img src="assets/img/womenbanner.jpeg" alt="Women's Shoes" class="block w-full h-auto transition-transform duration-500 ease-in-out group-hover:scale-105">
                     <div class="absolute inset-0 bg-black bg-opacity-30 transition-all duration-300 group-hover:bg-opacity-40"></div>
-                    <div class="relative h-full flex items-center justify-center absolute inset-0">
+                    <div class="absolute inset-0 flex items-center justify-center">
                         <h2 class="text-white text-xl md:text-4xl font-extrabold tracking-wider uppercase transition-all duration-300 group-hover:scale-110">Women</h2>
                     </div>
                 </a>
                 <!-- Kids Card -->
-                <a href="#" class="group relative block overflow-hidden rounded-lg shadow-lg bg-white">
-                    <img src="assets/img/kidsbanner.jpg" alt="Kids' Shoes" class="relative w-full h-auto object-contain transition-transform duration-500 ease-in-out group-hover:scale-105">
+                <a href="#" class="group relative block overflow-hidden rounded-lg shadow-lg">
+                    <img src="assets/img/kidsbanner.jpg" alt="Kids' Shoes" class="block w-full h-auto transition-transform duration-500 ease-in-out group-hover:scale-105">
                     <div class="absolute inset-0 bg-black bg-opacity-30 transition-all duration-300 group-hover:bg-opacity-40"></div>
-                    <div class="relative h-full flex items-center justify-center absolute inset-0">
+                    <div class="absolute inset-0 flex items-center justify-center">
                         <h2 class="text-white text-xl md:text-4xl font-extrabold tracking-wider uppercase transition-all duration-300 group-hover:scale-110">Kids</h2>
                     </div>
                 </a>
