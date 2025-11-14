@@ -87,16 +87,16 @@
         /* --- End Brand Card Effect --- */
 
         /* --- Custom Cursor Effect --- */
-        
-        /* Hide the default OS cursor on non-touch devices */
-        @media (hover: hover) and (pointer: fine) {
-            body, a[href], button, .cursor-pointer {
-                cursor: none !important; 
-            }
+        /* Hide the default OS cursor */
+        body, a[href], button, .cursor-pointer {
+            cursor: none !important; 
         }
 
-        /* Hide the custom cursor on touch devices */
-        @media (hover: none) and (pointer: coarse) {
+        /* Hide custom cursor on mobile/touch devices */
+        @media (hover: none) {
+            body, a[href], button, .cursor-pointer {
+                cursor: auto !important; /* Restore default cursor */
+            }
             #cursor-dot, #cursor-outline {
                 display: none !important;
             }
@@ -163,6 +163,8 @@
             overflow: hidden;
             border-radius: 0.5rem; /* 8px */
             box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+            /* Smooth height transition */
+            transition: height 0.5s ease-in-out;
         }
         .carousel-slider {
             display: flex;
@@ -173,14 +175,12 @@
             width: 100%;
             position: relative;
         }
-        /* - Removed fixed height and object-fit
-          - 'height: auto' lets the image's natural aspect ratio set the height
-        */
         .carousel-slide img {
             width: 100%;
-            height: auto; /* This will use the image's natural height and stop all cutting */
+            height: auto; /* Let image height be natural */
+            object-fit: contain; /* Show full image, no crop */
+            display: block; /* Fixes tiny gap below image */
         }
-        
         /* Carousel dots */
         .carousel-dots {
             position: absolute;
@@ -203,6 +203,12 @@
             background-color: #ffffff;
         }
         /* --- End Carousel Section --- */
+
+        /* --- Text Shadow for Gender Cards --- */
+        .text-shadow-heavy {
+            text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.7);
+        }
+        /* --- End Text Shadow --- */
     </style>
 </head>
 <body class="bg-teal-50">
@@ -224,14 +230,17 @@
             <div class="flex justify-between items-center h-20"> <!-- Increased header height -->
                 <!-- Logo -->
                 <div class="flex-shrink-0 flex items-center">
-                    <img class="h-14 w-auto" src="assets/img/indus-logo.png" alt="Indus Footwear"> <!-- Increased logo size -->
+                    <!-- Link logo to homepage -->
+                    <a href="index.html">
+                        <img class="h-14 w-auto" src="assets/img/indus-logo.png" alt="Indus Footwear"> <!-- Increased logo size -->
+                    </a>
                 </div>
 
                 <!-- Desktop Navigation -->
                 <div class="hidden sm:ml-6 sm:flex sm:space-x-8 items-center">
-                    <a href="#" class="inline-flex items-center px-1 pt-1 border-b-2 border-cyan-500 text-sm font-medium text-gray-900 transition-all duration-300">Home</a>
+                    <a href="index.html" class="inline-flex items-center px-1 pt-1 border-b-2 border-cyan-500 text-sm font-medium text-gray-900 transition-all duration-300">Home</a>
                     
-                    <!-- Shop Dropdown -->
+                    <!-- Shop Dropdown (Mega Menu) -->
                     <div class="relative group">
                         <!-- Trigger -->
                         <div class="inline-flex items-center px-1 pt-1 border-b-2 border-transparent text-sm font-medium text-gray-500 group-hover:border-cyan-500 group-hover:text-gray-900 transition-all duration-300 cursor-default">
@@ -240,22 +249,63 @@
                                 <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />
                             </svg>
                         </div>
+                        
                         <!-- Dropdown Panel -->
-                        <div class="absolute left-0 z-10 mt-0 w-48 bg-white shadow-lg rounded-md hidden group-hover:block ring-1 ring-black ring-opacity-5 opacity-0 group-hover:opacity-100 transition-all ease-in-out duration-150">
-                            <div class="py-1">
-                                <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900">Men</a>
-                                <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900">Women</a>
-                                <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900">Kids</a>
+                        <div class="absolute left-0 z-10 mt-0 w-auto bg-white shadow-lg rounded-md hidden group-hover:block ring-1 ring-black ring-opacity-5 opacity-0 group-hover:opacity-100 transition-all ease-in-out duration-150">
+                            <div class="flex">
+                                <!-- Men Column -->
+                                <div class="p-4 border-r border-gray-100">
+                                    <h3 class="font-semibold text-gray-900 mb-2">Men</h3>
+                                    <a href="men.html#pu-slippers" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900 rounded-md">PU Slippers</a>
+                                    <a href="men.html#eva" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900 rounded-md">EVA (Sports, Sliders)</a>
+                                    <a href="men.html#hawai" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900 rounded-md">Hawai & Fabrication</a>
+                                    <a href="safety-shoes.html" class="block px-4 py-2 text-sm text-cyan-600 font-semibold hover:bg-gray-100 hover:text-cyan-700 rounded-md">Safety Shoes</a>
+                                </div>
+                                <!-- Women Column -->
+                                <div class="p-4 border-r border-gray-100">
+                                    <h3 class="font-semibold text-gray-900 mb-2">Women</h3>
+                                    <a href="women.html#pu-slippers" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900 rounded-md">PU Slippers</a>
+                                    <a href="women.html#eva" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900 rounded-md">EVA (Sandals, Sliders)</a>
+                                    <a href="women.html#hawai" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900 rounded-md">Hawai Slippers</a>
+                                </div>
+                                <!-- Kids Column -->
+                                <div class="p-4">
+                                    <h3 class="font-semibold text-gray-900 mb-2">Kids</h3>
+                                    <a href="school-shoes.html" class="block px-4 py-2 text-sm text-cyan-600 font-semibold hover:bg-gray-100 hover:text-cyan-700 rounded-md">School Shoes</a>
+                                    <a href="kids.html#pu-slippers" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900 rounded-md">PU Slippers</a>
+                                    <a href="kids.html#eva" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900 rounded-md">EVA (Sports, Sliders)</a>
+                                    <a href="kids.html#hawai" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900 rounded-md">Hawai Slippers</a>
+                                </div>
                             </div>
                         </div>
                     </div>
 
-                    <a href="#" class="inline-flex items-center px-1 pt-1 border-b-2 border-transparent text-sm font-medium text-gray-500 hover:border-cyan-500 hover:text-gray-900 transition-all duration-300">About Us</a>
-                    <a href="#" class="inline-flex items-center px-1 pt-1 border-b-2 border-transparent text-sm font-medium text-gray-500 hover:border-cyan-500 hover:text-gray-900 transition-all duration-300">Contact Us</a>
+                    <!-- Brands Dropdown -->
+                    <div class="relative group">
+                        <!-- Trigger -->
+                        <div class="inline-flex items-center px-1 pt-1 border-b-2 border-transparent text-sm font-medium text-gray-500 group-hover:border-cyan-500 group-hover:text-gray-900 transition-all duration-300 cursor-default">
+                            <span>Brands</span>
+                            <svg class="ml-1 h-5 w-5 text-gray-400 group-hover:text-gray-500 transition-all duration-300" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                                <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />
+                            </svg>
+                        </div>
+                        <!-- Dropdown Panel -->
+                        <div class="absolute left-0 z-10 mt-0 w-48 bg-white shadow-lg rounded-md hidden group-hover:block ring-1 ring-black ring-opacity-5 opacity-0 group-hover:opacity-100 transition-all ease-in-out duration-150">
+                            <div class="py-1">
+                                <a href="indus-gold.html" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900">Indus Gold</a>
+                                <a href="indus-lite.html" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900">Induslite</a>
+                                <a href="indus-prime.html" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900">Indus Prime</a>
+                                <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900">Indus Originals</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <a href="about.html" class="inline-flex items-center px-1 pt-1 border-b-2 border-transparent text-sm font-medium text-gray-500 hover:border-cyan-500 hover:text-gray-900 transition-all duration-300">About Us</a>
+                    <a href="contact.html" class="inline-flex items-center px-1 pt-1 border-b-2 border-transparent text-sm font-medium text-gray-500 hover:border-cyan-500 hover:text-gray-900 transition-all duration-300">Contact Us</a>
                     
                     <!-- Updated Enquire Now Button -->
                     <!-- 
-                      NOTE: Replace '910000000000' with your actual WhatsApp business number, including the country code.
+                        NOTE: Replace '910000000000' with your actual WhatsApp business number, including the country code.
                     -->
                     <a href="https://wa.me/910000000000" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 bg-cyan-600 text-white px-5 py-2 rounded-full font-semibold hover:bg-cyan-700 transition-all duration-300 shadow-lg ml-4">
                         <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
@@ -264,8 +314,6 @@
                         Enquire Now
                     </a>
                 </div>
-
-                <!-- Right side icons (Removed) -->
 
                 <!-- Mobile Menu Button -->
                 <div class="flex items-center sm:hidden"> <!-- Wrapper for mobile menu button -->
@@ -281,20 +329,51 @@
         <!-- Mobile Menu (hidden by default) -->
         <div class="sm:hidden hidden" id="mobile-menu">
             <div class="pt-2 pb-3 space-y-1">
-                <a href="#" class="block pl-3 pr-4 py-2 border-l-4 border-cyan-500 bg-cyan-50 text-base font-medium text-cyan-700">Home</a>
+                <a href="index.html" class="block pl-3 pr-4 py-2 border-l-4 border-cyan-500 bg-cyan-50 text-base font-medium text-cyan-700">Home</a>
                 
                 <!-- Shop Section -->
                 <div class="pt-2">
                     <span class="block pl-3 pr-4 py-2 border-l-4 border-transparent text-base font-medium text-gray-500">Shop</span>
                     <div class="mt-1 space-y-1" role="menu" aria-orientation="vertical">
-                        <a href="#" class="block pl-8 pr-4 py-2 text-base font-medium text-gray-600 hover:bg-gray-50 hover:text-gray-800" role="menuitem">Men</a>
-                        <a href="#" class="block pl-8 pr-4 py-2 text-base font-medium text-gray-600 hover:bg-gray-50 hover:text-gray-800" role="menuitem">Women</a>
-                        <a href="#" class="block pl-8 pr-4 py-2 text-base font-medium text-gray-600 hover:bg-gray-50 hover:text-gray-800" role="menuitem">Kids</a>
+                        <!-- Men Sub-menu -->
+                        <span class="block pl-8 pr-4 py-2 text-base font-medium text-gray-800">Men</span>
+                        <div class="mt-1 space-y-1" role="menu" aria-orientation="vertical">
+                            <a href="men.html#pu-slippers" class="block pl-12 pr-4 py-2 text-base font-medium text-gray-600 hover:bg-gray-50 hover:text-gray-800" role="menuitem">PU Slippers</a>
+                            <a href="men.html#eva" class="block pl-12 pr-4 py-2 text-base font-medium text-gray-600 hover:bg-gray-50 hover:text-gray-800" role="menuitem">EVA (Sports, Sliders)</a>
+                            <a href="men.html#hawai" class="block pl-12 pr-4 py-2 text-base font-medium text-gray-600 hover:bg-gray-50 hover:text-gray-800" role="menuitem">Hawai & Fabrication</a>
+                            <a href="safety-shoes.html" class="block pl-12 pr-4 py-2 text-base font-medium text-cyan-600 hover:bg-gray-50 hover:text-cyan-700" role="menuitem">Safety Shoes</a>
+                        </div>
+                        <!-- Women Sub-menu -->
+                        <span class="block pl-8 pr-4 py-2 text-base font-medium text-gray-800 mt-2">Women</span>
+                        <div class="mt-1 space-y-1" role="menu" aria-orientation="vertical">
+                            <a href="women.html#pu-slippers" class="block pl-12 pr-4 py-2 text-base font-medium text-gray-600 hover:bg-gray-50 hover:text-gray-800" role="menuitem">PU Slippers</a>
+                            <a href="women.html#eva" class="block pl-12 pr-4 py-2 text-base font-medium text-gray-600 hover:bg-gray-50 hover:text-gray-800" role="menuitem">EVA (Sandals, Sliders)</a>
+                            <a href="women.html#hawai" class="block pl-12 pr-4 py-2 text-base font-medium text-gray-600 hover:bg-gray-50 hover:text-gray-800" role="menuitem">Hawai Slippers</a>
+                        </div>
+                        <!-- Kids Sub-menu -->
+                        <span class="block pl-8 pr-4 py-2 text-base font-medium text-gray-800 mt-2">Kids</span>
+                        <div class="mt-1 space-y-1" role="menu" aria-orientation="vertical">
+                            <a href="school-shoes.html" class="block pl-12 pr-4 py-2 text-base font-medium text-cyan-600 hover:bg-gray-50 hover:text-cyan-700" role="menuitem">School Shoes</a>
+                            <a href="kids.html#pu-slippers" class="block pl-12 pr-4 py-2 text-base font-medium text-gray-600 hover:bg-gray-50 hover:text-gray-800" role="menuitem">PU Slippers</a>
+                            <a href="kids.html#eva" class="block pl-12 pr-4 py-2 text-base font-medium text-gray-600 hover:bg-gray-50 hover:text-gray-800" role="menuitem">EVA (Sports, Sliders)</a>
+                            <a href="kids.html#hawai" class="block pl-12 pr-4 py-2 text-base font-medium text-gray-600 hover:bg-gray-50 hover:text-gray-800" role="menuitem">Hawai Slippers</a>
+                        </div>
                     </div>
                 </div>
 
-                <a href="#" class="block pl-3 pr-4 py-2 border-l-4 border-transparent text-base font-medium text-gray-500 hover:bg-gray-50 hover:border-gray-300 hover:text-gray-700">About Us</a>
-                <a href="#" class="block pl-3 pr-4 py-2 border-l-4 border-transparent text-base font-medium text-gray-500 hover:bg-gray-50 hover:border-gray-300 hover:text-gray-700">Contact Us</a>
+                <!-- Brands Section -->
+                <div class="pt-2">
+                    <span class="block pl-3 pr-4 py-2 border-l-4 border-transparent text-base font-medium text-gray-500">Brands</span>
+                    <div class="mt-1 space-y-1" role="menu" aria-orientation="vertical">
+                        <a href="indus-gold.html" class="block pl-8 pr-4 py-2 text-base font-medium text-gray-600 hover:bg-gray-50 hover:text-gray-800" role="menuitem">Indus Gold</a>
+                        <a href="indus-lite.html" class="block pl-8 pr-4 py-2 text-base font-medium text-gray-600 hover:bg-gray-50 hover:text-gray-800" role="menuitem">Induslite</a>
+                        <a href="indus-prime.html" class="block pl-8 pr-4 py-2 text-base font-medium text-gray-600 hover:bg-gray-50 hover:text-gray-800" role="menuitem">Indus Prime</a>
+                        <a href="#" class="block pl-8 pr-4 py-2 text-base font-medium text-gray-600 hover:bg-gray-50 hover:text-gray-800" role="menuitem">Indus Originals</a>
+                    </div>
+                </div>
+
+                <a href="about.html" class="block pl-3 pr-4 py-2 border-l-4 border-transparent text-base font-medium text-gray-500 hover:bg-gray-50 hover:border-gray-300 hover:text-gray-700">About Us</a>
+                <a href="contact.html" class="block pl-3 pr-4 py-2 border-l-4 border-transparent text-base font-medium text-gray-500 hover:bg-gray-50 hover:border-gray-300 hover:text-gray-700">Contact Us</a>
                 
                 <!-- Updated Mobile Enquire Now Button -->
                 <a href="https://wa.me/910000000000" target="_blank" rel="noopener noreferrer" class="flex items-center justify-center gap-2 w-full text-left bg-cyan-600 text-white px-4 py-3 rounded-md font-semibold hover:bg-cyan-700 transition-all duration-300 mt-2">
@@ -322,30 +401,28 @@
             <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
                 <!-- Men Card -->
                 <!-- 
-                  - Removed 'bg-white' from <a> to prevent empty space.
-                  - Cleaned up classes on <img> and text <div> for proper layering.
+                  - Removed dimming overlay: <div class="absolute inset-0 bg-black bg-opacity-30 ..."></div>
+                  - Added 'text-shadow-heavy' to <h2> for visibility
+                  - Removed fixed height, letting image define height
                 -->
-                <a href="#" class="group relative block overflow-hidden rounded-lg shadow-lg">
+                <a href="men.html" class="group relative block overflow-hidden rounded-lg shadow-lg">
                     <img src= "assets/img/men banner.jpeg" alt="Men's Shoes" class="block w-full h-auto transition-transform duration-500 ease-in-out group-hover:scale-105">
-                    <div class="absolute inset-0 bg-black bg-opacity-30 transition-all duration-300 group-hover:bg-opacity-40"></div>
                     <div class="absolute inset-0 flex items-center justify-center">
-                        <h2 class="text-white text-xl md:text-4xl font-extrabold tracking-wider uppercase transition-all duration-300 group-hover:scale-110">Men</h2>
+                        <h2 class="text-white text-xl md:text-4xl font-extrabold tracking-wider uppercase transition-all duration-300 group-hover:scale-110 text-shadow-heavy">Men</h2>
                     </div>
                 </a>
                 <!-- Women Card -->
-                <a href="#" class="group relative block overflow-hidden rounded-lg shadow-lg">
+                <a href="women.html" class="group relative block overflow-hidden rounded-lg shadow-lg">
                     <img src="assets/img/womenbanner.jpeg" alt="Women's Shoes" class="block w-full h-auto transition-transform duration-500 ease-in-out group-hover:scale-105">
-                    <div class="absolute inset-0 bg-black bg-opacity-30 transition-all duration-300 group-hover:bg-opacity-40"></div>
                     <div class="absolute inset-0 flex items-center justify-center">
-                        <h2 class="text-white text-xl md:text-4xl font-extrabold tracking-wider uppercase transition-all duration-300 group-hover:scale-110">Women</h2>
+                        <h2 class="text-white text-xl md:text-4xl font-extrabold tracking-wider uppercase transition-all duration-300 group-hover:scale-110 text-shadow-heavy">Women</h2>
                     </div>
                 </a>
                 <!-- Kids Card -->
-                <a href="#" class="group relative block overflow-hidden rounded-lg shadow-lg">
+                <a href="kids.html" class="group relative block overflow-hidden rounded-lg shadow-lg">
                     <img src="assets/img/kidsbanner.jpg" alt="Kids' Shoes" class="block w-full h-auto transition-transform duration-500 ease-in-out group-hover:scale-105">
-                    <div class="absolute inset-0 bg-black bg-opacity-30 transition-all duration-300 group-hover:bg-opacity-40"></div>
                     <div class="absolute inset-0 flex items-center justify-center">
-                        <h2 class="text-white text-xl md:text-4xl font-extrabold tracking-wider uppercase transition-all duration-300 group-hover:scale-110">Kids</h2>
+                        <h2 class="text-white text-xl md:text-4xl font-extrabold tracking-wider uppercase transition-all duration-300 group-hover:scale-110 text-shadow-heavy">Kids</h2>
                     </div>
                 </a>
             </div>
@@ -357,15 +434,15 @@
                 <!-- Slide 1 -->
                 <div class="carousel-slide">
                     <!-- You can replace these placeholders with your actual banner images -->
-                    <img src="assets/img/1.webp" alt="New Arrivals Banner">
+                    <img src="assets/img/1.webp" alt="New Arrivals Banner" data-index="0">
                 </div>
                 <!-- Slide 2 -->
                 <div class="carousel-slide">
-                    <img src="assets/img/2.webp" alt="Summer Sale Banner">
+                    <img src="assets/img/2.webp" alt="Summer Sale Banner" data-index="1">
                 </div>
                 <!-- Slide 3 -->
                 <div class="carousel-slide">
-                    <img src="assetsf/img/banner-3.jpg" alt="Kids Collection Banner">
+                    <img src="assets/img/banner-3.jpg" alt="Kids Collection Banner" data-index="2">
                 </div>
             </div>
             <div class="carousel-dots" id="carousel-dots-container">
@@ -379,21 +456,21 @@
         <div class="mb-12">
             <h2 class="text-3xl font-bold text-center text-gray-800 mb-8">Shop Our Brands</h2>
             <!-- 
-              - Updated grid to 'md:grid-cols-4' and 'lg:grid-cols-4' to fit 4 cards perfectly.
+                - Updated grid to 'md:grid-cols-4' and 'lg:grid-cols-4' to fit 4 cards perfectly.
             -->
             <div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-4 gap-6">
                 <!-- Brand Card 1: Indus Gold -->
-                <a href="#" class="group brand-card block bg-white p-6 rounded-lg shadow-lg overflow-hidden transition-all duration-500 ease-in-out hover:scale-105 opacity-90 hover:opacity-100 cursor-pointer">
+                <a href="indus-gold.html" class="group brand-card block bg-white p-6 rounded-lg shadow-lg overflow-hidden transition-all duration-500 ease-in-out hover:scale-105 opacity-90 hover:opacity-100 cursor-pointer">
                     <img src="assets/img/indusgold.png" alt="Indus Gold Logo" class="h-28 w-auto mx-auto object-contain">
                     <h3 class="text-center mt-4 font-semibold text-gray-700">Indus Gold</h3>
                 </a>
                 <!-- Brand Card 2: Induslite -->
-                <a href="#" class="group brand-card block bg-white p-6 rounded-lg shadow-lg overflow-hidden transition-all duration-500 ease-in-out hover:scale-105 opacity-90 hover:opacity-100 cursor-pointer">
+                <a href="indus-lite.html" class="group brand-card block bg-white p-6 rounded-lg shadow-lg overflow-hidden transition-all duration-500 ease-in-out hover:scale-105 opacity-90 hover:opacity-100 cursor-pointer">
                     <img src="assets/img/induslite.jpg" alt="Induslite Logo" class="h-28 w-auto mx-auto object-contain">
                     <h3 class="text-center mt-4 font-semibold text-gray-700">Induslite</h3>
                 </a>
                 <!-- Brand Card 3: Indus Prime -->
-                <a href="#" class="group brand-card block bg-white p-6 rounded-lg shadow-lg overflow-hidden transition-all duration-500 ease-in-out hover:scale-105 opacity-90 hover:opacity-100 cursor-pointer">
+                <a href="indus-prime.html" class="group brand-card block bg-white p-6 rounded-lg shadow-lg overflow-hidden transition-all duration-500 ease-in-out hover:scale-105 opacity-90 hover:opacity-100 cursor-pointer">
                     <img src="assets/img/indusprime.png" alt="Indus Prime Logo" class="h-28 w-auto mx-auto object-contain">
                     <h3 class="text-center mt-4 font-semibold text-gray-700">Indus Prime</h3>
                 </a>
@@ -412,14 +489,18 @@
         <div class="mb-12">
             <h2 class="text-3xl font-bold text-center text-gray-800 mb-8">Explore Our Safety Shoes</h2>
             <!-- 
-              - grid-cols-3 on mobile
-              - md:grid-cols-4 on desktop
+                - Changed to 4 columns on desktop/tablet (sm:grid-cols-4)
+                - Kept 2 columns on mobile (grid-cols-2)
             -->
-            <div class="grid grid-cols-3 md:grid-cols-4 gap-4">
+            <div class="grid grid-cols-2 sm:grid-cols-4 gap-4">
                 
                 <!-- Safety Shoe Card 1 -->
                 <div class="bg-white rounded-lg shadow-md overflow-hidden transform hover:scale-105 transition-transform duration-300">
                     <a href="#">
+                        <!-- 
+                            - Replaced 'h-48' with 'aspect-square'
+                            - Added 'rounded-t-lg'
+                        -->
                         <img class="aspect-square w-full object-cover rounded-t-lg" src="assets/img/products/RHINO-01.jpg" alt="Steel Toe Safety Boot" onerror="this.src='https://placehold.co/400x400/333/white?text=Safety+Boot'">
                         <div class="p-3">
                             <h3 class="font-semibold text-gray-500 text-xs tracking-widest title-font mb-1">INDUS SAFETY</h3>
@@ -473,10 +554,10 @@
         <div class="mb-12">
             <h2 class="text-3xl font-bold text-center text-gray-800 mb-8">Shop Our School Shoes</h2>
             <!-- 
-              - grid-cols-3 on mobile
-              - md:grid-cols-4 on desktop
+                - Changed to 4 columns on desktop/tablet (sm:grid-cols-4)
+                - Kept 2 columns on mobile (grid-cols-2)
             -->
-            <div class="grid grid-cols-3 md:grid-cols-4 gap-4">
+            <div class="grid grid-cols-2 sm:grid-cols-4 gap-4">
                 
                 <!-- School Shoe Card 1 -->
                 <div class="bg-white rounded-lg shadow-md overflow-hidden transform hover:scale-105 transition-transform duration-300">
@@ -536,7 +617,7 @@
             <main class="w-full">
                 <!-- Sorting Dropdown -->
                 <div class="flex justify-between items-center mb-6">
-                    <h1 class="text-2xl font-bold text-gray-800">Our Collection (120)</h1>
+                    <h1 class="text-2xl font-bold text-gray-800">Our Collection</h1>
                     <div>
                         <label for="sort" class="sr-only">Sort by</label>
                         <select id="sort-dropdown" name="sort" class="block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-cyan-500 focus:border-cyan-500 sm:text-sm rounded-md shadow-sm">
@@ -556,11 +637,10 @@
 
                 <!-- Product Card List -->
                 <!-- 
-                  - Changed grid to 'grid-cols-3' to show 3 products on mobile.
-                  - Changed 'lg:grid-cols-3' to 'md:grid-cols-4' to show 4 on desktop/tablet.
-                  - Reduced gap from 'gap-6' to 'gap-4' to fit them better.
+                    - Changed grid to 'grid-cols-3' for mobile
+                    - Changed to 'sm:grid-cols-4' for tablet/desktop
                 -->
-                <div id="product-grid" class="grid grid-cols-3 md:grid-cols-4 gap-4">
+                <div id="product-grid" class="grid grid-cols-3 sm:grid-cols-4 gap-4">
                     
                     <!-- Product Card 1 -->
                     <div class="bg-white rounded-lg shadow-md overflow-hidden transform hover:scale-105 transition-transform duration-300">
@@ -603,7 +683,7 @@
                     <!-- Product Card 4: Indus Safety -->
                     <div class="bg-white rounded-lg shadow-md overflow-hidden transform hover:scale-105 transition-transform duration-300">
                         <a href="#">
-                            <img class="aspect-square w-full object-cover rounded-t-lg" src="assets/img/products/ss-1.jpg" alt="Indus  School Shoes">
+                            <img class="aspect-square w-full object-cover rounded-t-lg" src="assets/img/products/ss-1.jpg" alt="Indus School Shoes">
                             <div class="p-3">
                                 <h3 class="font-semibold text-gray-500 text-xs tracking-widest title-font mb-1">INDUS SCHOOL</h3>
                                 <h2 class="text-base font-medium text-gray-900 mb-1">Kids School Shoes (PVC)</h2>
@@ -636,6 +716,28 @@
                         </a>
                     </div>
 
+                    <!-- Add 2 more cards to fill the 4-column row -->
+                    <div class="bg-white rounded-lg shadow-md overflow-hidden transform hover:scale-105 transition-transform duration-300">
+                        <a href="#">
+                            <img class="aspect-square w-full object-cover rounded-t-lg" src="assets/img/products/ss-2.jpg" alt="Indus School Shoe" onerror="this.src='https://placehold.co/400x400/f9f9f9/black?text=New+Shoe'">
+                            <div class="p-3">
+                                <h3 class="font-semibold text-gray-500 text-xs tracking-widest title-font mb-1">INDUS SCHOOL</h3>
+                                <h2 class="text-base font-medium text-gray-900 mb-1">Tennis-131</h2>
+                                <p class="text-gray-700 font-bold">₹239</p>
+                            </div>
+                        </a>
+                    </div>
+                    <div class="bg-white rounded-lg shadow-md overflow-hidden transform hover:scale-105 transition-transform duration-300">
+                        <a href="#">
+                            <img class="aspect-square w-full object-cover rounded-t-lg" src="assets/img/products/RHINO-01.jpg" alt="Indus Safety Shoe" onerror="this.src='https://placehold.co/400x400/333/white?text=Safety+Boot'">
+                            <div class="p-3">
+                                <h3 class="font-semibold text-gray-500 text-xs tracking-widest title-font mb-1">INDUS SAFETY</h3>
+                                <h2 class="text-base font-medium text-gray-900 mb-1">RHINO-01</h2>
+                                <p class="text-gray-700 font-bold">₹369</p>
+                            </div>
+                        </a>
+                    </div>
+
                 </div>
 
                 <!-- Pagination (Removed) -->
@@ -656,19 +758,18 @@
                     <!-- Updated text colors to be dark -->
                     <h3 class="text-sm font-semibold text-cyan-600 tracking-wider uppercase">Shop by Gender</h3>
                     <ul class="mt-4 space-y-4">
-                        <li><a href="#" class="text-base text-gray-600 hover:text-gray-900">Men</a></li>
-                        <li><a href="#" class="text-base text-gray-600 hover:text-gray-900">Women</a></li>
-                        <li><a href="#" class="text-base text-gray-600 hover:text-gray-900">Kids</a></li>
+                        <li><a href="men.html" class="text-base text-gray-600 hover:text-gray-900">Men</a></li>
+                        <li><a href="women.html" class="text-base text-gray-600 hover:text-gray-900">Women</a></li>
+                        <li><a href="kids.html" class="text-base text-gray-600 hover:text-gray-900">Kids</a></li>
                     </ul>
                 </div>
                 <div>
                     <!-- Updated text colors to be dark -->
                     <h3 class="text-sm font-semibold text-cyan-600 tracking-wider uppercase">Shop by Brand</h3>
                     <ul class="mt-4 space-y-4">
-                        <li><a href="#" class="text-base text-gray-600 hover:text-gray-900">Indus Gold</a></li>
-                        <li><a href="#" class="text-base text-gray-600 hover:text-gray-900">Induslite</a></li>
-                        <li><a href="#" class="text-base text-gray-600 hover:text-gray-900">Indus Prime</a></li>
-                        <!-- <li><a href="#" class="text-base text-gray-600 hover:text-gray-900">Indus Safety</a></li> --> <!-- Removed -->
+                        <li><a href="indus-gold.html" class="text-base text-gray-600 hover:text-gray-900">Indus Gold</a></li>
+                        <li><a href="indus-lite.html" class="text-base text-gray-600 hover:text-gray-900">Induslite</a></li>
+                        <li><a href="indus-prime.html" class="text-base text-gray-600 hover:text-gray-900">Indus Prime</a></li>
                         <li><a href="#" class="text-base text-gray-600 hover:text-gray-900">Indus Originals</a></li>
                     </ul>
                 </div>
@@ -676,7 +777,7 @@
                     <!-- Updated text colors to be dark -->
                     <h3 class="text-sm font-semibold text-cyan-600 tracking-wider uppercase">Support</h3>
                     <ul class="mt-4 space-y-4">
-                        <li><a href="#" class="text-base text-gray-600 hover:text-gray-900">Contact Us</a></li>
+                        <li><a href="contact.html" class="text-base text-gray-600 hover:text-gray-900">Contact Us</a></li>
                         <li><a href="#" class="text-base text-gray-600 hover:text-gray-900">FAQ</a></li>
                         <li><a href="#" class="text-base text-gray-600 hover:text-gray-900">Shipping & Returns</a></li>
                         <li><a href="#" class="text-base text-gray-600 hover:text-gray-900">Track Order</a></li>
@@ -686,7 +787,7 @@
                     <!-- Updated text colors to be dark -->
                     <h3 class="text-sm font-semibold text-cyan-600 tracking-wider uppercase">Company</h3>
                     <ul class="mt-4 space-y-4">
-                        <li><a href="#" class="text-base text-gray-600 hover:text-gray-900">About Us</a></li>
+                        <li><a href="about.html" class="text-base text-gray-600 hover:text-gray-900">About Us</a></li>
                         <!-- Removed Careers and Store Locator -->
                     </ul>
                 </div>
@@ -714,7 +815,7 @@
                         </a>
                         <a href="#" class="text-gray-500 hover:text-cyan-600 transition-colors duration-300" aria-label="YouTube">
                             <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                                <path fill-rule="evenodd" d="M21.582 7.188c-.218-.813-.882-1.477-1.695-1.695C18.265 5 12 5 12 5s-6.265 0-7.887.493c-.813.218-1.477.882-1.695 1.695C2 8.81 2 12 2 12s0 3.19.493 4.812c.218.813.882 1.477 1.695 1.695C5.735 19 12 19 12 19s6.265 0 7.887-.493c.813-.218 1.477.882 1.695-1.695C22 15.19 22 12 22 12s0-3.19-.418-4.812zM9.75 15.5V8.5l6 3.5-6 3.5z" clip-rule="evenodd" />
+                                <path fill-rule="evenodd" d="M21.582 7.188c-.218-.813-.882-1.477-1.695-1.695C18.265 5 12 5 12 5s-6.265 0-7.887.493c-.813.218-1.477.882-1.695 1.695C2 8.81 2 12 2 12s0 3.19.493 4.812c.218.813.882 1.477 1.695 1.695C5.735 19 12 19 12 19s6.265 0 7.887-.493c.813-.218 1.477-.882 1.695-1.695C22 15.19 22 12 22 12s0-3.19-.418-4.812zM9.75 15.5V8.5l6 3.5-6 3.5z" clip-rule="evenodd" />
                             </svg>
                         </a>
                     </div>
@@ -846,52 +947,90 @@
         if (carousel) {
             const slider = carousel.querySelector('.carousel-slider');
             const slides = carousel.querySelectorAll('.carousel-slide');
+            const slideImages = carousel.querySelectorAll('.carousel-slide img');
             const dotsContainer = document.getElementById('carousel-dots-container');
             let currentSlide = 0;
             const slideCount = slides.length;
+            let slideHeights = []; // Array to store the height of each slide
 
-            if (slideCount > 0) { // Only run if slides exist
-                // 1. Create dots
-                for (let i = 0; i < slideCount; i++) {
-                    const dot = document.createElement('button');
-                    dot.classList.add('carousel-dot');
-                    if (i === 0) dot.classList.add('active');
-                    dot.dataset.index = i;
-                    dot.addEventListener('click', (e) => {
-                        goToSlide(parseInt(e.target.dataset.index));
-                        resetAutoplay();
-                    });
-                    dotsContainer.appendChild(dot);
-                }
-                const dots = dotsContainer.querySelectorAll('.carousel-dot');
-
-                // 2. Go to slide function
-                function goToSlide(slideIndex) {
-                    if (slideIndex < 0) slideIndex = slideCount - 1;
-                    if (slideIndex >= slideCount) slideIndex = 0;
-                    
-                    if (slider) {
-                        slider.style.transform = `translateX(-${slideIndex * 100}%)`;
+            // Preload images and get their heights
+            let imagesLoaded = 0;
+            if (slideImages.length > 0) {
+                slideImages.forEach((img, index) => {
+                    if (img.complete) {
+                        // If image is already loaded (from cache)
+                        slideHeights[index] = img.offsetHeight;
+                        imagesLoaded++;
+                        if (imagesLoaded === slideCount) {
+                            initializeCarousel();
+                        }
+                    } else {
+                        // If image is not loaded
+                        img.onload = () => {
+                            slideHeights[index] = img.offsetHeight;
+                            imagesLoaded++;
+                            if (imagesLoaded === slideCount) {
+                                initializeCarousel();
+                            }
+                        };
                     }
-                    currentSlide = slideIndex;
+                });
+            }
 
-                    // Update active dot
-                    if (dots.length > 0) {
-                        dots.forEach(dot => dot.classList.remove('active'));
-                        dots[currentSlide].classList.add('active');
+            function initializeCarousel() {
+                if (slideCount > 0) { // Only run if slides exist
+                    // Set initial carousel height
+                    if (slideHeights[0]) {
+                        carousel.style.height = `${slideHeights[0]}px`;
                     }
-                }
 
-                // 3. Autoplay
-                let autoplayInterval = setInterval(() => {
-                    goToSlide(currentSlide + 1);
-                }, 4000); // Change slide every 4 seconds
+                    // 1. Create dots
+                    for (let i = 0; i < slideCount; i++) {
+                        const dot = document.createElement('button');
+                        dot.classList.add('carousel-dot');
+                        if (i === 0) dot.classList.add('active');
+                        dot.dataset.index = i;
+                        dot.addEventListener('click', (e) => {
+                            goToSlide(parseInt(e.target.dataset.index));
+                            resetAutoplay();
+                        });
+                        dotsContainer.appendChild(dot);
+                    }
+                    const dots = dotsContainer.querySelectorAll('.carousel-dot');
 
-                function resetAutoplay() {
-                    clearInterval(autoplayInterval);
-                    autoplayInterval = setInterval(() => {
+                    // 2. Go to slide function
+                    function goToSlide(slideIndex) {
+                        if (slideIndex < 0) slideIndex = slideCount - 1;
+                        if (slideIndex >= slideCount) slideIndex = 0;
+                        
+                        if (slider) {
+                            slider.style.transform = `translateX(-${slideIndex * 100}%)`;
+                        }
+                        currentSlide = slideIndex;
+
+                        // Update carousel height to match the new slide
+                        if (slideHeights[currentSlide]) {
+                            carousel.style.height = `${slideHeights[currentSlide]}px`;
+                        }
+
+                        // Update active dot
+                        if (dots.length > 0) {
+                            dots.forEach(dot => dot.classList.remove('active'));
+                            dots[currentSlide].classList.add('active');
+                        }
+                    }
+
+                    // 3. Autoplay
+                    let autoplayInterval = setInterval(() => {
                         goToSlide(currentSlide + 1);
-                    }, 4000);
+                    }, 4000); // Change slide every 4 seconds
+
+                    function resetAutoplay() {
+                        clearInterval(autoplayInterval);
+                        autoplayInterval = setInterval(() => {
+                            goToSlide(currentSlide + 1);
+                        }, 4000);
+                    }
                 }
             }
         }
@@ -900,4 +1039,3 @@
 
 </body>
 </html>
-
