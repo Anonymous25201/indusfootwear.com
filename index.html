@@ -175,11 +175,16 @@
         }
         .carousel-slide img {
             width: 100%;
-            height: auto;
-            object-fit: cover;
-            /* Make carousel images aspect-ratio friendly, e.g., 3:1 */
-            aspect-ratio: 3 / 1;
+            height: 200px; /* Default height for mobile */
+            object-fit: cover; /* Will still cover the area, but in a defined box */
         }
+        
+        @media (min-width: 768px) { /* Tailwind's 'md' breakpoint */
+             .carousel-slide img {
+                height: 400px; /* Taller height for desktop */
+             }
+        }
+
         /* Carousel dots */
         .carousel-dots {
             position: absolute;
