@@ -15,21 +15,6 @@
         body {
             font-family: 'Inter', sans-serif;
         }
-        /* Custom scrollbar for filter section (optional but nice) */
-        .filter-scrollbar::-webkit-scrollbar {
-            width: 5px;
-        }
-        .filter-scrollbar::-webkit-scrollbar-track {
-            background: #f1f1f1;
-            border-radius: 10px;
-        }
-        .filter-scrollbar::-webkit-scrollbar-thumb {
-            background: #888;
-            border-radius: 10px;
-        }
-        .filter-scrollbar::-webkit-scrollbar-thumb:hover {
-            background: #555;
-        }
         
         /* Preloader Logo Animation */
         @keyframes growOutward {
@@ -43,7 +28,7 @@
             }
         }
         .logo-preloader {
-            animation: growOutward 1.5s ease-out forwards;
+            animation: growOutward 1s ease-out forwards; /* Sped up from 1.5s */
         }
 
         /* --- Brand Card Ripple Effect --- */
@@ -87,53 +72,42 @@
         /* --- End Brand Card Effect --- */
 
         /* --- Custom Cursor Effect --- */
-        /* Hide the default OS cursor */
-        body, a[href], button, .cursor-pointer {
-            cursor: none !important; 
-        }
-
-        /* Hide custom cursor on mobile/touch devices */
-        @media (hover: none) {
+        /* Hide the default OS cursor on non-touch devices */
+        @media (hover: hover) and (pointer: fine) {
             body, a[href], button, .cursor-pointer {
-                cursor: auto !important; /* Restore default cursor */
+                cursor: none !important; 
             }
             #cursor-dot, #cursor-outline {
-                display: none !important;
+                display: block;
             }
         }
-
-        /* The inner "full" dot */
-        #cursor-dot {
+        /* Hide custom cursor on touch devices */
+        #cursor-dot, #cursor-outline {
+            display: none; /* Hidden by default, enabled by media query */
             position: fixed;
             top: 0;
             left: 0;
-            width: 8px;
-            height: 8px;
-            background-color: rgba(22, 163, 163, 0.8); /* Solid cyan */
             border-radius: 50%;
             pointer-events: none;
             z-index: 9999;
             transform: translate(-50%, -50%); /* Centering */
+        }
+        /* The inner "full" dot */
+        #cursor-dot {
+            width: 8px;
+            height: 8px;
+            background-color: rgba(22, 163, 163, 0.8); /* Solid cyan */
             transition: top 0.1s ease-out, left 0.1s ease-out, width 0.3s ease, height 0.3s ease, background-color 0.3s ease, transform 0.3s ease;
         }
-
         /* The outer "empty" circle */
         #cursor-outline {
-            position: fixed;
-            top: 0;
-            left: 0;
             width: 40px;
             height: 40px;
             background-color: transparent; /* Empty */
             border: 2px solid rgba(22, 163, 163, 0.5); /* Cyan border */
-            border-radius: 50%;
-            pointer-events: none;
-            z-index: 9999;
-            transform: translate(-50%, -50%); /* Centering */
             /* Slower transition for a nice "lag" effect */
             transition: top 0.2s ease-out, left 0.2s ease-out, width 0.3s ease, height 0.3s ease, background-color 0.3s ease, border-color 0.3s ease, transform 0.3s ease;
         }
-
         /* When hovering over clickable things */
         #cursor-dot.hover-link {
             width: 6px; /* Dot gets smaller */
@@ -145,7 +119,6 @@
             background-color: rgba(22, 163, 163, 0.1); /* Fills with color */
             border-color: rgba(22, 163, 163, 0.0); /* Hides border */
         }
-
         /* The "click" animation - combines centering with scale */
         #cursor-dot.clicked {
             transform: translate(-50%, -50%) scale(1.5); /* Dot pulses */
@@ -159,7 +132,6 @@
         .carousel-container {
             position: relative;
             width: 100%;
-            margin-bottom: 3rem; /* 48px, same as other sections */
             overflow: hidden;
             border-radius: 0.5rem; /* 8px */
             box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
@@ -179,7 +151,7 @@
             width: 100%;
             height: auto; /* Let image height be natural */
             object-fit: contain; /* Show full image, no crop */
-            display: block; /* Fixes tiny gap below image */
+            display: block;
         }
         /* Carousel dots */
         .carousel-dots {
@@ -204,19 +176,126 @@
         }
         /* --- End Carousel Section --- */
 
-        /* --- Text Shadow for Gender Cards --- */
-        .text-shadow-heavy {
-            text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.7);
+        /* --- Manual Horizontal Scroller (Safety/School) --- */
+        .scroller-container {
+            overflow-x: auto; /* Enable horizontal scrolling */
+            -webkit-overflow-scrolling: touch; /* Smooth scrolling on iOS */
+            scrollbar-width: thin; /* Firefox */
+            scrollbar-color: #888 #f1f1f1; /* Firefox */
         }
-        /* --- End Text Shadow --- */
+        /* Webkit scrollbar styling */
+        .scroller-container::-webkit-scrollbar {
+            height: 8px;
+        }
+        .scroller-container::-webkit-scrollbar-track {
+            background: #f1f1f1;
+            border-radius: 10px;
+        }
+        .scroller-container::-webkit-scrollbar-thumb {
+            background: #888;
+            border-radius: 10px;
+        }
+        .scroller-container::-webkit-scrollbar-thumb:hover {
+            background: #555;
+        }
+        .scroller-content {
+            display: grid;
+            grid-auto-flow: column; /* Lay out items in a single row */
+            grid-auto-columns: calc(50% - 0.5rem); /* Mobile: 2 items visible */
+            gap: 1rem;
+        }
+        /* On desktop, show 4 items */
+        @media (min-width: 768px) {
+            .scroller-content {
+                grid-auto-columns: calc(25% - 0.75rem); /* 4 items */
+            }
+        }
+        /* --- End Manual Scroller --- */
+
+        /* Text shadow for Gender Category */
+        .text-shadow {
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.4);
+        }
+
+        /* --- Mobile Menu Dropdowns --- */
+        .mobile-menu-link {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 100%;
+        }
+        .mobile-submenu {
+            display: none; /* Hidden by default */
+            padding-left: 1rem; /* Indent sub-items */
+            margin-top: 0.5rem;
+            space-y: 0.5rem;
+        }
+        /* Icon rotation */
+        .submenu-icon {
+            transition: transform 0.3s ease;
+        }
+        .submenu-open > .submenu-icon {
+            transform: rotate(90deg);
+        }
+        /* --- End Mobile Menu --- */
+
+        /* --- Desktop Mega Menu --- */
+        .mega-menu {
+            display: none; /* Hidden by default */
+            position: absolute;
+            top: 100%;
+            left: 0;
+            right: 0;
+            background-color: white;
+            box-shadow: 0 8px 16px rgba(0,0,0,0.1);
+            border-top: 1px solid #f0f0f0;
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(10px);
+            transition: opacity 0.3s ease, visibility 0.3s ease, transform 0.3s ease;
+            z-index: 50;
+        }
+        /* Show on hover */
+        .group:hover .mega-menu {
+            display: block;
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+        .mega-menu-column {
+            padding: 1.5rem;
+            min-width: 220px;
+        }
+        .mega-menu-header {
+            font-size: 0.875rem; /* text-sm */
+            font-weight: 600; /* font-semibold */
+            color: #0891b2; /* text-cyan-600 */
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-bottom: 0.75rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid #0891b2;
+        }
+        .mega-menu-link {
+            display: block;
+            padding: 0.5rem 0;
+            font-size: 0.925rem; /* Slightly larger */
+            color: #4b5563; /* text-gray-600 */
+            transition: color 0.2s ease, padding-left 0.2s ease;
+        }
+        .mega-menu-link:hover {
+            color: #064e3b; /* text-green-900 */
+            padding-left: 4px;
+        }
+        /* --- End Desktop Mega Menu --- */
     </style>
 </head>
 <body class="bg-teal-50">
 
     <!-- Preloader -->
-    <div id="preloader" class="fixed inset-0 bg-white flex items-center justify-center z-[100] transition-opacity duration-1000 ease-out">
+    <div id="preloader" class="fixed inset-0 bg-white flex items-center justify-center z-[100] transition-opacity duration-500 ease-out">
         <!-- Indus Logo for Preloader -->
-        <img class="logo-preloader w-48 h-auto" src="assets/img/indus-logo.png" alt="Indus Logo">
+        <img class="logo-preloader w-48 h-auto" src="assets/img/indus-logo.png" alt="Indus Logo" onerror="this.src='https://placehold.co/192x100/0891b2/white?text=Indus+Logo'">
     </div>
 
     <!-- ===== Custom Cursor Follower ===== -->
@@ -230,9 +309,8 @@
             <div class="flex justify-between items-center h-20"> <!-- Increased header height -->
                 <!-- Logo -->
                 <div class="flex-shrink-0 flex items-center">
-                    <!-- Link logo to homepage -->
                     <a href="index.html">
-                        <img class="h-14 w-auto" src="assets/img/indus-logo.png" alt="Indus Footwear"> <!-- Increased logo size -->
+                        <img class="h-14 w-auto" src="assets/img/indus-logo.png" alt="Indus Footwear" onerror="this.src='https://placehold.co/150x56/0891b2/white?text=Indus+Footwear'"> <!-- Increased logo size -->
                     </a>
                 </div>
 
@@ -241,7 +319,7 @@
                     <a href="index.html" class="inline-flex items-center px-1 pt-1 border-b-2 border-cyan-500 text-sm font-medium text-gray-900 transition-all duration-300">Home</a>
                     
                     <!-- Shop Dropdown (Mega Menu) -->
-                    <div class="relative group">
+                    <div class="relative group h-20 flex items-center">
                         <!-- Trigger -->
                         <div class="inline-flex items-center px-1 pt-1 border-b-2 border-transparent text-sm font-medium text-gray-500 group-hover:border-cyan-500 group-hover:text-gray-900 transition-all duration-300 cursor-default">
                             <span>Shop</span>
@@ -249,39 +327,40 @@
                                 <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />
                             </svg>
                         </div>
-                        
-                        <!-- Dropdown Panel -->
-                        <div class="absolute left-0 z-10 mt-0 w-auto bg-white shadow-lg rounded-md hidden group-hover:block ring-1 ring-black ring-opacity-5 opacity-0 group-hover:opacity-100 transition-all ease-in-out duration-150">
-                            <div class="flex">
+                        <!-- Dropdown Panel (Mega Menu) -->
+                        <div class="mega-menu">
+                            <div class="container mx-auto px-4 sm:px-6 lg:px-8 flex">
                                 <!-- Men Column -->
-                                <div class="p-4 border-r border-gray-100">
-                                    <h3 class="font-semibold text-gray-900 mb-2">Men</h3>
-                                    <a href="men.html#pu-slippers" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900 rounded-md">PU Slippers</a>
-                                    <a href="men.html#eva" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900 rounded-md">EVA (Sports, Sliders)</a>
-                                    <a href="men.html#hawai" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900 rounded-md">Hawai & Fabrication</a>
-                                    <a href="safety-shoes.html" class="block px-4 py-2 text-sm text-cyan-600 font-semibold hover:bg-gray-100 hover:text-cyan-700 rounded-md">Safety Shoes</a>
+                                <div class="mega-menu-column">
+                                    <h3 class="mega-menu-header">Men</h3>
+                                    <a href="men.html" class="mega-menu-link">All Men's</a>
+                                    <a href="men-pu.html" class="mega-menu-link">PU Slippers</a>
+                                    <a href="men-eva.html" class="mega-menu-link">EVA (Sports, Sliders)</a>
+                                    <a href="men-hawai.html" class="mega-menu-link">Hawai & Fabrication</a>
+                                    <a href="safety-shoes.html" class="mega-menu-link font-bold text-cyan-700">Safety Shoes</a>
                                 </div>
                                 <!-- Women Column -->
-                                <div class="p-4 border-r border-gray-100">
-                                    <h3 class="font-semibold text-gray-900 mb-2">Women</h3>
-                                    <a href="women.html#pu-slippers" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900 rounded-md">PU Slippers</a>
-                                    <a href="women.html#eva" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900 rounded-md">EVA (Sandals, Sliders)</a>
-                                    <a href="women.html#hawai" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900 rounded-md">Hawai Slippers</a>
+                                <div class="mega-menu-column">
+                                    <h3 class="mega-menu-header">Women</h3>
+                                    <a href="women.html" class="mega-menu-link">All Women's</a>
+                                    <a href="women-pu.html" class="mega-menu-link">PU Slippers</a>
+                                    <a href="women-eva.html" class="mega-menu-link">EVA (Sports, Sliders)</a>
+                                    <a href="women-hawai.html" class="mega-menu-link">Hawai & Fabrication</a>
                                 </div>
                                 <!-- Kids Column -->
-                                <div class="p-4">
-                                    <h3 class="font-semibold text-gray-900 mb-2">Kids</h3>
-                                    <a href="school-shoes.html" class="block px-4 py-2 text-sm text-cyan-600 font-semibold hover:bg-gray-100 hover:text-cyan-700 rounded-md">School Shoes</a>
-                                    <a href="kids.html#pu-slippers" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900 rounded-md">PU Slippers</a>
-                                    <a href="kids.html#eva" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900 rounded-md">EVA (Sports, Sliders)</a>
-                                    <a href="kids.html#hawai" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900 rounded-md">Hawai Slippers</a>
+                                <div class="mega-menu-column">
+                                    <h3 class="mega-menu-header">Kids</h3>
+                                    <a href="kids.html" class="mega-menu-link">All Kids'</a>
+                                    <a href="kids-boys.html" class="mega-menu-link">Kids - Boys</a>
+                                    <a href="kids-girls.html" class="mega-menu-link">Kids - Girls</a>
+                                    <a href="school-shoes.html" class="mega-menu-link font-bold text-cyan-700">School Shoes</a>
                                 </div>
                             </div>
                         </div>
                     </div>
 
                     <!-- Brands Dropdown -->
-                    <div class="relative group">
+                    <div class="relative group h-20 flex items-center">
                         <!-- Trigger -->
                         <div class="inline-flex items-center px-1 pt-1 border-b-2 border-transparent text-sm font-medium text-gray-500 group-hover:border-cyan-500 group-hover:text-gray-900 transition-all duration-300 cursor-default">
                             <span>Brands</span>
@@ -290,12 +369,12 @@
                             </svg>
                         </div>
                         <!-- Dropdown Panel -->
-                        <div class="absolute left-0 z-10 mt-0 w-48 bg-white shadow-lg rounded-md hidden group-hover:block ring-1 ring-black ring-opacity-5 opacity-0 group-hover:opacity-100 transition-all ease-in-out duration-150">
+                        <div class="absolute left-0 z-10 mt-0 top-full w-48 bg-white shadow-lg rounded-md hidden group-hover:block ring-1 ring-black ring-opacity-5 opacity-0 group-hover:opacity-100 transition-all ease-in-out duration-150 transform-gpu group-hover:translate-y-0 -translate-y-2">
                             <div class="py-1">
                                 <a href="indus-gold.html" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900">Indus Gold</a>
-                                <a href="indus-lite.html" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900">Induslite</a>
+                                <a href="induslite.html" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900">Induslite</a>
                                 <a href="indus-prime.html" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900">Indus Prime</a>
-                                <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900">Indus Originals</a>
+                                <a href="indus-originals.html" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900">Indus Originals</a>
                             </div>
                         </div>
                     </div>
@@ -328,75 +407,74 @@
 
         <!-- Mobile Menu (hidden by default) -->
         <div class="sm:hidden hidden" id="mobile-menu">
-            <div class="pt-2 pb-3 space-y-1">
+            <div class="pt-2 pb-3 space-y-1 px-2">
                 <a href="index.html" class="block pl-3 pr-4 py-2 border-l-4 border-cyan-500 bg-cyan-50 text-base font-medium text-cyan-700">Home</a>
                 
                 <!-- Shop Section -->
                 <div class="pt-2">
-                    <!-- This is now a clickable toggle button -->
-                    <div class="mobile-menu-toggle flex justify-between items-center pl-3 pr-4 py-2 border-l-4 border-transparent text-base font-medium text-gray-500 cursor-pointer">
+                    <button class="mobile-menu-link block pl-3 pr-4 py-2 border-l-4 border-transparent text-base font-medium text-gray-500">
                         <span>Shop</span>
-                        <!-- Chevron icon for dropdown -->
-                        <svg class="h-5 w-5 transform transition-transform duration-200" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
-                            <path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd" />
+                        <svg class="submenu-icon h-5 w-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                            <path fill-rule="evenodd" d="M7.21 14.77a.75.75 0 01.02-1.06L11.168 10 7.23 6.29a.75.75 0 111.04-1.08l4.5 4.25a.75.75 0 010 1.08l-4.5 4.25a.75.75 0 01-1.06-.02z" clip-rule="evenodd" />
                         </svg>
-                    </div>
-                    <!-- This submenu is now hidden by default -->
-                    <div class="mobile-menu-submenu hidden mt-1 space-y-1 pl-4" role="menu" aria-orientation="vertical">
+                    </button>
+                    <div class="mobile-submenu">
                         <!-- Men Sub-menu -->
-                        <div class="mobile-menu-toggle flex justify-between items-center pl-4 pr-4 py-2 text-base font-medium text-gray-800 cursor-pointer">
+                        <button class="mobile-menu-link block pl-3 pr-4 py-2 text-base font-medium text-gray-600">
                             <span>Men</span>
-                            <svg class="h-5 w-5 transform transition-transform duration-200" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
-                                <path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd" />
+                            <svg class="submenu-icon h-5 w-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                                <path fill-rule="evenodd" d="M7.21 14.77a.75.75 0 01.02-1.06L11.168 10 7.23 6.29a.75.75 0 111.04-1.08l4.5 4.25a.75.75 0 010 1.08l-4.5 4.25a.75.75 0 01-1.06-.02z" clip-rule="evenodd" />
                             </svg>
-                        </div>
-                        <div class="mobile-menu-submenu hidden mt-1 space-y-1 pl-4" role="menu" aria-orientation="vertical">
-                            <a href="men.html#pu-slippers" class="block pl-12 pr-4 py-2 text-base font-medium text-gray-600 hover:bg-gray-50 hover:text-gray-800" role="menuitem">PU Slippers</a>
-                            <a href="men.html#eva" class="block pl-12 pr-4 py-2 text-base font-medium text-gray-600 hover:bg-gray-50 hover:text-gray-800" role="menuitem">EVA (Sports, Sliders)</a>
-                            <a href="men.html#hawai" class="block pl-12 pr-4 py-2 text-base font-medium text-gray-600 hover:bg-gray-50 hover:text-gray-800" role="menuitem">Hawai & Fabrication</a>
-                            <a href="safety-shoes.html" class="block pl-12 pr-4 py-2 text-base font-medium text-cyan-600 hover:bg-gray-50 hover:text-cyan-700" role="menuitem">Safety Shoes</a>
+                        </button>
+                        <div class="mobile-submenu">
+                            <a href="men.html" class="block pl-8 pr-4 py-2 text-base font-medium text-gray-600 hover:bg-gray-50 hover:text-gray-800">All Men's</a>
+                            <a href="men-pu.html" class="block pl-8 pr-4 py-2 text-base font-medium text-gray-600 hover:bg-gray-50 hover:text-gray-800">PU Slippers</a>
+                            <a href="men-eva.html" class="block pl-8 pr-4 py-2 text-base font-medium text-gray-600 hover:bg-gray-50 hover:text-gray-800">EVA (Sports, Sliders)</a>
+                            <a href="men-hawai.html" class="block pl-8 pr-4 py-2 text-base font-medium text-gray-600 hover:bg-gray-50 hover:text-gray-800">Hawai & Fabrication</a>
+                            <a href="safety-shoes.html" class="block pl-8 pr-4 py-2 text-base font-medium text-cyan-700 hover:bg-gray-50">Safety Shoes</a>
                         </div>
                         <!-- Women Sub-menu -->
-                        <div class="mobile-menu-toggle flex justify-between items-center pl-4 pr-4 py-2 text-base font-medium text-gray-800 cursor-pointer mt-2">
+                        <button class="mobile-menu-link block pl-3 pr-4 py-2 text-base font-medium text-gray-600">
                             <span>Women</span>
-                            <svg class="h-5 w-5 transform transition-transform duration-200" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
-                                <path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd" />
+                            <svg class="submenu-icon h-5 w-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                                <path fill-rule="evenodd" d="M7.21 14.77a.75.75 0 01.02-1.06L11.168 10 7.23 6.29a.75.75 0 111.04-1.08l4.5 4.25a.75.75 0 010 1.08l-4.5 4.25a.75.75 0 01-1.06-.02z" clip-rule="evenodd" />
                             </svg>
-                        </div>
-                        <div class="mobile-menu-submenu hidden mt-1 space-y-1 pl-4" role="menu" aria-orientation="vertical">
-                            <a href="women.html#pu-slippers" class="block pl-12 pr-4 py-2 text-base font-medium text-gray-600 hover:bg-gray-50 hover:text-gray-800" role="menuitem">PU Slippers</a>
-                            <a href="women.html#eva" class="block pl-12 pr-4 py-2 text-base font-medium text-gray-600 hover:bg-gray-50 hover:text-gray-800" role="menuitem">EVA (Sandals, Sliders)</a>
-                            <a href="women.html#hawai" class="block pl-12 pr-4 py-2 text-base font-medium text-gray-600 hover:bg-gray-50 hover:text-gray-800" role="menuitem">Hawai Slippers</a>
+                        </button>
+                        <div class="mobile-submenu">
+                            <a href="women.html" class="block pl-8 pr-4 py-2 text-base font-medium text-gray-600 hover:bg-gray-50 hover:text-gray-800">All Women's</a>
+                            <a href="women-pu.html" class="block pl-8 pr-4 py-2 text-base font-medium text-gray-600 hover:bg-gray-50 hover:text-gray-800">PU Slippers</a>
+                            <a href="women-eva.html" class="block pl-8 pr-4 py-2 text-base font-medium text-gray-600 hover:bg-gray-50 hover:text-gray-800">EVA (Sports, Sliders)</a>
+                            <a href="women-hawai.html" class="block pl-8 pr-4 py-2 text-base font-medium text-gray-600 hover:bg-gray-50 hover:text-gray-800">Hawai & Fabrication</a>
                         </div>
                         <!-- Kids Sub-menu -->
-                        <div class="mobile-menu-toggle flex justify-between items-center pl-4 pr-4 py-2 text-base font-medium text-gray-800 cursor-pointer mt-2">
+                        <button class="mobile-menu-link block pl-3 pr-4 py-2 text-base font-medium text-gray-600">
                             <span>Kids</span>
-                            <svg class="h-5 w-5 transform transition-transform duration-200" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
-                                <path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd" />
+                            <svg class="submenu-icon h-5 w-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                                <path fill-rule="evenodd" d="M7.21 14.77a.75.75 0 01.02-1.06L11.168 10 7.23 6.29a.75.75 0 111.04-1.08l4.5 4.25a.75.75 0 010 1.08l-4.5 4.25a.75.75 0 01-1.06-.02z" clip-rule="evenodd" />
                             </svg>
-                        </div>
-                        <div class="mobile-menu-submenu hidden mt-1 space-y-1 pl-4" role="menu" aria-orientation="vertical">
-                            <a href="school-shoes.html" class="block pl-12 pr-4 py-2 text-base font-medium text-cyan-600 hover:bg-gray-50 hover:text-cyan-700" role="menuitem">School Shoes</a>
-                            <a href="kids.html#pu-slippers" class="block pl-12 pr-4 py-2 text-base font-medium text-gray-600 hover:bg-gray-50 hover:text-gray-800" role="menuitem">PU Slippers</a>
-                            <a href="kids.html#eva" class="block pl-12 pr-4 py-2 text-base font-medium text-gray-600 hover:bg-gray-50 hover:text-gray-800" role="menuitem">EVA (Sports, Sliders)</a>
-                            <a href="kids.html#hawai" class="block pl-12 pr-4 py-2 text-base font-medium text-gray-600 hover:bg-gray-50 hover:text-gray-800" role="menuitem">Hawai Slippers</a>
+                        </button>
+                        <div class="mobile-submenu">
+                            <a href="kids.html" class="block pl-8 pr-4 py-2 text-base font-medium text-gray-600 hover:bg-gray-50 hover:text-gray-800">All Kids'</a>
+                            <a href="kids-boys.html" class="block pl-8 pr-4 py-2 text-base font-medium text-gray-600 hover:bg-gray-50 hover:text-gray-800">Kids - Boys</a>
+                            <a href="kids-girls.html" class="block pl-8 pr-4 py-2 text-base font-medium text-gray-600 hover:bg-gray-50 hover:text-gray-800">Kids - Girls</a>
+                            <a href="school-shoes.html" class="block pl-8 pr-4 py-2 text-base font-medium text-cyan-700 hover:bg-gray-50">School Shoes</a>
                         </div>
                     </div>
                 </div>
 
                 <!-- Brands Section -->
                 <div class="pt-2">
-                    <div class="mobile-menu-toggle flex justify-between items-center pl-3 pr-4 py-2 border-l-4 border-transparent text-base font-medium text-gray-500 cursor-pointer">
+                    <button class="mobile-menu-link block pl-3 pr-4 py-2 border-l-4 border-transparent text-base font-medium text-gray-500">
                         <span>Brands</span>
-                        <svg class="h-5 w-5 transform transition-transform duration-200" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
-                            <path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd" />
+                        <svg class="submenu-icon h-5 w-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                            <path fill-rule="evenodd" d="M7.21 14.77a.75.75 0 01.02-1.06L11.168 10 7.23 6.29a.75.75 0 111.04-1.08l4.5 4.25a.75.75 0 010 1.08l-4.5 4.25a.75.75 0 01-1.06-.02z" clip-rule="evenodd" />
                         </svg>
-                    </div>
-                    <div class="mobile-menu-submenu hidden mt-1 space-y-1 pl-4" role="menu" aria-orientation="vertical">
-                        <a href="indus-gold.html" class="block pl-8 pr-4 py-2 text-base font-medium text-gray-600 hover:bg-gray-50 hover:text-gray-800" role="menuitem">Indus Gold</a>
-                        <a href="indus-lite.html" class="block pl-8 pr-4 py-2 text-base font-medium text-gray-600 hover:bg-gray-50 hover:text-gray-800" role="menuitem">Induslite</a>
-                        <a href="indus-prime.html" class="block pl-8 pr-4 py-2 text-base font-medium text-gray-600 hover:bg-gray-50 hover:text-gray-800" role="menuitem">Indus Prime</a>
-                        <a href="#" class="block pl-8 pr-4 py-2 text-base font-medium text-gray-600 hover:bg-gray-50 hover:text-gray-800" role="menuitem">Indus Originals</a>
+                    </button>
+                    <div class="mobile-submenu">
+                        <a href="indus-gold.html" class="block pl-8 pr-4 py-2 text-base font-medium text-gray-600 hover:bg-gray-50 hover:text-gray-800">Indus Gold</a>
+                        <a href="induslite.html" class="block pl-8 pr-4 py-2 text-base font-medium text-gray-600 hover:bg-gray-50 hover:text-gray-800">Induslite</a>
+                        <a href="indus-prime.html" class="block pl-8 pr-4 py-2 text-base font-medium text-gray-600 hover:bg-gray-50 hover:text-gray-800">Indus Prime</a>
+                        <a href="indus-originals.html" class="block pl-8 pr-4 py-2 text-base font-medium text-gray-600 hover:bg-gray-50 hover:text-gray-800">Indus Originals</a>
                     </div>
                 </div>
 
@@ -420,57 +498,60 @@
         <!-- Hero Banner Section -->
         <div id="hero-banner" class="mb-12 opacity-0 translate-y-5 transition-all duration-1000 ease-out">
             <a href="#" class="block rounded-lg shadow-md overflow-hidden group">
-                <img class="w-full h-auto object-cover transition-transform duration-500 ease-in-out group-hover:scale-105" src="assets/img/banner-22.jpg" alt="Summer Sale Banner">
+                <img class="w-full h-auto object-cover transition-transform duration-500 ease-in-out group-hover:scale-105" src="assets/img/banner-22.jpg" alt="Summer Sale Banner" onerror="this.src='https://placehold.co/1200x400/0891b2/white?text=Summer+Sale'">
             </a>
         </div>
 
         <!-- Gender Category Section -->
         <div class="mb-12">
-            <div class="grid grid-cols-3 md:grid-cols-3 gap-6 ">
+            <!-- 
+              - Changed to 3 columns on mobile for a compact, single-row layout
+              - Removed fixed height (h-48) to let image decide the height
+              - Removed text-shadow as it's no longer on top of the image
+            -->
+            <div class="grid grid-cols-3 md:grid-cols-3 gap-3 md:gap-6">
                 <!-- Men Card -->
-                <!-- 
-                  - Removed dimming overlay: <div class="absolute inset-0 bg-black bg-opacity-30 ..."></div>
-                  - Added 'text-shadow-heavy' to <h2> for visibility
-                  - Removed fixed height, letting image define height
-                -->
-                <a href="men.html" class="group relative block overflow-hidden rounded-lg shadow-lg">
-                    <img src= "assets/img/men banner.jpeg" alt="Men's Shoes" class="block w-full h-auto transition-transform duration-500 ease-in-out group-hover:scale-105">
-                    <div class="absolute inset-0 flex items-center justify-center">
-                        <h2 class="text-white text-xl md:text-4xl font-extrabold tracking-wider uppercase transition-all duration-300 group-hover:scale-110 text-shadow-heavy">Men</h2>
+                <a href="men.html" class="group relative block rounded-lg shadow-lg overflow-hidden">
+                    <img src="assets/img/men banner.jpeg" alt="Men's Shoes" class="w-full h-auto object-cover transition-transform duration-500 ease-in-out group-hover:scale-110" onerror="this.src='https://placehold.co/600x600/333/white?text=Men'">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent"></div>
+                    <div class="absolute bottom-0 left-0 p-2 md:p-6">
+                        <h2 class="text-white text-lg md:text-4xl font-extrabold tracking-wider uppercase transition-all duration-300 group-hover:scale-110 text-shadow">Men</h2>
                     </div>
                 </a>
                 <!-- Women Card -->
-                <a href="women.html" class="group relative block overflow-hidden rounded-lg shadow-lg">
-                    <img src="assets/img/womenbanner.jpeg" alt="Women's Shoes" class="block w-full h-auto transition-transform duration-500 ease-in-out group-hover:scale-105">
-                    <div class="absolute inset-0 flex items-center justify-center">
-                        <h2 class="text-white text-xl md:text-4xl font-extrabold tracking-wider uppercase transition-all duration-300 group-hover:scale-110 text-shadow-heavy">Women</h2>
+                <a href="women.html" class="group relative block rounded-lg shadow-lg overflow-hidden">
+                    <img src="assets/img/womenbanner.jpeg" alt="Women's Shoes" class="w-full h-auto object-cover transition-transform duration-500 ease-in-out group-hover:scale-110" onerror="this.src='https://placehold.co/600x600/555/white?text=Women'">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent"></div>
+                    <div class="absolute bottom-0 left-0 p-2 md:p-6">
+                        <h2 class="text-white text-lg md:text-4xl font-extrabold tracking-wider uppercase transition-all duration-300 group-hover:scale-110 text-shadow">Women</h2>
                     </div>
                 </a>
                 <!-- Kids Card -->
-                <a href="kids.html" class="group relative block overflow-hidden rounded-lg shadow-lg">
-                    <img src="assets/img/kidsbanner.jpg" alt="Kids' Shoes" class="block w-full h-auto transition-transform duration-500 ease-in-out group-hover:scale-105">
-                    <div class="absolute inset-0 flex items-center justify-center">
-                        <h2 class="text-white text-xl md:text-4xl font-extrabold tracking-wider uppercase transition-all duration-300 group-hover:scale-110 text-shadow-heavy">Kids</h2>
+                <a href="kids.html" class="group relative block rounded-lg shadow-lg overflow-hidden">
+                    <img src="assets/img/kidsbanner.jpg" alt="Kids' Shoes" class="w-full h-auto object-cover transition-transform duration-500 ease-in-out group-hover:scale-110" onerror="this.src='https://placehold.co/600x600/777/white?text=Kids'">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent"></div>
+                    <div class="absolute bottom-0 left-0 p-2 md:p-6">
+                        <h2 class="text-white text-lg md:text-4xl font-extrabold tracking-wider uppercase transition-all duration-300 group-hover:scale-110 text-shadow">Kids</h2>
                     </div>
                 </a>
             </div>
         </div>
-        
-        <!-- ===== New Carousel Section (MOVED HERE) ===== -->
-        <div id="banner-carousel" class="carousel-container">
+
+        <!-- ===== New Carousel Section (Moved After Gender) ===== -->
+        <div id="banner-carousel" class="carousel-container mb-12">
             <div class="carousel-slider">
                 <!-- Slide 1 -->
                 <div class="carousel-slide">
                     <!-- You can replace these placeholders with your actual banner images -->
-                    <img src="assets/img/1.webp" alt="New Arrivals Banner" data-index="0">
+                    <img src="assets/img/1.webp" alt="New Arrivals Banner" onerror="this.src='https://placehold.co/1200x400/0e7490/white?text=New+Arrivals'">
                 </div>
                 <!-- Slide 2 -->
                 <div class="carousel-slide">
-                    <img src="assets/img/2.webp" alt="Summer Sale Banner" data-index="1">
+                    <img src="assets/img/2.webp" alt="Summer Sale Banner" onerror="this.src='https://placehold.co/1200x400/065f46/white?text=Summer+Sale'">
                 </div>
                 <!-- Slide 3 -->
                 <div class="carousel-slide">
-                    <img src="assets/img/banner-3.jpg" alt="Kids Collection Banner" data-index="2">
+                    <img src="assets/img/banner-3.jpg" alt="Kids Collection Banner" onerror="this.src='https://placehold.co/1200x400/0f766e/white?text=Kids+Collection'">
                 </div>
             </div>
             <div class="carousel-dots" id="carousel-dots-container">
@@ -483,158 +564,169 @@
         <!-- Shop Our Brands Section -->
         <div class="mb-12">
             <h2 class="text-3xl font-bold text-center text-gray-800 mb-8">Shop Our Brands</h2>
-            <!-- 
-                - Updated grid to 'md:grid-cols-4' and 'lg:grid-cols-4' to fit 4 cards perfectly.
-            -->
             <div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-4 gap-6">
                 <!-- Brand Card 1: Indus Gold -->
                 <a href="indus-gold.html" class="group brand-card block bg-white p-6 rounded-lg shadow-lg overflow-hidden transition-all duration-500 ease-in-out hover:scale-105 opacity-90 hover:opacity-100 cursor-pointer">
-                    <img src="assets/img/indusgold.png" alt="Indus Gold Logo" class="h-28 w-auto mx-auto object-contain">
+                    <img src="assets/img/indusgold.png" alt="Indus Gold Logo" class="h-28 w-auto mx-auto object-contain" onerror="this.src='https://placehold.co/200x112/333/white?text=Indus+Gold'">
                     <h3 class="text-center mt-4 font-semibold text-gray-700">Indus Gold</h3>
                 </a>
                 <!-- Brand Card 2: Induslite -->
-                <a href="indus-lite.html" class="group brand-card block bg-white p-6 rounded-lg shadow-lg overflow-hidden transition-all duration-500 ease-in-out hover:scale-105 opacity-90 hover:opacity-100 cursor-pointer">
-                    <img src="assets/img/induslite.jpg" alt="Induslite Logo" class="h-28 w-auto mx-auto object-contain">
+                <a href="induslite.html" class="group brand-card block bg-white p-6 rounded-lg shadow-lg overflow-hidden transition-all duration-500 ease-in-out hover:scale-105 opacity-90 hover:opacity-100 cursor-pointer">
+                    <img src="assets/img/induslite.jpg" alt="Induslite Logo" class="h-28 w-auto mx-auto object-contain" onerror="this.src='https://placehold.co/200x112/eee/black?text=Induslite'">
                     <h3 class="text-center mt-4 font-semibold text-gray-700">Induslite</h3>
                 </a>
                 <!-- Brand Card 3: Indus Prime -->
                 <a href="indus-prime.html" class="group brand-card block bg-white p-6 rounded-lg shadow-lg overflow-hidden transition-all duration-500 ease-in-out hover:scale-105 opacity-90 hover:opacity-100 cursor-pointer">
-                    <img src="assets/img/indusprime.png" alt="Indus Prime Logo" class="h-28 w-auto mx-auto object-contain">
+                    <img src="assets/img/indusprime.png" alt="Indus Prime Logo" class="h-28 w-auto mx-auto object-contain" onerror="this.src='https://placehold.co/200x112/eee/black?text=Indus+Prime'">
                     <h3 class="text-center mt-4 font-semibold text-gray-700">Indus Prime</h3>
                 </a>
-                <!-- Brand Card 4: Indus Safety (REMOVED) -->
-
-                <!-- Brand Card 5: Indus Originals -->
-                <a href="#" class="group brand-card block bg-white p-6 rounded-lg shadow-lg overflow-hidden transition-all duration-500 ease-in-out hover:scale-105 opacity-90 hover:opacity-100 cursor-pointer">
-                    <img src="assets/img/indus new logo.png" alt="Indus Originals Logo" class="h-28 w-auto mx-auto object-contain">
+                <!-- Brand Card 4: Indus Originals -->
+                <a href="indus-originals.html" class="group brand-card block bg-white p-6 rounded-lg shadow-lg overflow-hidden transition-all duration-500 ease-in-out hover:scale-105 opacity-90 hover:opacity-100 cursor-pointer">
+                    <img src="assets/img/indus new logo.png" alt="Indus Originals Logo" class="h-28 w-auto mx-auto object-contain" onerror="this.src='https://placehold.co/200x112/eee/black?text=Indus+Originals'">
                     <h3 class="text-center mt-4 font-semibold text-gray-700">Indus Originals</h3>
                 </a>
             </div>
         </div>
 
 
-        <!-- ===== New Safety Shoes Section ===== -->
+        <!-- ===== New Safety Shoes Section (Manual Scroll) ===== -->
         <div class="mb-12">
             <h2 class="text-3xl font-bold text-center text-gray-800 mb-8">Explore Our Safety Shoes</h2>
-            <!-- 
-                - Changed to 4 columns on desktop/tablet (sm:grid-cols-4)
-                - Kept 2 columns on mobile (grid-cols-2)
-            -->
-            <div class="grid grid-cols-2 sm:grid-cols-4 gap-4">
-                
-                <!-- Safety Shoe Card 1 -->
-                <div class="bg-white rounded-lg shadow-md overflow-hidden transform hover:scale-105 transition-transform duration-300">
-                    <a href="#">
-                        <!-- 
-                            - Replaced 'h-48' with 'aspect-square'
-                            - Added 'rounded-t-lg'
-                        -->
-                        <img class="aspect-square w-full object-cover rounded-t-lg" src="assets/img/products/RHINO-01.jpg" alt="Steel Toe Safety Boot" onerror="this.src='https://placehold.co/400x400/333/white?text=Safety+Boot'">
-                        <div class="p-3">
-                            <h3 class="font-semibold text-gray-500 text-xs tracking-widest title-font mb-1">INDUS SAFETY</h3>
-                            <h2 class="text-base font-medium text-gray-900 mb-1">RHINO-01</h2>
-                            <p class="text-gray-700 font-bold">₹369</p>
-                        </div>
-                    </a>
-                </div>
-                
-                <!-- Safety Shoe Card 2 -->
-                <div class="bg-white rounded-lg shadow-md overflow-hidden transform hover:scale-105 transition-transform duration-300">
-                    <a href="#">
-                        <img class="aspect-square w-full object-cover rounded-t-lg" src="assets/img/products/RHINO-101.jpg" alt="Lightweight Safety Shoe" onerror="this.src='https://placehold.co/400x400/555/white?text=Safety+Shoe'">
-                        <div class="p-3">
-                            <h3 class="font-semibold text-gray-500 text-xs tracking-widest title-font mb-1">INDUS SAFETY</h3>
-                            <h2 class="text-base font-medium text-gray-900 mb-1">RHINO-101</h2>
-                            <p class="text-gray-700 font-bold">₹589</p>
-                        </div>
-                    </a>
-                </div>
+            <div class="scroller-container">
+                <div class="scroller-content">
+                    
+                    <!-- Safety Shoe Card 1 -->
+                    <div class="bg-white rounded-lg shadow-md overflow-hidden transform hover:scale-105 transition-transform duration-300">
+                        <a href="safety-shoes.html#rhino-01">
+                            <img class="w-full object-contain aspect-square rounded-t-lg" src="assets/img/products/RHINO-01.jpg" alt="Steel Toe Safety Boot" onerror="this.src='https://placehold.co/400x400/333/white?text=Safety+Boot'">
+                            <div class="p-3">
+                                <h3 class="font-semibold text-gray-500 text-xs tracking-widest title-font mb-1">INDUS SAFETY</h3>
+                                <h2 class="text-base font-medium text-gray-900 mb-1">RHINO-01</h2>
+                                <p class="text-gray-700 font-bold">₹369</p>
+                            </div>
+                        </a>
+                    </div>
+                    
+                    <!-- Safety Shoe Card 2 -->
+                    <div class="bg-white rounded-lg shadow-md overflow-hidden transform hover:scale-105 transition-transform duration-300">
+                        <a href="safety-shoes.html#rhino-101">
+                            <img class="w-full object-contain aspect-square rounded-t-lg" src="assets/img/products/RHINO-101.jpg" alt="Lightweight Safety Shoe" onerror="this.src='https://placehold.co/400x400/555/white?text=Safety+Shoe'">
+                            <div class="p-3">
+                                <h3 class="font-semibold text-gray-500 text-xs tracking-widest title-font mb-1">INDUS SAFETY</h3>
+                                <h2 class="text-base font-medium text-gray-900 mb-1">RHINO-101</h2>
+                                <p class="text-gray-700 font-bold">₹589</p>
+                            </div>
+                        </a>
+                    </div>
 
-                <!-- Safety Shoe Card 3 -->
-                <div class="bg-white rounded-lg shadow-md overflow-hidden transform hover:scale-105 transition-transform duration-300">
-                    <a href="#">
-                        <img class="aspect-square w-full object-cover rounded-t-lg" src="assets/img/products/RHINO-51.jpg" alt="PVC Gum Boot" onerror="this.src='https://placehold.co/400x400/333/white?text=Gum+Boot'">
-                        <div class="p-3">
-                            <h3 class="font-semibold text-gray-500 text-xs tracking-widest title-font mb-1">INDUS SAFETY</h3>
-                            <h2 class="text-base font-medium text-gray-900 mb-1">RHINO-51</h2>
-                            <p class="text-gray-700 font-bold">₹409</p>
-                        </div>
-                    </a>
-                </div>
+                    <!-- Safety Shoe Card 3 -->
+                    <div class="bg-white rounded-lg shadow-md overflow-hidden transform hover:scale-105 transition-transform duration-300">
+                        <a href="safety-shoes.html#rhino-51">
+                            <img class="w-full object-contain aspect-square rounded-t-lg" src="assets/img/products/RHINO-51.jpg" alt="PVC Gum Boot" onerror="this.src='https://placehold.co/400x400/333/white?text=Gum+Boot'">
+                            <div class="p-3">
+                                <h3 class="font-semibold text-gray-500 text-xs tracking-widest title-font mb-1">INDUS SAFETY</h3>
+                                <h2 class="text-base font-medium text-gray-900 mb-1">RHINO-51</h2>
+                                <p class="text-gray-700 font-bold">₹409</p>
+                            </div>
+                        </a>
+                    </div>
 
-                <!-- Safety Shoe Card 4 -->
-                <div class="bg-white rounded-lg shadow-md overflow-hidden transform hover:scale-105 transition-transform duration-300">
-                    <a href="#">
-                        <img class="aspect-square w-full object-cover rounded-t-lg" src="assets/img/products/ROCK-01.jpg" alt="ESD Safety Sandal" onerror="this.src='https://placehold.co/400x400/555/white?text=ESD+Sandal'">
-                        <div class="p-3">
-                            <h3 class="font-semibold text-gray-500 text-xs tracking-widest title-font mb-1">INDUS SAFETY</h3>
-                            <h2 class="text-base font-medium text-gray-900 mb-1">ROCK-01</h2>
-                            <p class="text-gray-700 font-bold">₹349</p>
-                        </div>
-                    </a>
-                </div>
+                    <!-- Safety Shoe Card 4 -->
+                    <div class="bg-white rounded-lg shadow-md overflow-hidden transform hover:scale-105 transition-transform duration-300">
+                        <a href="safety-shoes.html#rock-01">
+                            <img class="w-full object-contain aspect-square rounded-t-lg" src="assets/img/products/ROCK-01.jpg" alt="ESD Safety Sandal" onerror="this.src='https://placehold.co/400x400/555/white?text=ESD+Sandal'">
+                            <div class="p-3">
+                                <h3 class="font-semibold text-gray-500 text-xs tracking-widest title-font mb-1">INDUS SAFETY</h3>
+                                <h2 class="text-base font-medium text-gray-900 mb-1">ROCK-01</h2>
+                                <p class="text-gray-700 font-bold">₹349</p>
+                            </div>
+                        </a>
+                    </div>
 
+                    <!-- Add more safety shoes as needed -->
+                     <div class="bg-white rounded-lg shadow-md overflow-hidden transform hover:scale-105 transition-transform duration-300">
+                        <a href="safety-shoes.html#rhino-01">
+                            <img class="w-full object-contain aspect-square rounded-t-lg" src="assets/img/products/RHINO-01.jpg" alt="Steel Toe Safety Boot" onerror="this.src='https://placehold.co/400x400/333/white?text=Safety+Boot'">
+                            <div class="p-3">
+                                <h3 class="font-semibold text-gray-500 text-xs tracking-widest title-font mb-1">INDUS SAFETY</h3>
+                                <h2 class="text-base font-medium text-gray-900 mb-1">RHINO-01 (Copy)</h2>
+                                <p class="text-gray-700 font-bold">₹369</p>
+                            </div>
+                        </a>
+                    </div>
+
+                </div>
             </div>
         </div>
         <!-- ==================================== -->
 
-        <!-- ===== New School Shoes Section ===== -->
+        <!-- ===== New School Shoes Section (Manual Scroll) ===== -->
         <div class="mb-12">
             <h2 class="text-3xl font-bold text-center text-gray-800 mb-8">Shop Our School Shoes</h2>
-            <!-- 
-                - Changed to 4 columns on desktop/tablet (sm:grid-cols-4)
-                - Kept 2 columns on mobile (grid-cols-2)
-            -->
-            <div class="grid grid-cols-2 sm:grid-cols-4 gap-4">
-                
-                <!-- School Shoe Card 1 -->
-                <div class="bg-white rounded-lg shadow-md overflow-hidden transform hover:scale-105 transition-transform duration-300">
-                    <a href="#">
-                        <img class="aspect-square w-full object-cover rounded-t-lg" src="assets/img/products/ss-1.jpg" alt="Boys Black School Shoe" onerror="this.src='https://placehold.co/400x400/f0f0f0/black?text=School+Shoe'">
-                        <div class="p-3">
-                            <h3 class="font-semibold text-gray-500 text-xs tracking-widest title-font mb-1">INDUS SCHOOL</h3>
-                            <h2 class="text-base font-medium text-gray-900 mb-1">Peter-85</h2>
-                            <p class="text-gray-700 font-bold">Starting From ₹335</p>
-                        </div>
-                    </a>
-                </div>
-                
-                <!-- School Shoe Card 2 -->
-                <div class="bg-white rounded-lg shadow-md overflow-hidden transform hover:scale-105 transition-transform duration-300">
-                    <a href="#">
-                        <img class="aspect-square w-full object-cover rounded-t-lg" src="assets/img/products/ss-2.jpg" alt="Girls White School Shoe" onerror="this.src='https://placehold.co/400x400/f9f9f9/black?text=School+Shoe'">
-                        <div class="p-3">
-                            <h3 class="font-semibold text-gray-500 text-xs tracking-widest title-font mb-1">INDUS SCHOOL</h3>
-                            <h2 class="text-base font-medium text-gray-900 mb-1">Tennis-131</h2>
-                            <p class="text-gray-700 font-bold">Starting From ₹239</p>
-                        </div>
-                    </a>
-                </div>
+            <div class="scroller-container">
+                <div class="scroller-content">
+                    
+                    <!-- School Shoe Card 1 -->
+                    <div class="bg-white rounded-lg shadow-md overflow-hidden transform hover:scale-105 transition-transform duration-300">
+                        <a href="school-shoes.html#peter-85">
+                            <img class="w-full object-contain aspect-square rounded-t-lg" src="assets/img/products/ss-1.jpg" alt="Boys Black School Shoe" onerror="this.src='https://placehold.co/400x400/f0f0f0/black?text=School+Shoe'">
+                            <div class="p-3">
+                                <h3 class="font-semibold text-gray-500 text-xs tracking-widest title-font mb-1">INDUS SCHOOL</h3>
+                                <h2 class="text-base font-medium text-gray-900 mb-1">Peter-85</h2>
+                                <p class="text-gray-700 font-bold">Starting From ₹335</p>
+                            </div>
+                        </a>
+                    </div>
+                    
+                    <!-- School Shoe Card 2 -->
+                    <div class="bg-white rounded-lg shadow-md overflow-hidden transform hover:scale-105 transition-transform duration-300">
+                        <a href="school-shoes.html#tennis-131">
+                            <img class="w-full object-contain aspect-square rounded-t-lg" src="assets/img/products/ss-2.jpg" alt="Girls White School Shoe" onerror="this.src='https://placehold.co/400x400/f9f9f9/black?text=School+Shoe'">
+                            <div class="p-3">
+                                <h3 class="font-semibold text-gray-500 text-xs tracking-widest title-font mb-1">INDUS SCHOOL</h3>
+                                <h2 class="text-base font-medium text-gray-900 mb-1">Tennis-131</h2>
+                                <p class="text-gray-700 font-bold">Starting From ₹239</p>
+                            </div>
+                        </a>
+                    </div>
 
-                <!-- School Shoe Card 3 -->
-                <div class="bg-white rounded-lg shadow-md overflow-hidden transform hover:scale-105 transition-transform duration-300">
-                    <a href="#">
-                        <img class="aspect-square w-full object-cover rounded-t-lg" src="assets/img/products/ss-4.jpg" alt="Kids School Sandal" onerror="this.src='https://placehold.co/400x400/f0f0f0/black?text=School+Sandal'">
-                        <div class="p-3">
-                            <h3 class="font-semibold text-gray-500 text-xs tracking-widest title-font mb-1">INDUS SCHOOL</h3>
-                            <h2 class="text-base font-medium text-gray-900 mb-1">Kids School Sandal</h2>
-                            <p class="text-gray-700 font-bold">Starting From ₹</p>
-                        </div>
-                    </a>
-                </div>
+                    <!-- School Shoe Card 3 -->
+                    <div class="bg-white rounded-lg shadow-md overflow-hidden transform hover:scale-105 transition-transform duration-300">
+                        <a href="school-shoes.html#sandal">
+                            <img class="w-full object-contain aspect-square rounded-t-lg" src="assets/img/products/ss-4.jpg" alt="Kids School Sandal" onerror="this.src='https://placehold.co/400x400/f0f0f0/black?text=School+Sandal'">
+                            <div class="p-3">
+                                <h3 class="font-semibold text-gray-500 text-xs tracking-widest title-font mb-1">INDUS SCHOOL</h3>
+                                <h2 class="text-base font-medium text-gray-900 mb-1">Kids School Sandal</h2>
+                                <p class="text-gray-700 font-bold">Starting From ₹</p>
+                            </div>
+                        </a>
+                    </div>
 
-                <!-- School Shoe Card 4 -->
-                <div class="bg-white rounded-lg shadow-md overflow-hidden transform hover:scale-105 transition-transform duration-300">
-                    <a href="#">
-                        <img class="aspect-square w-full object-cover rounded-t-lg" src="assets/img/products/ss-3.jpg" alt="Kids Sports Shoe" onerror="this.src='https://placehold.co/400x400/f9f9f9/black?text=Sports+Shoe'">
-                        <div class="p-3">
-                            <h3 class="font-semibold text-gray-500 text-xs tracking-widest title-font mb-1">INDUS SCHOOL</h3>
-                            <h2 class="text-base font-medium text-gray-900 mb-1">Kids Sports Shoe</h2>
-                            <p class="text-gray-700 font-bold">Starting From ₹ </p>
-                        </div>
-                    </a>
-                </div>
+                    <!-- School Shoe Card 4 -->
+                    <div class="bg-white rounded-lg shadow-md overflow-hidden transform hover:scale-105 transition-transform duration-300">
+                        <a href="school-shoes.html#sports">
+                            <img class="w-full object-contain aspect-square rounded-t-lg" src="assets/img/products/ss-3.jpg" alt="Kids Sports Shoe" onerror="this.src='https://placehold.co/400x400/f9f9f9/black?text=Sports+Shoe'">
+                            <div class="p-3">
+                                <h3 class="font-semibold text-gray-500 text-xs tracking-widest title-font mb-1">INDUS SCHOOL</h3>
+                                <h2 class="text-base font-medium text-gray-900 mb-1">Kids Sports Shoe</h2>
+                                <p class="text-gray-700 font-bold">Starting From ₹ </p>
+                            </div>
+                        </a>
+                    </div>
 
+                    <!-- Add more school shoes as needed -->
+                    <div class="bg-white rounded-lg shadow-md overflow-hidden transform hover:scale-105 transition-transform duration-300">
+                        <a href="school-shoes.html#peter-85">
+                            <img class="w-full object-contain aspect-square rounded-t-lg" src="assets/img/products/ss-1.jpg" alt="Boys Black School Shoe" onerror="this.src='https://placehold.co/400x400/f0f0f0/black?text=School+Shoe'">
+                            <div class="p-3">
+                                <h3 class="font-semibold text-gray-500 text-xs tracking-widest title-font mb-1">INDUS SCHOOL</h3>
+                                <h2 class="text-base font-medium text-gray-900 mb-1">Peter-85 (Copy)</h2>
+                                <p class="text-gray-700 font-bold">Starting From ₹335</p>
+                            </div>
+                        </a>
+                    </div>
+
+                </div>
             </div>
         </div>
         <!-- ==================================== -->
@@ -645,7 +737,7 @@
             <main class="w-full">
                 <!-- Sorting Dropdown -->
                 <div class="flex justify-between items-center mb-6">
-                    <h1 class="text-2xl font-bold text-gray-800">Our Collection</h1>
+                    <h1 class="text-3xl font-bold text-gray-800">Our Collection</h1>
                     <div>
                         <label for="sort" class="sr-only">Sort by</label>
                         <select id="sort-dropdown" name="sort" class="block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-cyan-500 focus:border-cyan-500 sm:text-sm rounded-md shadow-sm">
@@ -665,23 +757,18 @@
 
                 <!-- Product Card List -->
                 <!-- 
-                    - Changed grid to 'grid-cols-3' for mobile
-                    - Changed to 'sm:grid-cols-4' for tablet/desktop
+                  - Changed to 5 columns on large screens (lg:grid-cols-5)
+                  - Removed aspect-square and object-contain
                 -->
-                <div id="product-grid" class="grid grid-cols-3 sm:grid-cols-4 gap-4">
+                <div id="product-grid" class="grid grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4">
                     
                     <!-- Product Card 1 -->
                     <div class="bg-white rounded-lg shadow-md overflow-hidden transform hover:scale-105 transition-transform duration-300">
                         <a href="#">
-                            <!-- 
-                                - Replaced 'h-48' with 'aspect-square'
-                                - Added 'rounded-t-lg' for the corners
-                            -->
-                            <img class="aspect-square w-full object-cover rounded-t-lg" src="assets/img/products/IG-201 BRN.jpg" alt="Indus Gold PU Sandal">
-                            <!-- Reduced padding from 'p-4' to 'p-3' -->
+                            <!-- Removed aspect-square and object-contain -->
+                            <img class="h-auto w-full object-cover rounded-t-lg" src="assets/img/products/IG-201 BRN.jpg" alt="Indus Gold PU Sandal" onerror="this.src='https://placehold.co/400x500/eee/black?text=Tall+Sandal'">
                             <div class="p-3">
                                 <h3 class="font-semibold text-gray-500 text-xs tracking-widest title-font mb-1">INDUS GOLD</h3>
-                                <!-- Reduced text size from 'text-lg' to 'text-base' -->
                                 <h2 class="text-base font-medium text-gray-900 mb-1">Men's Classic PU Sandal</h2>
                                 <p class="text-gray-700 font-bold">₹589</p>
                             </div>
@@ -691,7 +778,7 @@
                     <!-- Product Card 2: Induslite -->
                     <div class="bg-white rounded-lg shadow-md overflow-hidden transform hover:scale-105 transition-transform duration-300">
                         <a href="#">
-                            <img class="aspect-square w-full object-cover rounded-t-lg" src="assets/img/products/DIPTI-02 C.GREEN.jpg" alt="Induslite Hawai Slipper">
+                            <img class="h-auto w-full object-cover rounded-t-lg" src="assets/img/products/DIPTI-02 C.GREEN.jpg" alt="Induslite Hawai Slipper" onerror="this.src='https://placehold.co/400x300/eee/black?text=Wide+Slipper'">
                             <div class="p-3">
                                 <h3 class="font-semibold text-gray-500 text-xs tracking-widest title-font mb-1">INDUSLITE</h3>
                                 <h2 class="text-base font-medium text-gray-900 mb-1">Women's Hawai Slipper</h2>
@@ -703,7 +790,7 @@
                     <!-- Product Card 3: Indus Prime -->
                     <div class="bg-white rounded-lg shadow-md overflow-hidden transform hover:scale-105 transition-transform duration-300">
                         <a href="#">
-                            <img class="aspect-square w-full object-cover rounded-t-lg" src="assets/img/products/DEFENDER-08 BLACK.jpg" alt="Indus Prime Sneaker">
+                            <img class="h-auto w-full object-cover rounded-t-lg" src="assets/img/products/DEFENDER-08 BLACK.jpg" alt="Indus Prime Sneaker" onerror="this.src='https://placehold.co/400x400/eee/black?text=Square+Shoe'">
                             <div class="p-3">
                                 <h3 class="font-semibold text-gray-500 text-xs tracking-widest title-font mb-1">INDUS PRIME</h3>
                                 <h2 class="text-base font-medium text-gray-900 mb-1">Unisex 'Prime' Sneaker (EVA)</h2>
@@ -712,10 +799,10 @@
                         </a>
                     </div>
 
-                    <!-- Product Card 4: Indus Safety -->
+                    <!-- Product Card 4: Indus School -->
                     <div class="bg-white rounded-lg shadow-md overflow-hidden transform hover:scale-105 transition-transform duration-300">
                         <a href="#">
-                            <img class="aspect-square w-full object-cover rounded-t-lg" src="assets/img/products/ss-1.jpg" alt="Indus School Shoes">
+                            <img class="h-auto w-full object-cover rounded-t-lg" src="assets/img/products/ss-1.jpg" alt="Indus School Shoes" onerror="this.src='https.placehold.co/400x350/eee/black?text=School+Shoe'">
                             <div class="p-3">
                                 <h3 class="font-semibold text-gray-500 text-xs tracking-widest title-font mb-1">INDUS SCHOOL</h3>
                                 <h2 class="text-base font-medium text-gray-900 mb-1">Kids School Shoes (PVC)</h2>
@@ -727,11 +814,11 @@
                     <!-- Product Card 5: Indus Originals -->
                     <div class="bg-white rounded-lg shadow-md overflow-hidden transform hover:scale-105 transition-transform duration-300">
                         <a href="#">
-                            <img class="aspect-square w-full object-cover rounded-t-lg" src="assets/img/products/33580 BLACK.jpg" alt="Indus Originals Ladies PU">
+                            <img class="h-auto w-full object-cover rounded-t-lg" src="assets/img/products/33580 BLACK.jpg" alt="Indus Originals Ladies PU" onerror="this.src='https://placehold.co/400x450/eee/black?text=Ladies+Sandal'">
                             <div class="p-3">
                                 <h3 class="font-semibold text-gray-500 text-xs tracking-widest title-font mb-1">INDUS ORIGINALS</h3>
                                 <h2 class="text-base font-medium text-gray-900 mb-1">Ladies' PU Wedge Sandal</h2>
-                                <p class="text-gray-700 font-bold">$90.00</p>
+                                <p class="text-gray-700 font-bold">₹400</p>
                             </div>
                         </a>
                     </div>
@@ -739,32 +826,10 @@
                     <!-- Product Card 6: Induslite (Fabrication) -->
                     <div class="bg-white rounded-lg shadow-md overflow-hidden transform hover:scale-105 transition-transform duration-300">
                         <a href="#">
-                            <img class="aspect-square w-full object-cover rounded-t-lg" src="assets/img/products/CIRCLE-01 BLACK.jpg" alt="Induslite Fabrication Sandal">
+                            <img class="h-auto w-full object-cover rounded-t-lg" src="assets/img/products/CIRCLE-01 BLACK.jpg" alt="Induslite Fabrication Sandal" onerror="this.src='https://placehold.co/400x300/eee/black?text=Fabrication+Sandal'">
                             <div class="p-3">
                                 <h3 class="font-semibold text-gray-500 text-xs tracking-widest title-font mb-1">INDUSLITE</h3>
                                 <h2 class="text-base font-medium text-gray-900 mb-1">Men's Fabrication Sandal</h2>
-                                <p class="text-gray-700 font-bold">₹369</p>
-                            </div>
-                        </a>
-                    </div>
-
-                    <!-- Add 2 more cards to fill the 4-column row -->
-                    <div class="bg-white rounded-lg shadow-md overflow-hidden transform hover:scale-105 transition-transform duration-300">
-                        <a href="#">
-                            <img class="aspect-square w-full object-cover rounded-t-lg" src="assets/img/products/ss-2.jpg" alt="Indus School Shoe" onerror="this.src='https://placehold.co/400x400/f9f9f9/black?text=New+Shoe'">
-                            <div class="p-3">
-                                <h3 class="font-semibold text-gray-500 text-xs tracking-widest title-font mb-1">INDUS SCHOOL</h3>
-                                <h2 class="text-base font-medium text-gray-900 mb-1">Tennis-131</h2>
-                                <p class="text-gray-700 font-bold">₹239</p>
-                            </div>
-                        </a>
-                    </div>
-                    <div class="bg-white rounded-lg shadow-md overflow-hidden transform hover:scale-105 transition-transform duration-300">
-                        <a href="#">
-                            <img class="aspect-square w-full object-cover rounded-t-lg" src="assets/img/products/RHINO-01.jpg" alt="Indus Safety Shoe" onerror="this.src='https://placehold.co/400x400/333/white?text=Safety+Boot'">
-                            <div class="p-3">
-                                <h3 class="font-semibold text-gray-500 text-xs tracking-widest title-font mb-1">INDUS SAFETY</h3>
-                                <h2 class="text-base font-medium text-gray-900 mb-1">RHINO-01</h2>
                                 <p class="text-gray-700 font-bold">₹369</p>
                             </div>
                         </a>
@@ -778,16 +843,15 @@
     </div>
 
     <!-- Footer -->
-    <footer class="bg-white border-t border-gray-200 mt-12"> <!-- LIGHT FOOTER -->
-        <div class="container mx-auto px-4 sm:px-6 lg:px-8 py-8"> <!-- Reduced padding from py-12 to py-8 -->
+    <footer class="bg-white border-t border-gray-200 mt-12">
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8 py-8">
             
-            <div class="flex justify-start mb-8"> <!-- Aligned logo left -->
-                <img class="h-16 w-auto" src="assets/img/indus-logo.png" alt="Indus Footwear"> <!-- Increased logo size -->
+            <div class="flex justify-start mb-8">
+                <img class="h-16 w-auto" src="assets/img/indus-logo.png" alt="Indus Footwear" onerror="this.src='https://placehold.co/150x64/0891b2/white?text=Indus+Footwear'">
             </div>
             
             <div class="grid grid-cols-2 md:grid-cols-4 gap-8">
                 <div>
-                    <!-- Updated text colors to be dark -->
                     <h3 class="text-sm font-semibold text-cyan-600 tracking-wider uppercase">Shop by Gender</h3>
                     <ul class="mt-4 space-y-4">
                         <li><a href="men.html" class="text-base text-gray-600 hover:text-gray-900">Men</a></li>
@@ -796,35 +860,30 @@
                     </ul>
                 </div>
                 <div>
-                    <!-- Updated text colors to be dark -->
                     <h3 class="text-sm font-semibold text-cyan-600 tracking-wider uppercase">Shop by Brand</h3>
                     <ul class="mt-4 space-y-4">
                         <li><a href="indus-gold.html" class="text-base text-gray-600 hover:text-gray-900">Indus Gold</a></li>
-                        <li><a href="indus-lite.html" class="text-base text-gray-600 hover:text-gray-900">Induslite</a></li>
+                        <li><a href="induslite.html" class="text-base text-gray-600 hover:text-gray-900">Induslite</a></li>
                         <li><a href="indus-prime.html" class="text-base text-gray-600 hover:text-gray-900">Indus Prime</a></li>
-                        <li><a href="#" class="text-base text-gray-600 hover:text-gray-900">Indus Originals</a></li>
+                        <li><a href="indus-originals.html" class="text-base text-gray-600 hover:text-gray-900">Indus Originals</a></li>
                     </ul>
                 </div>
                 <div>
-                    <!-- Updated text colors to be dark -->
                     <h3 class="text-sm font-semibold text-cyan-600 tracking-wider uppercase">Support</h3>
                     <ul class="mt-4 space-y-4">
                         <li><a href="contact.html" class="text-base text-gray-600 hover:text-gray-900">Contact Us</a></li>
-                        <li><a href="#" class="text-base text-gray-600 hover:text-gray-900">FAQ</a></li>
-                        <li><a href="#" class="text-base text-gray-600 hover:text-gray-900">Shipping & Returns</a></li>
-                        <li><a href="#" class="text-base text-gray-600 hover:text-gray-900">Track Order</a></li>
+                        <li><a href="faq.html" class="text-base text-gray-600 hover:text-gray-900">FAQ</a></li>
+                        <li><a href="shipping.html" class="text-base text-gray-600 hover:text-gray-900">Shipping & Returns</a></li>
+                        <li><a href="track-order.html" class="text-base text-gray-600 hover:text-gray-900">Track Order</a></li>
                     </ul>
                 </div>
                 <div>
-                    <!-- Updated text colors to be dark -->
                     <h3 class="text-sm font-semibold text-cyan-600 tracking-wider uppercase">Company</h3>
                     <ul class="mt-4 space-y-4">
                         <li><a href="about.html" class="text-base text-gray-600 hover:text-gray-900">About Us</a></li>
-                        <!-- Removed Careers and Store Locator -->
                     </ul>
                 </div>
                 <div>
-                    <!-- Updated text colors to be dark -->
                     <h3 class="text-sm font-semibold text-cyan-600 tracking-wider uppercase">Follow Us</h3>
                     <div class="flex space-x-6 mt-4">
                         <!-- Social Icons -->
@@ -853,8 +912,8 @@
                     </div>
                 </div>
             </div>
-            <div class="mt-8 border-t border-gray-200 pt-8 text-center"> <!-- Updated border color -->
-                <p class="text-base text-gray-500">&copy; 2024 Indus Footprints Limited. All rights reserved.</p> <!-- Updated text color -->
+            <div class="mt-8 border-t border-gray-200 pt-8 text-center">
+                <p class="text-base text-gray-500">&copy; 2024 Indus Footprints Limited. All rights reserved.</p>
             </div>
         </div>
     </footer>
@@ -862,27 +921,26 @@
     <script>
         // Preloader & Banner Animation
         const preloader = document.getElementById('preloader');
-        const preloaderLogo = preloader.querySelector('.logo-preloader');
         const heroBanner = document.getElementById('hero-banner');
         
         window.onload = function() {
             // Logo animation starts automatically via CSS
 
-            // 2. Wait for logo animation to be visible, then start fade-out
+            // 2. Wait for logo animation, then start fade-out (FASTER)
             setTimeout(() => {
                 preloader.classList.add('opacity-0');
                 
                 // 3. Start banner animation as preloader fades out
-                if (heroBanner) { // Check if heroBanner exists
+                if (heroBanner) {
                     heroBanner.classList.remove('opacity-0');
                     heroBanner.classList.remove('translate-y-5');
                 }
-            }, 1500); // Wait 1.5s (logo animation time)
+            }, 1000); // Wait 1s (sped up)
 
-            // 4. Hide preloader completely after fade-out
+            // 4. Hide preloader completely after fade-out (FASTER)
             setTimeout(() => {
                 preloader.classList.add('hidden');
-            }, 2500); // 1.5s wait + 1s fade-out
+            }, 1500); // 1s wait + 0.5s fade-out (sped up)
         };
 
         // Mobile menu toggle
@@ -893,39 +951,48 @@
                 mobileMenu.classList.toggle('hidden');
             });
         }
+        
+        // --- Mobile Menu Dropdown Logic ---
+        const mobileMenuLinks = document.querySelectorAll('.mobile-menu-link');
+        mobileMenuLinks.forEach(link => {
+            link.addEventListener('click', (e) => {
+                // Prevent toggle if it's the main "Enquire Now" link
+                if (link.tagName === 'A') return;
+
+                e.preventDefault();
+                const submenu = link.nextElementSibling;
+                const icon = link.querySelector('.submenu-icon');
+                
+                if (submenu && submenu.classList.contains('mobile-submenu')) {
+                    // Toggle visibility
+                    if (submenu.style.display === 'block') {
+                        submenu.style.display = 'none';
+                        link.classList.remove('submenu-open');
+                    } else {
+                        submenu.style.display = 'block';
+                        link.classList.add('submenu-open');
+                    }
+                }
+            });
+        });
 
         // --- Filter & Sort Simulation ---
-        // This is just to show interactivity in the frontend demo.
-        // In Laravel, this would trigger a page reload or an API call.
-
         const filterMessage = document.getElementById('filter-message');
-        const checkboxes = document.querySelectorAll('.filter-checkbox');
-
         const sortDropdown = document.getElementById('sort-dropdown');
         const productGrid = document.getElementById('product-grid');
-
         let filterTimer;
 
         function showFilterMessage() {
-            if (!filterMessage || !productGrid) return; // Guard clause
-
+            if (!filterMessage || !productGrid) return;
             filterMessage.classList.remove('hidden');
             productGrid.classList.add('opacity-50', 'transition-opacity');
             
-            // Hide the message after a short delay
             clearTimeout(filterTimer);
             filterTimer = setTimeout(() => {
                 filterMessage.classList.add('hidden');
                 productGrid.classList.remove('opacity-50');
-            }, 1500); // 1.5 seconds
+            }, 1500);
         }
-
-        if (checkboxes.length > 0) {
-            checkboxes.forEach(checkbox => {
-                checkbox.addEventListener('change', showFilterMessage);
-            });
-        }
-
         if (sortDropdown) {
             sortDropdown.addEventListener('change', showFilterMessage);
         }
@@ -934,161 +1001,124 @@
         const cursorDot = document.getElementById('cursor-dot');
         const cursorOutline = document.getElementById('cursor-outline');
         
-        // 1. Move the followers
-        window.addEventListener('mousemove', (e) => {
-            if (cursorDot) {
-                // Use left/top to set position, CSS transform will handle centering
+        if (cursorDot && cursorOutline) {
+            // 1. Move the followers
+            window.addEventListener('mousemove', (e) => {
                 cursorDot.style.left = `${e.clientX}px`;
                 cursorDot.style.top = `${e.clientY}px`;
-            }
-            if (cursorOutline) {
-                // Use left/top to set position, CSS transform will handle centering
                 cursorOutline.style.left = `${e.clientX}px`;
                 cursorOutline.style.top = `${e.clientY}px`;
-            }
-        });
-
-        // 2. Animate on click
-        window.addEventListener('mousedown', () => {
-            if (cursorDot) cursorDot.classList.add('clicked');
-            if (cursorOutline) cursorOutline.classList.add('clicked');
-        });
-        window.addEventListener('mouseup', () => {
-            if (cursorDot) cursorDot.classList.remove('clicked');
-            if (cursorOutline) cursorOutline.classList.remove('clicked');
-        });
-
-        // 3. Animate on hover over links/buttons
-        const clickableElements = document.querySelectorAll(
-            'a, button, .cursor-pointer, input[type="checkbox"], select'
-        );
-
-        clickableElements.forEach(el => {
-            el.addEventListener('mouseenter', () => {
-                if (cursorDot) cursorDot.classList.add('hover-link');
-                if (cursorOutline) cursorOutline.classList.add('hover-link');
             });
-            el.addEventListener('mouseleave', () => {
-                if (cursorDot) cursorDot.classList.remove('hover-link');
-                if (cursorOutline) cursorOutline.classList.remove('hover-link');
+
+            // 2. Animate on click
+            window.addEventListener('mousedown', () => {
+                cursorDot.classList.add('clicked');
+                cursorOutline.classList.add('clicked');
             });
-        });
+            window.addEventListener('mouseup', () => {
+                cursorDot.classList.remove('clicked');
+                cursorOutline.classList.remove('clicked');
+            });
+
+            // 3. Animate on hover over links/buttons
+            const clickableElements = document.querySelectorAll(
+                'a, button, .cursor-pointer, input[type="checkbox"], select'
+            );
+
+            clickableElements.forEach(el => {
+                el.addEventListener('mouseenter', () => {
+                    cursorDot.classList.add('hover-link');
+                    cursorOutline.classList.add('hover-link');
+                });
+                el.addEventListener('mouseleave', () => {
+                    cursorDot.classList.remove('hover-link');
+                    cursorOutline.classList.remove('hover-link');
+                });
+            });
+        }
 
         // --- New Carousel Logic ---
         const carousel = document.getElementById('banner-carousel');
         if (carousel) {
             const slider = carousel.querySelector('.carousel-slider');
             const slides = carousel.querySelectorAll('.carousel-slide');
-            const slideImages = carousel.querySelectorAll('.carousel-slide img');
             const dotsContainer = document.getElementById('carousel-dots-container');
             let currentSlide = 0;
             const slideCount = slides.length;
-            let slideHeights = []; // Array to store the height of each slide
+            let autoplayInterval;
 
-            // Preload images and get their heights
-            let imagesLoaded = 0;
-            if (slideImages.length > 0) {
-                slideImages.forEach((img, index) => {
-                    if (img.complete) {
-                        // If image is already loaded (from cache)
-                        slideHeights[index] = img.offsetHeight;
-                        imagesLoaded++;
-                        if (imagesLoaded === slideCount) {
-                            initializeCarousel();
-                        }
-                    } else {
-                        // If image is not loaded
-                        img.onload = () => {
-                            slideHeights[index] = img.offsetHeight;
-                            imagesLoaded++;
-                            if (imagesLoaded === slideCount) {
-                                initializeCarousel();
+            if (slideCount > 0) {
+                // 1. Create dots
+                for (let i = 0; i < slideCount; i++) {
+                    const dot = document.createElement('button');
+                    dot.classList.add('carousel-dot');
+                    if (i === 0) dot.classList.add('active');
+                    dot.dataset.index = i;
+                    dot.addEventListener('click', (e) => {
+                        goToSlide(parseInt(e.target.dataset.index));
+                        resetAutoplay();
+                    });
+                    dotsContainer.appendChild(dot);
+                }
+                const dots = dotsContainer.querySelectorAll('.carousel-dot');
+
+                // 2. Go to slide function
+                function goToSlide(slideIndex) {
+                    if (slideIndex < 0) slideIndex = slideCount - 1;
+                    if (slideIndex >= slideCount) slideIndex = 0;
+                    
+                    if (slider) {
+                        slider.style.transform = `translateX(-${slideIndex * 100}%)`;
+                    }
+                    currentSlide = slideIndex;
+
+                    // Update active dot
+                    if (dots.length > 0) {
+                        dots.forEach(dot => dot.classList.remove('active'));
+                        dots[currentSlide].classList.add('active');
+                    }
+                    
+                    // Update container height
+                    updateCarouselHeight();
+                }
+                
+                // 3. Update Height Function
+                function updateCarouselHeight() {
+                    if (slides[currentSlide]) {
+                        const activeSlideImage = slides[currentSlide].querySelector('img');
+                        if (activeSlideImage) {
+                            // Wait for image to be ready (if loading)
+                            if (activeSlideImage.complete) {
+                                carousel.style.height = `${activeSlideImage.clientHeight}px`;
+                            } else {
+                                activeSlideImage.onload = () => {
+                                    carousel.style.height = `${activeSlideImage.clientHeight}px`;
+                                };
                             }
-                        };
-                    }
-                });
-            }
-
-            function initializeCarousel() {
-                if (slideCount > 0) { // Only run if slides exist
-                    // Set initial carousel height
-                    if (slideHeights[0]) {
-                        carousel.style.height = `${slideHeights[0]}px`;
-                    }
-
-                    // 1. Create dots
-                    for (let i = 0; i < slideCount; i++) {
-                        const dot = document.createElement('button');
-                        dot.classList.add('carousel-dot');
-                        if (i === 0) dot.classList.add('active');
-                        dot.dataset.index = i;
-                        dot.addEventListener('click', (e) => {
-                            goToSlide(parseInt(e.target.dataset.index));
-                            resetAutoplay();
-                        });
-                        dotsContainer.appendChild(dot);
-                    }
-                    const dots = dotsContainer.querySelectorAll('.carousel-dot');
-
-                    // 2. Go to slide function
-                    function goToSlide(slideIndex) {
-                        if (slideIndex < 0) slideIndex = slideCount - 1;
-                        if (slideIndex >= slideCount) slideIndex = 0;
-                        
-                        if (slider) {
-                            slider.style.transform = `translateX(-${slideIndex * 100}%)`;
-                        }
-                        currentSlide = slideIndex;
-
-                        // Update carousel height to match the new slide
-                        if (slideHeights[currentSlide]) {
-                            carousel.style.height = `${slideHeights[currentSlide]}px`;
-                        }
-
-                        // Update active dot
-                        if (dots.length > 0) {
-                            dots.forEach(dot => dot.classList.remove('active'));
-                            dots[currentSlide].classList.add('active');
                         }
                     }
+                }
 
-                    // 3. Autoplay
-                    let autoplayInterval = setInterval(() => {
+                // 4. Autoplay
+                function startAutoplay() {
+                    autoplayInterval = setInterval(() => {
                         goToSlide(currentSlide + 1);
                     }, 4000); // Change slide every 4 seconds
-
-                    function resetAutoplay() {
-                        clearInterval(autoplayInterval);
-                        autoplayInterval = setInterval(() => {
-                            goToSlide(currentSlide + 1);
-                        }, 4000);
-                    }
                 }
+
+                function resetAutoplay() {
+                    clearInterval(autoplayInterval);
+                    startAutoplay();
+                }
+                
+                // Initial setup
+                startAutoplay();
+                // Set initial height
+                setTimeout(updateCarouselHeight, 100); // Small delay for rendering
+                // Update height on window resize
+                window.addEventListener('resize', updateCarouselHeight);
             }
         }
-
-        // --- Mobile Menu Dropdowns ---
-        const mobileMenuToggles = document.querySelectorAll('.mobile-menu-toggle');
-        
-        mobileMenuToggles.forEach(toggle => {
-            toggle.addEventListener('click', () => {
-                const submenu = toggle.nextElementSibling;
-                const icon = toggle.querySelector('svg');
-
-                if (submenu && submenu.classList.contains('mobile-menu-submenu')) {
-                    submenu.classList.toggle('hidden');
-                    
-                    if (icon) {
-                        // Rotate icon 90 degrees
-                        if (submenu.classList.contains('hidden')) {
-                            icon.classList.remove('rotate-90');
-                        } else {
-                            icon.classList.add('rotate-90');
-                        }
-                    }
-                }
-            });
-        });
 
     </script>
 
