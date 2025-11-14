@@ -333,26 +333,49 @@
                 
                 <!-- Shop Section -->
                 <div class="pt-2">
-                    <span class="block pl-3 pr-4 py-2 border-l-4 border-transparent text-base font-medium text-gray-500">Shop</span>
-                    <div class="mt-1 space-y-1" role="menu" aria-orientation="vertical">
+                    <!-- This is now a clickable toggle button -->
+                    <div class="mobile-menu-toggle flex justify-between items-center pl-3 pr-4 py-2 border-l-4 border-transparent text-base font-medium text-gray-500 cursor-pointer">
+                        <span>Shop</span>
+                        <!-- Chevron icon for dropdown -->
+                        <svg class="h-5 w-5 transform transition-transform duration-200" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                            <path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd" />
+                        </svg>
+                    </div>
+                    <!-- This submenu is now hidden by default -->
+                    <div class="mobile-menu-submenu hidden mt-1 space-y-1 pl-4" role="menu" aria-orientation="vertical">
                         <!-- Men Sub-menu -->
-                        <span class="block pl-8 pr-4 py-2 text-base font-medium text-gray-800">Men</span>
-                        <div class="mt-1 space-y-1" role="menu" aria-orientation="vertical">
+                        <div class="mobile-menu-toggle flex justify-between items-center pl-4 pr-4 py-2 text-base font-medium text-gray-800 cursor-pointer">
+                            <span>Men</span>
+                            <svg class="h-5 w-5 transform transition-transform duration-200" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                                <path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd" />
+                            </svg>
+                        </div>
+                        <div class="mobile-menu-submenu hidden mt-1 space-y-1 pl-4" role="menu" aria-orientation="vertical">
                             <a href="men.html#pu-slippers" class="block pl-12 pr-4 py-2 text-base font-medium text-gray-600 hover:bg-gray-50 hover:text-gray-800" role="menuitem">PU Slippers</a>
                             <a href="men.html#eva" class="block pl-12 pr-4 py-2 text-base font-medium text-gray-600 hover:bg-gray-50 hover:text-gray-800" role="menuitem">EVA (Sports, Sliders)</a>
                             <a href="men.html#hawai" class="block pl-12 pr-4 py-2 text-base font-medium text-gray-600 hover:bg-gray-50 hover:text-gray-800" role="menuitem">Hawai & Fabrication</a>
                             <a href="safety-shoes.html" class="block pl-12 pr-4 py-2 text-base font-medium text-cyan-600 hover:bg-gray-50 hover:text-cyan-700" role="menuitem">Safety Shoes</a>
                         </div>
                         <!-- Women Sub-menu -->
-                        <span class="block pl-8 pr-4 py-2 text-base font-medium text-gray-800 mt-2">Women</span>
-                        <div class="mt-1 space-y-1" role="menu" aria-orientation="vertical">
+                        <div class="mobile-menu-toggle flex justify-between items-center pl-4 pr-4 py-2 text-base font-medium text-gray-800 cursor-pointer mt-2">
+                            <span>Women</span>
+                            <svg class="h-5 w-5 transform transition-transform duration-200" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                                <path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd" />
+                            </svg>
+                        </div>
+                        <div class="mobile-menu-submenu hidden mt-1 space-y-1 pl-4" role="menu" aria-orientation="vertical">
                             <a href="women.html#pu-slippers" class="block pl-12 pr-4 py-2 text-base font-medium text-gray-600 hover:bg-gray-50 hover:text-gray-800" role="menuitem">PU Slippers</a>
                             <a href="women.html#eva" class="block pl-12 pr-4 py-2 text-base font-medium text-gray-600 hover:bg-gray-50 hover:text-gray-800" role="menuitem">EVA (Sandals, Sliders)</a>
                             <a href="women.html#hawai" class="block pl-12 pr-4 py-2 text-base font-medium text-gray-600 hover:bg-gray-50 hover:text-gray-800" role="menuitem">Hawai Slippers</a>
                         </div>
                         <!-- Kids Sub-menu -->
-                        <span class="block pl-8 pr-4 py-2 text-base font-medium text-gray-800 mt-2">Kids</span>
-                        <div class="mt-1 space-y-1" role="menu" aria-orientation="vertical">
+                        <div class="mobile-menu-toggle flex justify-between items-center pl-4 pr-4 py-2 text-base font-medium text-gray-800 cursor-pointer mt-2">
+                            <span>Kids</span>
+                            <svg class="h-5 w-5 transform transition-transform duration-200" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                                <path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd" />
+                            </svg>
+                        </div>
+                        <div class="mobile-menu-submenu hidden mt-1 space-y-1 pl-4" role="menu" aria-orientation="vertical">
                             <a href="school-shoes.html" class="block pl-12 pr-4 py-2 text-base font-medium text-cyan-600 hover:bg-gray-50 hover:text-cyan-700" role="menuitem">School Shoes</a>
                             <a href="kids.html#pu-slippers" class="block pl-12 pr-4 py-2 text-base font-medium text-gray-600 hover:bg-gray-50 hover:text-gray-800" role="menuitem">PU Slippers</a>
                             <a href="kids.html#eva" class="block pl-12 pr-4 py-2 text-base font-medium text-gray-600 hover:bg-gray-50 hover:text-gray-800" role="menuitem">EVA (Sports, Sliders)</a>
@@ -363,8 +386,13 @@
 
                 <!-- Brands Section -->
                 <div class="pt-2">
-                    <span class="block pl-3 pr-4 py-2 border-l-4 border-transparent text-base font-medium text-gray-500">Brands</span>
-                    <div class="mt-1 space-y-1" role="menu" aria-orientation="vertical">
+                    <div class="mobile-menu-toggle flex justify-between items-center pl-3 pr-4 py-2 border-l-4 border-transparent text-base font-medium text-gray-500 cursor-pointer">
+                        <span>Brands</span>
+                        <svg class="h-5 w-5 transform transition-transform duration-200" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                            <path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd" />
+                        </svg>
+                    </div>
+                    <div class="mobile-menu-submenu hidden mt-1 space-y-1 pl-4" role="menu" aria-orientation="vertical">
                         <a href="indus-gold.html" class="block pl-8 pr-4 py-2 text-base font-medium text-gray-600 hover:bg-gray-50 hover:text-gray-800" role="menuitem">Indus Gold</a>
                         <a href="indus-lite.html" class="block pl-8 pr-4 py-2 text-base font-medium text-gray-600 hover:bg-gray-50 hover:text-gray-800" role="menuitem">Induslite</a>
                         <a href="indus-prime.html" class="block pl-8 pr-4 py-2 text-base font-medium text-gray-600 hover:bg-gray-50 hover:text-gray-800" role="menuitem">Indus Prime</a>
@@ -645,6 +673,10 @@
                     <!-- Product Card 1 -->
                     <div class="bg-white rounded-lg shadow-md overflow-hidden transform hover:scale-105 transition-transform duration-300">
                         <a href="#">
+                            <!-- 
+                                - Replaced 'h-48' with 'aspect-square'
+                                - Added 'rounded-t-lg' for the corners
+                            -->
                             <img class="aspect-square w-full object-cover rounded-t-lg" src="assets/img/products/IG-201 BRN.jpg" alt="Indus Gold PU Sandal">
                             <!-- Reduced padding from 'p-4' to 'p-3' -->
                             <div class="p-3">
@@ -1034,6 +1066,29 @@
                 }
             }
         }
+
+        // --- Mobile Menu Dropdowns ---
+        const mobileMenuToggles = document.querySelectorAll('.mobile-menu-toggle');
+        
+        mobileMenuToggles.forEach(toggle => {
+            toggle.addEventListener('click', () => {
+                const submenu = toggle.nextElementSibling;
+                const icon = toggle.querySelector('svg');
+
+                if (submenu && submenu.classList.contains('mobile-menu-submenu')) {
+                    submenu.classList.toggle('hidden');
+                    
+                    if (icon) {
+                        // Rotate icon 90 degrees
+                        if (submenu.classList.contains('hidden')) {
+                            icon.classList.remove('rotate-90');
+                        } else {
+                            icon.classList.add('rotate-90');
+                        }
+                    }
+                }
+            });
+        });
 
     </script>
 
