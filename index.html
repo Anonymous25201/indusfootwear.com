@@ -87,14 +87,21 @@
         /* --- End Brand Card Effect --- */
 
         /* --- Custom Cursor Effect --- */
-        /* Hide the default OS cursor */
-        /* We only apply 'cursor: none' if the device supports hover */
-        @media (hover: hover) {
+        
+        /* Hide the default OS cursor on non-touch devices */
+        @media (hover: hover) and (pointer: fine) {
             body, a[href], button, .cursor-pointer {
                 cursor: none !important; 
             }
         }
-        
+
+        /* Hide the custom cursor on touch devices */
+        @media (hover: none) and (pointer: coarse) {
+            #cursor-dot, #cursor-outline {
+                display: none !important;
+            }
+        }
+
         /* The inner "full" dot */
         #cursor-dot {
             position: fixed;
@@ -146,13 +153,6 @@
         #cursor-outline.clicked {
             transform: translate(-50%, -50%) scale(0.9); /* Outline squishes */
         }
-
-        /* --- Hide custom cursor on mobile/touch --- */
-        @media (hover: none) {
-            #cursor-dot, #cursor-outline {
-                display: none !important;
-            }
-        }
         /* --- End Custom Cursor Effect --- */
         
         /* --- Carousel Section --- */
@@ -173,18 +173,14 @@
             width: 100%;
             position: relative;
         }
+        /* - Removed fixed height and object-fit
+          - 'height: auto' lets the image's natural aspect ratio set the height
+        */
         .carousel-slide img {
             width: 100%;
             height: auto; /* This will use the image's natural height and stop all cutting */
-            /* object-fit: cover; REMOVED */
         }
         
-        @media (min-width: 768px) { /* Tailwind's 'md' breakpoint */
-             .carousel-slide img {
-                height: auto; /* This will use the image's natural height and stop all cutting */
-             }
-        }
-
         /* Carousel dots */
         .carousel-dots {
             position: absolute;
@@ -207,15 +203,6 @@
             background-color: #ffffff;
         }
         /* --- End Carousel Section --- */
-
-        /* --- Product Card Image Fix --- */
-        /* Use aspect-square to make images 1:1 and prevent cropping */
-        .product-image {
-            aspect-ratio: 1 / 1;
-            object-fit: cover; /* This will zoom/crop to fit, use 'contain' if you want to see the whole image */
-            width: 100%;
-        }
-        /* --- End Product Card Image Fix --- */
     </style>
 </head>
 <body class="bg-teal-50">
@@ -268,7 +255,7 @@
                     
                     <!-- Updated Enquire Now Button -->
                     <!-- 
-                        NOTE: Replace '910000000000' with your actual WhatsApp business number, including the country code.
+                      NOTE: Replace '910000000000' with your actual WhatsApp business number, including the country code.
                     -->
                     <a href="https://wa.me/910000000000" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 bg-cyan-600 text-white px-5 py-2 rounded-full font-semibold hover:bg-cyan-700 transition-all duration-300 shadow-lg ml-4">
                         <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
@@ -330,21 +317,55 @@
             </a>
         </div>
 
-        <!-- ===== New Carousel Section ===== -->
+        <!-- Gender Category Section -->
+        <div class="mb-12">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <!-- Men Card -->
+                <!-- 
+                  - Removed all 'h-' classes to let the image define the height
+                  - text-xl (smaller) on mobile, md:text-4xl (large) on desktop
+                -->
+                <a href="#" class="group relative block overflow-hidden rounded-lg shadow-lg bg-white">
+                    <img src= "assets/img/men banner.jpeg" alt="Men's Shoes" class="relative w-full h-auto object-contain transition-transform duration-500 ease-in-out group-hover:scale-105">
+                    <div class="absolute inset-0 bg-black bg-opacity-30 transition-all duration-300 group-hover:bg-opacity-40"></div>
+                    <div class="relative h-full flex items-center justify-center absolute inset-0">
+                        <h2 class="text-white text-xl md:text-4xl font-extrabold tracking-wider uppercase transition-all duration-300 group-hover:scale-110">Men</h2>
+                    </div>
+                </a>
+                <!-- Women Card -->
+                <a href="#" class="group relative block overflow-hidden rounded-lg shadow-lg bg-white">
+                    <img src="assets/img/womenbanner.jpeg" alt="Women's Shoes" class="relative w-full h-auto object-contain transition-transform duration-500 ease-in-out group-hover:scale-105">
+                    <div class="absolute inset-0 bg-black bg-opacity-30 transition-all duration-300 group-hover:bg-opacity-40"></div>
+                    <div class="relative h-full flex items-center justify-center absolute inset-0">
+                        <h2 class="text-white text-xl md:text-4xl font-extrabold tracking-wider uppercase transition-all duration-300 group-hover:scale-110">Women</h2>
+                    </div>
+                </a>
+                <!-- Kids Card -->
+                <a href="#" class="group relative block overflow-hidden rounded-lg shadow-lg bg-white">
+                    <img src="assets/img/kidsbanner.jpg" alt="Kids' Shoes" class="relative w-full h-auto object-contain transition-transform duration-500 ease-in-out group-hover:scale-105">
+                    <div class="absolute inset-0 bg-black bg-opacity-30 transition-all duration-300 group-hover:bg-opacity-40"></div>
+                    <div class="relative h-full flex items-center justify-center absolute inset-0">
+                        <h2 class="text-white text-xl md:text-4xl font-extrabold tracking-wider uppercase transition-all duration-300 group-hover:scale-110">Kids</h2>
+                    </div>
+                </a>
+            </div>
+        </div>
+        
+        <!-- ===== New Carousel Section (MOVED HERE) ===== -->
         <div id="banner-carousel" class="carousel-container">
             <div class="carousel-slider">
                 <!-- Slide 1 -->
                 <div class="carousel-slide">
                     <!-- You can replace these placeholders with your actual banner images -->
-                    <img src="assets/img/1.webp" alt="New Arrivals Banner" onerror="this.src='https://placehold.co/1200x400/06B6D4/white?text=New+Arrivals'">
+                    <img src="assets/img/1.webp" alt="New Arrivals Banner">
                 </div>
                 <!-- Slide 2 -->
                 <div class="carousel-slide">
-                    <img src="assets/img/2.webp" alt="Summer Sale Banner" onerror="this.src='https://placehold.co/1200x400/10B981/white?text=Summer+Sale'">
+                    <img src="assets/img/2.webp" alt="Summer Sale Banner">
                 </div>
                 <!-- Slide 3 -->
                 <div class="carousel-slide">
-                    <img src="assets/img/banner-3.jpg" alt="Kids Collection Banner" onerror="this.src='https://placehold.co/1200x400/8B5CF6/white?text=Kids+Collection'">
+                    <img src="assetsf/img/banner-3.jpg" alt="Kids Collection Banner">
                 </div>
             </div>
             <div class="carousel-dots" id="carousel-dots-container">
@@ -354,45 +375,11 @@
         <!-- =============================== -->
 
 
-        <!-- Gender Category Section -->
-        <div class="mb-12">
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-                <!-- Men Card -->
-                <!-- 
-                  - h-48 (smaller) on mobile, md:h-96 (large) on desktop 
-                  - text-xl (smaller) on mobile, md:text-4xl (large) on desktop
-                -->
-                <a href="#" class="group relative block h-48 md:h-96 overflow-hidden rounded-lg shadow-lg">
-                    <img src= "assets/img/men banner.jpeg" alt="Men's Shoes" class="absolute inset-0 w-full h-full object-cover transition-transform duration-500 ease-in-out group-hover:scale-110">
-                    <div class="absolute inset-0 bg-black bg-opacity-30 transition-all duration-300 group-hover:bg-opacity-40"></div>
-                    <div class="relative h-full flex items-center justify-center">
-                        <h2 class="text-white text-xl md:text-4xl font-extrabold tracking-wider uppercase transition-all duration-300 group-hover:scale-110">Men</h2>
-                    </div>
-                </a>
-                <!-- Women Card -->
-                <a href="#" class="group relative block h-48 md:h-96 overflow-hidden rounded-lg shadow-lg">
-                    <img src="assets/img/womenbanner.jpeg" alt="Women's Shoes" class="absolute inset-0 w-full h-full object-cover transition-transform duration-500 ease-in-out group-hover:scale-110">
-                    <div class="absolute inset-0 bg-black bg-opacity-30 transition-all duration-300 group-hover:bg-opacity-40"></div>
-                    <div class="relative h-full flex items-center justify-center">
-                        <h2 class="text-white text-xl md:text-4xl font-extrabold tracking-wider uppercase transition-all duration-300 group-hover:scale-110">Women</h2>
-                    </div>
-                </a>
-                <!-- Kids Card -->
-                <a href="#" class="group relative block h-48 md:h-96 overflow-hidden rounded-lg shadow-lg">
-                    <img src="assets/img/kidsbanner.jpg" alt="Kids' Shoes" class="absolute inset-0 w-full h-full object-cover transition-transform duration-500 ease-in-out group-hover:scale-110">
-                    <div class="absolute inset-0 bg-black bg-opacity-30 transition-all duration-300 group-hover:bg-opacity-40"></div>
-                    <div class="relative h-full flex items-center justify-center">
-                        <h2 class="text-white text-xl md:text-4xl font-extrabold tracking-wider uppercase transition-all duration-300 group-hover:scale-110">Kids</h2>
-                    </div>
-                </a>
-            </div>
-        </div>
-
         <!-- Shop Our Brands Section -->
         <div class="mb-12">
             <h2 class="text-3xl font-bold text-center text-gray-800 mb-8">Shop Our Brands</h2>
             <!-- 
-                - Updated grid to 'md:grid-cols-4' and 'lg:grid-cols-4' to fit 4 cards perfectly.
+              - Updated grid to 'md:grid-cols-4' and 'lg:grid-cols-4' to fit 4 cards perfectly.
             -->
             <div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-4 gap-6">
                 <!-- Brand Card 1: Indus Gold -->
@@ -425,15 +412,15 @@
         <div class="mb-12">
             <h2 class="text-3xl font-bold text-center text-gray-800 mb-8">Explore Our Safety Shoes</h2>
             <!-- 
-              - grid-cols-3 for mobile
-              - sm:grid-cols-4 for tablet/desktop
+              - grid-cols-3 on mobile
+              - md:grid-cols-4 on desktop
             -->
-            <div class="grid grid-cols-3 sm:grid-cols-4 gap-4">
+            <div class="grid grid-cols-3 md:grid-cols-4 gap-4">
                 
                 <!-- Safety Shoe Card 1 -->
                 <div class="bg-white rounded-lg shadow-md overflow-hidden transform hover:scale-105 transition-transform duration-300">
                     <a href="#">
-                        <img class="product-image rounded-t-lg" src="assets/img/products/RHINO-01.jpg" alt="Steel Toe Safety Boot" onerror="this.src='https://placehold.co/400x400/333/white?text=Safety+Boot'">
+                        <img class="aspect-square w-full object-cover rounded-t-lg" src="assets/img/products/RHINO-01.jpg" alt="Steel Toe Safety Boot" onerror="this.src='https://placehold.co/400x400/333/white?text=Safety+Boot'">
                         <div class="p-3">
                             <h3 class="font-semibold text-gray-500 text-xs tracking-widest title-font mb-1">INDUS SAFETY</h3>
                             <h2 class="text-base font-medium text-gray-900 mb-1">RHINO-01</h2>
@@ -445,7 +432,7 @@
                 <!-- Safety Shoe Card 2 -->
                 <div class="bg-white rounded-lg shadow-md overflow-hidden transform hover:scale-105 transition-transform duration-300">
                     <a href="#">
-                        <img class="product-image rounded-t-lg" src="assets/img/products/RHINO-101.jpg" alt="Lightweight Safety Shoe" onerror="this.src='https://placehold.co/400x400/555/white?text=Safety+Shoe'">
+                        <img class="aspect-square w-full object-cover rounded-t-lg" src="assets/img/products/RHINO-101.jpg" alt="Lightweight Safety Shoe" onerror="this.src='https://placehold.co/400x400/555/white?text=Safety+Shoe'">
                         <div class="p-3">
                             <h3 class="font-semibold text-gray-500 text-xs tracking-widest title-font mb-1">INDUS SAFETY</h3>
                             <h2 class="text-base font-medium text-gray-900 mb-1">RHINO-101</h2>
@@ -457,7 +444,7 @@
                 <!-- Safety Shoe Card 3 -->
                 <div class="bg-white rounded-lg shadow-md overflow-hidden transform hover:scale-105 transition-transform duration-300">
                     <a href="#">
-                        <img class="product-image rounded-t-lg" src="assets/img/products/RHINO-51.jpg" alt="PVC Gum Boot" onerror="this.src='https://placehold.co/400x400/333/white?text=Gum+Boot'">
+                        <img class="aspect-square w-full object-cover rounded-t-lg" src="assets/img/products/RHINO-51.jpg" alt="PVC Gum Boot" onerror="this.src='https://placehold.co/400x400/333/white?text=Gum+Boot'">
                         <div class="p-3">
                             <h3 class="font-semibold text-gray-500 text-xs tracking-widest title-font mb-1">INDUS SAFETY</h3>
                             <h2 class="text-base font-medium text-gray-900 mb-1">RHINO-51</h2>
@@ -469,7 +456,7 @@
                 <!-- Safety Shoe Card 4 -->
                 <div class="bg-white rounded-lg shadow-md overflow-hidden transform hover:scale-105 transition-transform duration-300">
                     <a href="#">
-                        <img class="product-image rounded-t-lg" src="assets/img/products/ROCK-01.jpg" alt="ESD Safety Sandal" onerror="this.src='https://placehold.co/400x400/555/white?text=ESD+Sandal'">
+                        <img class="aspect-square w-full object-cover rounded-t-lg" src="assets/img/products/ROCK-01.jpg" alt="ESD Safety Sandal" onerror="this.src='https://placehold.co/400x400/555/white?text=ESD+Sandal'">
                         <div class="p-3">
                             <h3 class="font-semibold text-gray-500 text-xs tracking-widest title-font mb-1">INDUS SAFETY</h3>
                             <h2 class="text-base font-medium text-gray-900 mb-1">ROCK-01</h2>
@@ -486,15 +473,15 @@
         <div class="mb-12">
             <h2 class="text-3xl font-bold text-center text-gray-800 mb-8">Shop Our School Shoes</h2>
             <!-- 
-              - grid-cols-3 for mobile
-              - sm:grid-cols-4 for tablet/desktop
+              - grid-cols-3 on mobile
+              - md:grid-cols-4 on desktop
             -->
-            <div class="grid grid-cols-3 sm:grid-cols-4 gap-4">
+            <div class="grid grid-cols-3 md:grid-cols-4 gap-4">
                 
                 <!-- School Shoe Card 1 -->
                 <div class="bg-white rounded-lg shadow-md overflow-hidden transform hover:scale-105 transition-transform duration-300">
                     <a href="#">
-                        <img class="product-image rounded-t-lg" src="assets/img/products/ss-1.jpg" alt="Boys Black School Shoe" onerror="this.src='https://placehold.co/400x400/f0f0f0/black?text=School+Shoe'">
+                        <img class="aspect-square w-full object-cover rounded-t-lg" src="assets/img/products/ss-1.jpg" alt="Boys Black School Shoe" onerror="this.src='https://placehold.co/400x400/f0f0f0/black?text=School+Shoe'">
                         <div class="p-3">
                             <h3 class="font-semibold text-gray-500 text-xs tracking-widest title-font mb-1">INDUS SCHOOL</h3>
                             <h2 class="text-base font-medium text-gray-900 mb-1">Peter-85</h2>
@@ -506,7 +493,7 @@
                 <!-- School Shoe Card 2 -->
                 <div class="bg-white rounded-lg shadow-md overflow-hidden transform hover:scale-105 transition-transform duration-300">
                     <a href="#">
-                        <img class="product-image rounded-t-lg" src="assets/img/products/ss-2.jpg" alt="Girls White School Shoe" onerror="this.src='https://placehold.co/400x400/f9f9f9/black?text=School+Shoe'">
+                        <img class="aspect-square w-full object-cover rounded-t-lg" src="assets/img/products/ss-2.jpg" alt="Girls White School Shoe" onerror="this.src='https://placehold.co/400x400/f9f9f9/black?text=School+Shoe'">
                         <div class="p-3">
                             <h3 class="font-semibold text-gray-500 text-xs tracking-widest title-font mb-1">INDUS SCHOOL</h3>
                             <h2 class="text-base font-medium text-gray-900 mb-1">Tennis-131</h2>
@@ -518,7 +505,7 @@
                 <!-- School Shoe Card 3 -->
                 <div class="bg-white rounded-lg shadow-md overflow-hidden transform hover:scale-105 transition-transform duration-300">
                     <a href="#">
-                        <img class="product-image rounded-t-lg" src="assets/img/products/ss-4.jpg" alt="Kids School Sandal" onerror="this.src='https://placehold.co/400x400/f0f0f0/black?text=School+Sandal'">
+                        <img class="aspect-square w-full object-cover rounded-t-lg" src="assets/img/products/ss-4.jpg" alt="Kids School Sandal" onerror="this.src='https://placehold.co/400x400/f0f0f0/black?text=School+Sandal'">
                         <div class="p-3">
                             <h3 class="font-semibold text-gray-500 text-xs tracking-widest title-font mb-1">INDUS SCHOOL</h3>
                             <h2 class="text-base font-medium text-gray-900 mb-1">Kids School Sandal</h2>
@@ -530,7 +517,7 @@
                 <!-- School Shoe Card 4 -->
                 <div class="bg-white rounded-lg shadow-md overflow-hidden transform hover:scale-105 transition-transform duration-300">
                     <a href="#">
-                        <img class="product-image rounded-t-lg" src="assets/img/products/ss-3.jpg" alt="Kids Sports Shoe" onerror="this.src='https://placehold.co/400x400/f9f9f9/black?text=Sports+Shoe'">
+                        <img class="aspect-square w-full object-cover rounded-t-lg" src="assets/img/products/ss-3.jpg" alt="Kids Sports Shoe" onerror="this.src='https://placehold.co/400x400/f9f9f9/black?text=Sports+Shoe'">
                         <div class="p-3">
                             <h3 class="font-semibold text-gray-500 text-xs tracking-widest title-font mb-1">INDUS SCHOOL</h3>
                             <h2 class="text-base font-medium text-gray-900 mb-1">Kids Sports Shoe</h2>
@@ -570,14 +557,19 @@
                 <!-- Product Card List -->
                 <!-- 
                   - Changed grid to 'grid-cols-3' to show 3 products on mobile.
-                  - Changed to 'sm:grid-cols-4' to show 4 products on tablet/desktop.
+                  - Changed 'lg:grid-cols-3' to 'md:grid-cols-4' to show 4 on desktop/tablet.
+                  - Reduced gap from 'gap-6' to 'gap-4' to fit them better.
                 -->
-                <div id="product-grid" class="grid grid-cols-3 sm:grid-cols-4 gap-4">
+                <div id="product-grid" class="grid grid-cols-3 md:grid-cols-4 gap-4">
                     
                     <!-- Product Card 1 -->
                     <div class="bg-white rounded-lg shadow-md overflow-hidden transform hover:scale-105 transition-transform duration-300">
                         <a href="#">
-                            <img class="product-image rounded-t-lg" src="assets/img/products/IG-201 BRN.jpg" alt="Indus Gold PU Sandal">
+                            <!-- 
+                              - Replaced 'h-48' with 'aspect-square'
+                              - Added 'rounded-t-lg' for the corners
+                            -->
+                            <img class="aspect-square w-full object-cover rounded-t-lg" src="assets/img/products/IG-201 BRN.jpg  " alt="Indus Gold PU Sandal">
                             <!-- Reduced padding from 'p-4' to 'p-3' -->
                             <div class="p-3">
                                 <h3 class="font-semibold text-gray-500 text-xs tracking-widest title-font mb-1">INDUS GOLD</h3>
@@ -591,7 +583,7 @@
                     <!-- Product Card 2: Induslite -->
                     <div class="bg-white rounded-lg shadow-md overflow-hidden transform hover:scale-105 transition-transform duration-300">
                         <a href="#">
-                            <img class="product-image rounded-t-lg" src="assets/img/products/DIPTI-02 C.GREEN.jpg" alt="Induslite Hawai Slipper">
+                            <img class="aspect-square w-full object-cover rounded-t-lg" src="assets/img/products/DIPTI-02 C.GREEN.jpg" alt="Induslite Hawai Slipper">
                             <div class="p-3">
                                 <h3 class="font-semibold text-gray-500 text-xs tracking-widest title-font mb-1">INDUSLITE</h3>
                                 <h2 class="text-base font-medium text-gray-900 mb-1">Women's Hawai Slipper</h2>
@@ -603,7 +595,7 @@
                     <!-- Product Card 3: Indus Prime -->
                     <div class="bg-white rounded-lg shadow-md overflow-hidden transform hover:scale-105 transition-transform duration-300">
                         <a href="#">
-                            <img class="product-image rounded-t-lg" src="assets/img/products/DEFENDER-08 BLACK.jpg" alt="Indus Prime Sneaker">
+                            <img class="aspect-square w-full object-cover rounded-t-lg" src="assets/img/products/DEFENDER-08 BLACK.jpg" alt="Indus Prime Sneaker">
                             <div class="p-3">
                                 <h3 class="font-semibold text-gray-500 text-xs tracking-widest title-font mb-1">INDUS PRIME</h3>
                                 <h2 class="text-base font-medium text-gray-900 mb-1">Unisex 'Prime' Sneaker (EVA)</h2>
@@ -615,7 +607,7 @@
                     <!-- Product Card 4: Indus Safety -->
                     <div class="bg-white rounded-lg shadow-md overflow-hidden transform hover:scale-105 transition-transform duration-300">
                         <a href="#">
-                            <img class="product-image rounded-t-lg" src="assets/img/products/ss-1.jpg" alt="Indus School Shoes">
+                            <img class="aspect-square w-full object-cover rounded-t-lg" src="assets/img/products/ss-1.jpg" alt="Indus  School Shoes">
                             <div class="p-3">
                                 <h3 class="font-semibold text-gray-500 text-xs tracking-widest title-font mb-1">INDUS SCHOOL</h3>
                                 <h2 class="text-base font-medium text-gray-900 mb-1">Kids School Shoes (PVC)</h2>
@@ -627,7 +619,7 @@
                     <!-- Product Card 5: Indus Originals -->
                     <div class="bg-white rounded-lg shadow-md overflow-hidden transform hover:scale-105 transition-transform duration-300">
                         <a href="#">
-                            <img class="product-image rounded-t-lg" src="assets/img/products/33580 BLACK.jpg" alt="Indus Originals Ladies PU">
+                            <img class="aspect-square w-full object-cover rounded-t-lg" src="assets/img/products/33580 BLACK.jpg" alt="Indus Originals Ladies PU">
                             <div class="p-3">
                                 <h3 class="font-semibold text-gray-500 text-xs tracking-widest title-font mb-1">INDUS ORIGINALS</h3>
                                 <h2 class="text-base font-medium text-gray-900 mb-1">Ladies' PU Wedge Sandal</h2>
@@ -639,35 +631,11 @@
                     <!-- Product Card 6: Induslite (Fabrication) -->
                     <div class="bg-white rounded-lg shadow-md overflow-hidden transform hover:scale-105 transition-transform duration-300">
                         <a href="#">
-                            <img class="product-image rounded-t-lg" src="assets/img/products/CIRCLE-01 BLACK.jpg" alt="Induslite Fabrication Sandal">
+                            <img class="aspect-square w-full object-cover rounded-t-lg" src="assets/img/products/CIRCLE-01 BLACK.jpg" alt="Induslite Fabrication Sandal">
                             <div class="p-3">
                                 <h3 class="font-semibold text-gray-500 text-xs tracking-widest title-font mb-1">INDUSLITE</h3>
                                 <h2 class="text-base font-medium text-gray-900 mb-1">Men's Fabrication Sandal</h2>
                                 <p class="text-gray-700 font-bold">₹369</p>
-                            </div>
-                        </a>
-                    </div>
-
-                     <!-- Product Card 7 -->
-                     <div class="bg-white rounded-lg shadow-md overflow-hidden transform hover:scale-105 transition-transform duration-300">
-                        <a href="#">
-                            <img class="product-image rounded-t-lg" src="assets/img/products/RHINO-01.jpg" alt="Safety Boot">
-                            <div class="p-3">
-                                <h3 class="font-semibold text-gray-500 text-xs tracking-widest title-font mb-1">INDUS SAFETY</h3>
-                                <h2 class="text-base font-medium text-gray-900 mb-1">Steel Toe Safety Boot</h2>
-                                <p class="text-gray-700 font-bold">₹369</p>
-                            </div>
-                        </a>
-                    </div>
-
-                     <!-- Product Card 8 -->
-                     <div class="bg-white rounded-lg shadow-md overflow-hidden transform hover:scale-105 transition-transform duration-300">
-                        <a href="#">
-                            <img class="product-image rounded-t-lg" src="assets/img/products/ss-2.jpg" alt="School Shoe">
-                            <div class="p-3">
-                                <h3 class="font-semibold text-gray-500 text-xs tracking-widest title-font mb-1">INDUS SCHOOL</h3>
-                                <h2 class="text-base font-medium text-gray-900 mb-1">White School Shoe</h2>
-                                <p class="text-gray-700 font-bold">₹239</p>
                             </div>
                         </a>
                     </div>
@@ -750,7 +718,7 @@
                         </a>
                         <a href="#" class="text-gray-500 hover:text-cyan-600 transition-colors duration-300" aria-label="YouTube">
                             <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                                <path fill-rule="evenodd" d="M21.582 7.188c-.218-.813-.882-1.477-1.695-1.695C18.265 5 12 5 12 5s-6.265 0-7.887.493c-.813.218-1.477.882-1.695 1.695C2 8.81 2 12 2 12s0 3.19.493 4.812c.218.813.882 1.477 1.695 1.695C5.735 19 12 19 12 19s6.265 0 7.887-.493c.813-.218 1.477-.882 1.695-1.695C22 15.19 22 12 22 12s0-3.19-.418-4.812zM9.75 15.5V8.5l6 3.5-6 3.5z" clip-rule="evenodd" />
+                                <path fill-rule="evenodd" d="M21.582 7.188c-.218-.813-.882-1.477-1.695-1.695C18.265 5 12 5 12 5s-6.265 0-7.887.493c-.813.218-1.477.882-1.695 1.695C2 8.81 2 12 2 12s0 3.19.493 4.812c.218.813.882 1.477 1.695 1.695C5.735 19 12 19 12 19s6.265 0 7.887-.493c.813-.218 1.477.882 1.695-1.695C22 15.19 22 12 22 12s0-3.19-.418-4.812zM9.75 15.5V8.5l6 3.5-6 3.5z" clip-rule="evenodd" />
                             </svg>
                         </a>
                     </div>
