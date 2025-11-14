@@ -175,13 +175,13 @@
         }
         .carousel-slide img {
             width: 100%;
-            height: 200px; /* Default height for mobile */
-            object-fit: cover; /* Will still cover the area, but in a defined box */
+            height: auto; /* This will use the image's natural height and stop all cutting */
+            /* object-fit: cover; REMOVED */
         }
         
         @media (min-width: 768px) { /* Tailwind's 'md' breakpoint */
              .carousel-slide img {
-                height: 400px; /* Taller height for desktop */
+                height: auto; /* This will use the image's natural height and stop all cutting */
              }
         }
 
