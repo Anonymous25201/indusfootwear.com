@@ -1,0 +1,489 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Us - Indus Footwear</title>
+    <!-- Load Tailwind CSS from CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Load Heroicons for filter/menu icons -->
+    <script type="module" src="https://unpkg.com/heroicons@2.0.13/dist/solid/index.js"></script>
+    <script type="module" src="https://unpkg.com/heroicons@2.0.13/dist/outline/index.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* Use Inter font family */
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        
+        /* --- Custom Cursor Effect --- */
+        /* Hide the default OS cursor */
+        body, a[href], button, .cursor-pointer {
+            cursor: none !important; 
+        }
+
+        /* Hide custom cursor on mobile/touch devices */
+        @media (hover: none) {
+            body, a[href], button, .cursor-pointer {
+                cursor: auto !important; /* Restore default cursor */
+            }
+            #cursor-dot, #cursor-outline {
+                display: none !important;
+            }
+        }
+
+        /* The inner "full" dot */
+        #cursor-dot {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 8px;
+            height: 8px;
+            background-color: rgba(22, 163, 163, 0.8); /* Solid cyan */
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 9999;
+            transform: translate(-50%, -50%); /* Centering */
+            transition: top 0.1s ease-out, left 0.1s ease-out, width 0.3s ease, height 0.3s ease, background-color 0.3s ease, transform 0.3s ease;
+        }
+
+        /* The outer "empty" circle */
+        #cursor-outline {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 40px;
+            height: 40px;
+            background-color: transparent; /* Empty */
+            border: 2px solid rgba(22, 163, 163, 0.5); /* Cyan border */
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 9999;
+            transform: translate(-50%, -50%); /* Centering */
+            /* Slower transition for a nice "lag" effect */
+            transition: top 0.2s ease-out, left 0.2s ease-out, width 0.3s ease, height 0.3s ease, background-color 0.3s ease, border-color 0.3s ease, transform 0.3s ease;
+        }
+
+        /* When hovering over clickable things */
+        #cursor-dot.hover-link {
+            width: 6px; /* Dot gets smaller */
+            height: 6px;
+        }
+        #cursor-outline.hover-link {
+            width: 60px; /* Outline gets bigger */
+            height: 60px;
+            background-color: rgba(22, 163, 163, 0.1); /* Fills with color */
+            border-color: rgba(22, 163, 163, 0.0); /* Hides border */
+        }
+
+        /* The "click" animation - combines centering with scale */
+        #cursor-dot.clicked {
+            transform: translate(-50%, -50%) scale(1.5); /* Dot pulses */
+        }
+        #cursor-outline.clicked {
+            transform: translate(-50%, -50%) scale(0.9); /* Outline squishes */
+        }
+        /* --- End Custom Cursor Effect --- */
+        
+        /* --- Text Shadow for Gender Cards --- */
+        .text-shadow-heavy {
+            text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.7);
+        }
+        /* --- End Text Shadow --- */
+
+        /* Additional style for simple page content */
+        .content-section p {
+            margin-bottom: 1.5rem;
+            line-height: 1.75;
+        }
+        .content-section h2 {
+            font-size: 1.875rem; /* text-3xl */
+            font-weight: 700; /* bold */
+            color: #1f2937; /* gray-800 */
+            margin-bottom: 1.5rem; /* mb-6 */
+            padding-bottom: 0.5rem; /* pb-2 */
+            border-bottom: 2px solid #e5e7eb; /* border-gray-200 */
+        }
+         .content-section h3 {
+            font-size: 1.5rem; /* text-2xl */
+            font-weight: 600; /* semibold */
+            color: #1f2937; /* gray-800 */
+            margin-top: 2rem; /* mt-8 */
+            margin-bottom: 1rem; /* mb-4 */
+        }
+        .content-section ul {
+            list-style-type: none;
+            padding-left: 0;
+        }
+        .content-section li {
+            position: relative;
+            padding-left: 1.75rem; /* pl-7 */
+            margin-bottom: 0.75rem; /* mb-3 */
+            font-size: 1.125rem; /* text-lg */
+            color: #374151; /* gray-700 */
+        }
+        /* Custom bullet */
+        .content-section li::before {
+            content: '✓'; /* Checkmark */
+            position: absolute;
+            left: 0;
+            top: 0.125rem; /* 2px */
+            color: #0d9488; /* cyan-600 */
+            font-weight: 700;
+        }
+
+    </style>
+</head>
+<body class="bg-teal-50">
+
+    <!-- ===== Custom Cursor Follower ===== -->
+    <div id="cursor-dot"></div>
+    <div id="cursor-outline"></div>
+    <!-- =================================== -->
+
+    <!-- Header / Navigation -->
+    <nav class="bg-white shadow-md sticky top-0 z-50">
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-20"> <!-- Increased header height -->
+                <!-- Logo -->
+                <div class="flex-shrink-0 flex items-center">
+                    <a href="index.html">
+                        <img class="h-14 w-auto" src="assets/img/indus-logo.png" alt="Indus Footwear"> <!-- Increased logo size -->
+                    </a>
+                </div>
+
+                <!-- Desktop Navigation -->
+                <div class="hidden sm:ml-6 sm:flex sm:space-x-8 items-center">
+                    <a href="index.html" class="inline-flex items-center px-1 pt-1 border-b-2 border-transparent text-sm font-medium text-gray-500 hover:border-cyan-500 hover:text-gray-900 transition-all duration-300">Home</a>
+                    
+                    <!-- Shop Dropdown (Mega Menu) -->
+                    <div class="relative group">
+                        <!-- Trigger -->
+                        <div class="inline-flex items-center px-1 pt-1 border-b-2 border-transparent text-sm font-medium text-gray-500 group-hover:border-cyan-500 group-hover:text-gray-900 transition-all duration-300 cursor-default">
+                            <span>Shop</span>
+                            <svg class="ml-1 h-5 w-5 text-gray-400 group-hover:text-gray-500 transition-all duration-300" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                                <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />
+                            </svg>
+                        </div>
+                        
+                        <!-- Dropdown Panel -->
+                        <div class="absolute left-0 z-10 mt-0 w-auto bg-white shadow-lg rounded-md hidden group-hover:block ring-1 ring-black ring-opacity-5 opacity-0 group-hover:opacity-100 transition-all ease-in-out duration-150">
+                            <div class="flex">
+                                <!-- Men Column -->
+                                <div class="p-4 border-r border-gray-100">
+                                    <h3 class="font-semibold text-gray-900 mb-2">Men</h3>
+                                    <a href="men.html#pu-slippers" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900 rounded-md">PU Slippers</a>
+                                    <a href="men.html#eva" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900 rounded-md">EVA (Sports, Sliders)</a>
+                                    <a href="men.html#hawai" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900 rounded-md">Hawai & Fabrication</a>
+                                    <a href="safety-shoes.html" class="block px-4 py-2 text-sm text-cyan-600 font-semibold hover:bg-gray-100 hover:text-cyan-700 rounded-md">Safety Shoes</a>
+                                </div>
+                                <!-- Women Column -->
+                                <div class="p-4 border-r border-gray-100">
+                                    <h3 class="font-semibold text-gray-900 mb-2">Women</h3>
+                                    <a href="women.html#pu-slippers" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900 rounded-md">PU Slippers</a>
+                                    <a href="women.html#eva" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900 rounded-md">EVA (Sandals, Sliders)</a>
+                                    <a href="women.html#hawai" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900 rounded-md">Hawai Slippers</a>
+                                </div>
+                                <!-- Kids Column -->
+                                <div class="p-4">
+                                    <h3 class="font-semibold text-gray-900 mb-2">Kids</h3>
+                                    <a href="school-shoes.html" class="block px-4 py-2 text-sm text-cyan-600 font-semibold hover:bg-gray-100 hover:text-cyan-700 rounded-md">School Shoes</a>
+                                    <a href="kids.html#pu-slippers" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900 rounded-md">PU Slippers</a>
+                                    <a href="kids.html#eva" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900 rounded-md">EVA (Sports, Sliders)</a>
+                                    <a href="kids.html#hawai" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900 rounded-md">Hawai Slippers</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Brands Dropdown -->
+                    <div class="relative group">
+                        <!-- Trigger -->
+                        <div class="inline-flex items-center px-1 pt-1 border-b-2 border-transparent text-sm font-medium text-gray-500 group-hover:border-cyan-500 group-hover:text-gray-900 transition-all duration-300 cursor-default">
+                            <span>Brands</span>
+                            <svg class="ml-1 h-5 w-5 text-gray-400 group-hover:text-gray-500 transition-all duration-300" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                                <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />
+                            </svg>
+                        </div>
+                        <!-- Dropdown Panel -->
+                        <div class="absolute left-0 z-10 mt-0 w-48 bg-white shadow-lg rounded-md hidden group-hover:block ring-1 ring-black ring-opacity-5 opacity-0 group-hover:opacity-100 transition-all ease-in-out duration-150">
+                            <div class="py-1">
+                                <a href="indus-gold.html" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900">Indus Gold</a>
+                                <a href="indus-lite.html" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900">Induslite</a>
+                                <a href="indus-prime.html" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900">Indus Prime</a>
+                                <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900">Indus Originals</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <a href="about.html" class="inline-flex items-center px-1 pt-1 border-b-2 border-cyan-500 text-sm font-medium text-gray-900 transition-all duration-300">About Us</a>
+                    <a href="contact.html" class="inline-flex items-center px-1 pt-1 border-b-2 border-transparent text-sm font-medium text-gray-500 hover:border-cyan-500 hover:text-gray-900 transition-all duration-300">Contact Us</a>
+                    
+                    <!-- Updated Enquire Now Button -->
+                    <a href="https://wa.me/910000000000" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 bg-cyan-600 text-white px-5 py-2 rounded-full font-semibold hover:bg-cyan-700 transition-all duration-300 shadow-lg ml-4">
+                        <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                           <path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91C2.13 13.66 2.59 15.36 3.43 16.88L2.06 21.94L7.31 20.61C8.79 21.39 10.38 21.82 12.04 21.82C17.5 21.82 21.95 17.37 21.95 11.91C21.95 6.45 17.5 2 12.04 2ZM17.22 15.28C16.99 15.79 16.08 16.26 15.52 16.32C15.02 16.38 14.34 16.42 13.91 16.27C13.48 16.11 12.83 15.86 12.23 15.54C11.02 14.87 10.03 13.91 9.21 12.8C8.78 12.21 8.44 11.56 8.3 11.07C8.16 10.58 8.18 10.14 8.28 9.77C8.4 9.32 8.65 9.04 8.95 8.78C9.25 8.52 9.56 8.42 9.86 8.42C10.16 8.42 10.42 8.42 10.63 8.42C10.82 8.42 10.98 8.41 11.13 8.81C11.3 9.23 11.66 10.15 11.72 10.29C11.78 10.43 11.8 10.6 11.73 10.74C11.65 10.88 11.58 10.97 11.43 11.13C11.27 11.31 11.13 11.46 11.02 11.6C10.9 11.75 10.8 11.88 11.01 12.13C11.21 12.36 11.67 13.04 12.32 13.6C13.08 14.26 13.72 14.56 13.97 14.73C14.23 14.91 14.36 14.85 14.53 14.68C14.68 14.53 14.88 14.27 15.11 14.02C15.36 13.75 15.63 13.68 15.89 13.76C16.14 13.84 17.02 14.28 17.2 14.47C17.38 14.66 17.47 14.8 17.5 14.94C17.53 15.08 17.45 15.28 17.22 15.28Z"/>
+                        </svg>
+                        Enquire Now
+                    </a>
+                </div>
+
+                <!-- Mobile Menu Button -->
+                <div class="flex items-center sm:hidden"> <!-- Wrapper for mobile menu button -->
+                    <button type="button" id="mobile-menu-button" class="ml-3 p-2 rounded-md text-gray-400 hover:text-gray-500 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-cyan-500">
+                        <svg class="h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mobile Menu (hidden by default) -->
+        <div class="sm:hidden hidden" id="mobile-menu">
+            <div class="pt-2 pb-3 space-y-1">
+                <a href="index.html" class="block pl-3 pr-4 py-2 border-l-4 border-transparent text-base font-medium text-gray-500 hover:bg-gray-50 hover:border-gray-300 hover:text-gray-700">Home</a>
+                
+                <!-- Shop Section -->
+                <div class="pt-2">
+                    <span class="block pl-3 pr-4 py-2 border-l-4 border-transparent text-base font-medium text-gray-500">Shop</span>
+                    <div class="mt-1 space-y-1" role="menu" aria-orientation="vertical">
+                        <!-- Men Sub-menu -->
+                        <span class="block pl-8 pr-4 py-2 text-base font-medium text-gray-800">Men</span>
+                        <div class="mt-1 space-y-1" role="menu" aria-orientation="vertical">
+                            <a href="men.html#pu-slippers" class="block pl-12 pr-4 py-2 text-base font-medium text-gray-600 hover:bg-gray-50 hover:text-gray-800" role="menuitem">PU Slippers</a>
+                            <a href="men.html#eva" class="block pl-12 pr-4 py-2 text-base font-medium text-gray-600 hover:bg-gray-50 hover:text-gray-800" role="menuitem">EVA (Sports, Sliders)</a>
+                            <a href="men.html#hawai" class="block pl-12 pr-4 py-2 text-base font-medium text-gray-600 hover:bg-gray-50 hover:text-gray-800" role="menuitem">Hawai & Fabrication</a>
+                            <a href="safety-shoes.html" class="block pl-12 pr-4 py-2 text-base font-medium text-cyan-600 hover:bg-gray-50 hover:text-cyan-700" role="menuitem">Safety Shoes</a>
+                        </div>
+                        <!-- Women Sub-menu -->
+                        <span class="block pl-8 pr-4 py-2 text-base font-medium text-gray-800 mt-2">Women</span>
+                        <div class="mt-1 space-y-1" role="menu" aria-orientation="vertical">
+                            <a href="women.html#pu-slippers" class="block pl-12 pr-4 py-2 text-base font-medium text-gray-600 hover:bg-gray-50 hover:text-gray-800" role="menuitem">PU Slippers</a>
+                            <a href="women.html#eva" class="block pl-12 pr-4 py-2 text-base font-medium text-gray-600 hover:bg-gray-50 hover:text-gray-800" role="menuitem">EVA (Sandals, Sliders)</a>
+                            <a href="women.html#hawai" class="block pl-12 pr-4 py-2 text-base font-medium text-gray-600 hover:bg-gray-50 hover:text-gray-800" role="menuitem">Hawai Slippers</a>
+                        </div>
+                        <!-- Kids Sub-menu -->
+                        <span class="block pl-8 pr-4 py-2 text-base font-medium text-gray-800 mt-2">Kids</span>
+                        <div class="mt-1 space-y-1" role="menu" aria-orientation="vertical">
+                            <a href="school-shoes.html" class="block pl-12 pr-4 py-2 text-base font-medium text-cyan-600 hover:bg-gray-50 hover:text-cyan-700" role="menuitem">School Shoes</a>
+                            <a href="kids.html#pu-slippers" class="block pl-12 pr-4 py-2 text-base font-medium text-gray-600 hover:bg-gray-50 hover:text-gray-800" role="menuitem">PU Slippers</a>
+                            <a href="kids.html#eva" class="block pl-12 pr-4 py-2 text-base font-medium text-gray-600 hover:bg-gray-50 hover:text-gray-800" role="menuitem">EVA (Sports, Sliders)</a>
+                            <a href="kids.html#hawai" class="block pl-12 pr-4 py-2 text-base font-medium text-gray-600 hover:bg-gray-50 hover:text-gray-800" role="menuitem">Hawai Slippers</a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Brands Section -->
+                <div class="pt-2">
+                    <span class="block pl-3 pr-4 py-2 border-l-4 border-transparent text-base font-medium text-gray-500">Brands</span>
+                    <div class="mt-1 space-y-1" role="menu" aria-orientation="vertical">
+                        <a href="indus-gold.html" class="block pl-8 pr-4 py-2 text-base font-medium text-gray-600 hover:bg-gray-50 hover:text-gray-800" role="menuitem">Indus Gold</a>
+                        <a href="indus-lite.html" class="block pl-8 pr-4 py-2 text-base font-medium text-gray-600 hover:bg-gray-50 hover:text-gray-800" role="menuitem">Induslite</a>
+                        <a href="indus-prime.html" class="block pl-8 pr-4 py-2 text-base font-medium text-gray-600 hover:bg-gray-50 hover:text-gray-800" role="menuitem">Indus Prime</a>
+                        <a href="#" class="block pl-8 pr-4 py-2 text-base font-medium text-gray-600 hover:bg-gray-50 hover:text-gray-800" role="menuitem">Indus Originals</a>
+                    </div>
+                </div>
+
+                <a href="about.html" class="block pl-3 pr-4 py-2 border-l-4 border-cyan-500 bg-cyan-50 text-base font-medium text-cyan-700">About Us</a>
+                <a href="contact.html" class="block pl-3 pr-4 py-2 border-l-4 border-transparent text-base font-medium text-gray-500 hover:bg-gray-50 hover:border-gray-300 hover:text-gray-700">Contact Us</a>
+                
+                <!-- Updated Mobile Enquire Now Button -->
+                <a href="https://wa.me/910000000000" target="_blank" rel="noopener noreferrer" class="flex items-center justify-center gap-2 w-full text-left bg-cyan-600 text-white px-4 py-3 rounded-md font-semibold hover:bg-cyan-700 transition-all duration-300 mt-2">
+                    <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                       <path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91C2.13 13.66 2.59 15.36 3.43 16.88L2.06 21.94L7.31 20.61C8.79 21.39 10.38 21.82 12.04 21.82C17.5 21.82 21.95 17.37 21.95 11.91C21.95 6.45 17.5 2 12.04 2ZM17.22 15.28C16.99 15.79 16.08 16.26 15.52 16.32C15.02 16.38 14.34 16.42 13.91 16.27C13.48 16.11 12.83 15.86 12.23 15.54C11.02 14.87 10.03 13.91 9.21 12.8C8.78 12.21 8.44 11.56 8.3 11.07C8.16 10.58 8.18 10.14 8.28 9.77C8.4 9.32 8.65 9.04 8.95 8.78C9.25 8.52 9.56 8.42 9.86 8.42C10.16 8.42 10.42 8.42 10.63 8.42C10.82 8.42 10.98 8.41 11.13 8.81C11.3 9.23 11.66 10.15 11.72 10.29C11.78 10.43 11.8 10.6 11.73 10.74C11.65 10.88 11.58 10.97 11.43 11.13C11.27 11.31 11.13 11.46 11.02 11.6C10.9 11.75 10.8 11.88 11.01 12.13C11.21 12.36 11.67 13.04 12.32 13.6C13.08 14.26 13.72 14.56 13.97 14.73C14.23 14.91 14.36 14.85 14.53 14.68C14.68 14.53 14.88 14.27 15.11 14.02C15.36 13.75 15.63 13.68 15.89 13.76C16.14 13.84 17.02 14.28 17.2 14.47C17.38 14.66 17.47 14.8 17.5 14.94C17.53 15.08 17.45 15.28 17.22 15.28Z"/>
+                    </svg>
+                    <span>Enquire Now</span>
+                </a>
+            </div>
+        </div>
+    </nav>
+    
+    <!-- Main Content Area -->
+    <div class="container mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        
+        <!-- Main Content -->
+        <!-- FIX: Changed 'class_alias' to 'class' to apply styles -->
+        <div class="bg-white rounded-lg shadow-lg p-6 md:p-10 content-section max-w-4xl mx-auto">
+            
+            <!-- Page Title -->
+            <h1 class="text-4xl font-bold text-gray-800 mb-6">About Indus Footwear</h1>
+
+            <!-- Our History Section -->
+            <h2>Our History</h2>
+            <p class="text-gray-700 text-lg">
+                Founded in 1999 in Khairthal, Rajasthan, by Mr. Mahesh Kumar Chachlani, Indus Footwear began with a focus on slipper distribution, starting with a small team and basic resources. Over time, we expanded our operations and adopted advanced machinery to improve our manufacturing capabilities.
+            </p>
+            <p class="text-gray-700 text-lg">
+                In 2011, we introduced a new line of men's footwear, marking a key phase in our growth. We expanded internationally, particularly into the Middle East, while maintaining a strong presence in India. 
+            </p>
+
+            <!-- Our Vision Section -->
+            <h2>Our Vision & Mission</h2>
+            <p class="text-gray-700 text-lg">
+                Today, we serve markets in the Middle East, Africa, and India, with plans for further global expansion. We aim to become one of India's largest footwear brands, delivering high-quality, comfortable, and durable footwear. 
+            </p>
+            <p class="text-gray-700 text-lg">
+                We prioritize innovation, sustainable practices, and meeting diverse customer needs, all while continuing to push boundaries in the footwear industry.
+            </p>
+
+            <!-- Board of Directors Section -->
+            <h2>Our Board of Directors</h2>
+            <p class="text-gray-700 text-lg">
+                Indus Footwear is led by a dynamic and experienced Board of Directors, responsible for guiding the company’s strategic growth and vision.
+            </p>
+            <ul class="text-gray-700 text-lg">
+                <li><strong>Mr. Mahesh Kumar Chachlani</strong> - Managing Director</li>
+                <li><strong>CA S.L. Agrawal</strong> – CEO & Executive Director</li>
+                <li><strong>Mr. Sachin Chachlani</strong> – Whole Time Director</li>
+                <li><strong>Mr. Anil Chachlani</strong> – Whole Time Director</li>
+                <li><strong>Mr. Nikhil Chachlani</strong> – International Sales Director</li>
+            </ul>
+            <p class="text-gray-700 text-lg mt-6">
+                The Board’s focus on innovation, quality, and market expansion has positioned Indus Footwear as a leading player in India’s footwear industry, with a strong presence in international markets such as the Middle East and Africa.
+            </p>
+
+        </div>
+
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-white border-t border-gray-200 mt-12"> <!-- LIGHT FOOTER -->
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8 py-8"> <!-- Reduced padding from py-12 to py-8 -->
+            
+            <div class="flex justify-start mb-8"> <!-- Aligned logo left -->
+                <img class="h-16 w-auto" src="assets/img/indus-logo.png" alt="Indus Footwear"> <!-- Increased logo size -->
+            </div>
+            
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-8">
+                <div>
+                    <!-- Updated text colors to be dark -->
+                    <h3 class="text-sm font-semibold text-cyan-600 tracking-wider uppercase">Shop by Gender</h3>
+                    <ul class="mt-4 space-y-4">
+                        <li><a href="men.html" class="text-base text-gray-600 hover:text-gray-900">Men</a></li>
+                        <li><a href="women.html" class="text-base text-gray-600 hover:text-gray-900">Women</a></li>
+                        <li><a href="kids.html" class="text-base text-gray-600 hover:text-gray-900">Kids</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <!-- Updated text colors to be dark -->
+                    <h3 class="text-sm font-semibold text-cyan-600 tracking-wider uppercase">Shop by Brand</h3>
+                    <ul class="mt-4 space-y-4">
+                        <li><a href="indus-gold.html" class="text-base text-gray-600 hover:text-gray-900">Indus Gold</a></li>
+                        <li><a href="indus-lite.html" class="text-base text-gray-600 hover:text-gray-900">Induslite</a></li>
+                        <li><a href="indus-prime.html" class="text-base text-gray-600 hover:text-gray-900">Indus Prime</a></li>
+                        <li><a href="#" class="text-base text-gray-600 hover:text-gray-900">Indus Originals</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <!-- Updated text colors to be dark -->
+                    <h3 class="text-sm font-semibold text-cyan-600 tracking-wider uppercase">Support</h3>
+                    <ul class="mt-4 space-y-4">
+                        <li><a href="contact.html" class="text-base text-gray-600 hover:text-gray-900">Contact Us</a></li>
+                        <li><a href="#" class="text-base text-gray-600 hover:text-gray-900">FAQ</a></li>
+                        <li><a href="#" class="text-base text-gray-600 hover:text-gray-900">Shipping & Returns</a></li>
+                        <li><a href="#" class="text-base text-gray-600 hover:text-gray-900">Track Order</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <!-- Updated text colors to be dark -->
+                    <h3 class="text-sm font-semibold text-cyan-600 tracking-wider uppercase">Company</h3>
+                    <ul class="mt-4 space-y-4">
+                        <li><a href="about.html" class="text-base text-gray-600 hover:text-gray-900">About Us</a></li>
+                        <!-- Removed Careers and Store Locator -->
+                    </ul>
+                </div>
+                <div>
+                    <!-- Updated text colors to be dark -->
+                    <h3 class="text-sm font-semibold text-cyan-600 tracking-wider uppercase">Follow Us</h3>
+                    <div class="flex space-x-6 mt-4">
+                        <!-- Social Icons -->
+                        <a href="#" class="text-gray-500 hover:text-cyan-600">
+                            <span class="sr-only">Facebook</span>
+                            <svg class="h-6 w-6" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                                <path fill-rule="evenodd" d="M22 12c0-5.523-4.477-10-10-10S2 6.477 2 12c0 4.991 3.657 9.128 8.438 9.878v-6.987h-2.54V12h2.54V9.797c0-2.506 1.492-3.89 3.777-3.89 1.094 0 2.238.195 2.238.195v2.46h-1.26c-1.243 0-1.63.772-1.63 1.562V12h2.773l-.443 2.89h-2.33v6.988C18.343 21.128 22 16.991 22 12z" clip-rule="evenodd" />
+                            </svg>
+                        </a>
+                        <a href="#" class="text-gray-500 hover:text-cyan-600">
+                            <span class="sr-only">Instagram</span>
+                            <svg class="h-6 w-6" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                                <path fill-rule="evenodd" d="M12 2C6.477 2 2 6.477 2 12s4.477 10 10 10 10-4.477 10-10S17.523 2 12 2zm0 16c-3.314 0-6-2.686-6-6s2.686-6 6-6 6 2.686 6 6-2.686 6-6 6zm0-10c-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4-1.79-4-4-4zm6.5-3c-.828 0-1.5.672-1.5 1.5s.672 1.5 1.5 1.5 1.5-.672 1.5-1.5-.672-1.5-1.5-1.5z" clip-rule="evenodd" />
+                            </svg>
+                        </a>
+                        <a href="#" class="text-gray-500 hover:text-cyan-600 transition-colors duration-300" aria-label="LinkedIn">
+                            <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                                <path fill-rule="evenodd" d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-1.339-.024-3.068-1.868-3.068-1.869 0-2.156 1.459-2.156 2.97v5.699h-3v-11h2.887v1.328h.04c.402-.761 1.383-1.551 2.847-1.551 3.045 0 3.608 1.999 3.608 4.59v6.633z" clip-rule="evenodd" />
+                            </svg>
+                        </a>
+                        <a href="#" class="text-gray-500 hover:text-cyan-600 transition-colors duration-300" aria-label="YouTube">
+                            <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                                <path fill-rule="evenodd" d="M21.582 7.188c-.218-.813-.882-1.477-1.695-1.695C18.265 5 12 5 12 5s-6.265 0-7.887.493c-.813.218-1.477.882-1.695 1.695C2 8.81 2 12 2 12s0 3.19.493 4.812c.218.813.882 1.477 1.695 1.695C5.735 19 12 19 12 19s6.265 0 7.887-.493c.813-.218 1.477-.882 1.695-1.695C22 15.19 22 12 22 12s0-3.19-.418-4.812zM9.75 15.5V8.5l6 3.5-6 3.5z" clip-rule="evenodd" />
+                            </svg>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="mt-8 border-t border-gray-200 pt-8 text-center"> <!-- Updated border color -->
+                <p class="text-base text-gray-500">&copy; 2024 Indus Footprints Limited. All rights reserved.</p> <!-- Updated text color -->
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Mobile menu toggle
+        const mobileMenuButton = document.getElementById('mobile-menu-button');
+        const mobileMenu = document.getElementById('mobile-menu');
+        if (mobileMenuButton && mobileMenu) {
+            mobileMenuButton.addEventListener('click', () => {
+                mobileMenu.classList.toggle('hidden');
+            });
+        }
+
+        // --- Custom Cursor Follower Logic ---
+        const cursorDot = document.getElementById('cursor-dot');
+        const cursorOutline = document.getElementById('cursor-outline');
+        
+        // 1. Move the followers
+        window.addEventListener('mousemove', (e) => {
+            if (cursorDot) {
+                // Use left/top to set position, CSS transform will handle centering
+                cursorDot.style.left = `${e.clientX}px`;
+                cursorDot.style.top = `${e.clientY}px`;
+            }
+            if (cursorOutline) {
+                // Use left/top to set position, CSS transform will handle centering
+                cursorOutline.style.left = `${e.clientX}px`;
+                cursorOutline.style.top = `${e.clientY}px`;
+            }
+        });
+
+        // 2. Animate on click
+        window.addEventListener('mousedown', () => {
+            if (cursorDot) cursorDot.classList.add('clicked');
+            if (cursorOutline) cursorOutline.classList.add('clicked');
+        });
+        window.addEventListener('mouseup', () => {
+            if (cursorDot) cursorDot.classList.remove('clicked');
+            if (cursorOutline) cursorOutline.classList.remove('clicked');
+        });
+
+        // 3. Animate on hover over links/buttons
+        const clickableElements = document.querySelectorAll(
+            'a, button, .cursor-pointer, input[type="checkbox"], select'
+        );
+
+        clickableElements.forEach(el => {
+            el.addEventListener('mouseenter', () => {
+                if (cursorDot) cursorDot.classList.add('hover-link');
+                if (cursorOutline) cursorOutline.classList.add('hover-link');
+            });
+            el.addEventListener('mouseleave', () => {
+                if (cursorDot) cursorDot.classList.remove('hover-link');
+                if (cursorOutline) cursorOutline.classList.remove('hover-link');
+            });
+        });
+
+    </script>
+
+</body>
+</html>
