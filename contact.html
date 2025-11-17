@@ -6,9 +6,6 @@
     <title>Contact Us - Indus Footwear</title>
     <!-- Load Tailwind CSS from CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
-    <!-- Load Heroicons for filter/menu icons -->
-    <script type="module" src="https://unpkg.com/heroicons@2.0.13/dist/solid/index.js"></script>
-    <script type="module" src="https://unpkg.com/heroicons@2.0.13/dist/outline/index.js"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style>
         /* Use Inter font family */
@@ -16,82 +13,193 @@
             font-family: 'Inter', sans-serif;
         }
         
+        /* Preloader Logo Animation */
+        @keyframes growOutward {
+            from {
+                opacity: 0;
+                transform: scale(0.5);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+        .logo-preloader {
+            animation: growOutward 0.8s ease-out forwards;
+        }
+
+        /* --- Brand Card Ripple Effect --- */
+        .brand-card {
+            position: relative;
+            overflow: hidden;
+        }
+        .brand-card::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 100px;
+            height: 100px;
+            background: rgba(22, 163, 163, 0.1); 
+            border-radius: 50%;
+            transform: translate(-50%, -50%) scale(0);
+            opacity: 0;
+            transition: transform 0.4s ease-out, opacity 0.4s ease-out;
+            z-index: 1;
+        }
+        .brand-card:hover::before {
+            transform: translate(-50%, -50%) scale(3.5);
+            opacity: 1;
+            animation: fade-out-ripple 0.5s 0.2s forwards;
+        }
+        .brand-card > * {
+             position: relative;
+             z-index: 2; 
+        }
+        @keyframes fade-out-ripple {
+            to {
+                opacity: 0;
+            }
+        }
+        /* --- End Brand Card Effect --- */
+
         /* --- Custom Cursor Effect --- */
-        /* Hide the default OS cursor */
         body, a[href], button, .cursor-pointer {
             cursor: none !important; 
         }
-
-        /* Hide custom cursor on mobile/touch devices */
         @media (hover: none) {
             body, a[href], button, .cursor-pointer {
-                cursor: auto !important; /* Restore default cursor */
+                cursor: auto !important;
             }
             #cursor-dot, #cursor-outline {
                 display: none !important;
             }
         }
-
-        /* The inner "full" dot */
         #cursor-dot {
             position: fixed;
             top: 0;
             left: 0;
             width: 8px;
             height: 8px;
-            background-color: rgba(22, 163, 163, 0.8); /* Solid cyan */
+            background-color: rgba(22, 163, 163, 0.8);
             border-radius: 50%;
             pointer-events: none;
             z-index: 9999;
-            transform: translate(-50%, -50%); /* Centering */
+            transform: translate(-50%, -50%);
             transition: top 0.1s ease-out, left 0.1s ease-out, width 0.3s ease, height 0.3s ease, background-color 0.3s ease, transform 0.3s ease;
         }
-
-        /* The outer "empty" circle */
         #cursor-outline {
             position: fixed;
             top: 0;
             left: 0;
             width: 40px;
             height: 40px;
-            background-color: transparent; /* Empty */
-            border: 2px solid rgba(22, 163, 163, 0.5); /* Cyan border */
+            background-color: transparent;
+            border: 2px solid rgba(22, 163, 163, 0.5);
             border-radius: 50%;
             pointer-events: none;
             z-index: 9999;
-            transform: translate(-50%, -50%); /* Centering */
-            /* Slower transition for a nice "lag" effect */
+            transform: translate(-50%, -50%);
             transition: top 0.2s ease-out, left 0.2s ease-out, width 0.3s ease, height 0.3s ease, background-color 0.3s ease, border-color 0.3s ease, transform 0.3s ease;
         }
-
-        /* When hovering over clickable things */
         #cursor-dot.hover-link {
-            width: 6px; /* Dot gets smaller */
+            width: 6px;
             height: 6px;
         }
         #cursor-outline.hover-link {
-            width: 60px; /* Outline gets bigger */
+            width: 60px;
             height: 60px;
-            background-color: rgba(22, 163, 163, 0.1); /* Fills with color */
-            border-color: rgba(22, 163, 163, 0.0); /* Hides border */
+            background-color: rgba(22, 163, 163, 0.1);
+            border-color: rgba(22, 163, 163, 0.0);
         }
-
-        /* The "click" animation - combines centering with scale */
         #cursor-dot.clicked {
-            transform: translate(-50%, -50%) scale(1.5); /* Dot pulses */
+            transform: translate(-50%, -50%) scale(1.5);
         }
         #cursor-outline.clicked {
-            transform: translate(-50%, -50%) scale(0.9); /* Outline squishes */
+            transform: translate(-50%, -50%) scale(0.9);
         }
         /* --- End Custom Cursor Effect --- */
-        
-        /* --- Text Shadow for Gender Cards --- */
+
+        /* --- Auto-height Carousel Section (for consistency) --- */
+        .carousel-container {
+            position: relative;
+            width: 100%;
+            margin-bottom: 3rem;
+            overflow: hidden;
+            border-radius: 0.5rem;
+            box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+            transition: height 0.5s ease-in-out;
+        }
+        .carousel-slider {
+            display: flex;
+            transition: transform 0.7s ease-in-out;
+        }
+        .carousel-slide {
+            flex-shrink: 0;
+            width: 100%;
+            position: relative;
+        }
+        .carousel-slide img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+        .carousel-dots {
+            position: absolute;
+            bottom: 1.25rem;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 0.5rem;
+            z-index: 10;
+        }
+        .carousel-dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background-color: rgba(255, 255, 255, 0.5);
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        .carousel-dot.active {
+            background-color: #ffffff;
+        }
+        /* --- End Auto-height Carousel Section --- */
+
+        /* --- Text Shadow (for consistency) --- */
         .text-shadow-heavy {
             text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.7);
         }
         /* --- End Text Shadow --- */
 
-        /* Additional style for simple page content */
+        /* --- Horizontal Manual Scroll (for consistency) --- */
+        .horizontal-scroller {
+            display: grid;
+            grid-auto-flow: column;
+            grid-auto-columns: 45%;
+            gap: 1rem;
+            overflow-x: auto;
+            padding: 1rem;
+            margin: -1rem;
+            -webkit-overflow-scrolling: touch;
+            scrollbar-width: none;
+        }
+        .horizontal-scroller::-webkit-scrollbar {
+            display: none;
+        }
+        @media (min-width: 640px) {
+            .horizontal-scroller {
+                grid-auto-columns: 30%;
+            }
+        }
+        @media (min-width: 1024px) {
+            .horizontal-scroller {
+                grid-auto-columns: 24%;
+            }
+        }
+        /* --- End Horizontal Manual Scroll --- */
+
+        /* --- Page-Specific Content Styles --- */
         .content-section p {
             margin-bottom: 1.5rem;
             line-height: 1.75;
@@ -103,10 +211,14 @@
             padding-bottom: 0.5rem;
             border-bottom: 2px solid #e5e7eb; /* gray-200 */
         }
-
     </style>
 </head>
 <body class="bg-teal-50">
+
+    <!-- Preloader -->
+    <div id="preloader" class="fixed inset-0 bg-white flex items-center justify-center z-[100] transition-opacity duration-500 ease-out">
+        <img class="logo-preloader w-48 h-auto" src="assets/img/indus-logo.png" alt="Indus Logo" onerror="this.src='https://placehold.co/192x100/ffffff/333333?text=Indus+Logo'">
+    </div>
 
     <!-- ===== Custom Cursor Follower ===== -->
     <div id="cursor-dot"></div>
@@ -120,12 +232,13 @@
                 <!-- Logo -->
                 <div class="flex-shrink-0 flex items-center">
                     <a href="index.html">
-                        <img class="h-14 w-auto" src="assets/img/indus-logo.png" alt="Indus Footwear"> <!-- Increased logo size -->
+                        <img class="h-14 w-auto" src="assets/img/indus-logo.png" alt="Indus Footwear" onerror="this.src='https://placehold.co/150x56/ffffff/333333?text=Indus+Logo'"> <!-- Increased logo size -->
                     </a>
                 </div>
 
                 <!-- Desktop Navigation -->
                 <div class="hidden sm:ml-6 sm:flex sm:space-x-8 items-center">
+                    <!-- Set 'Contact Us' as active -->
                     <a href="index.html" class="inline-flex items-center px-1 pt-1 border-b-2 border-transparent text-sm font-medium text-gray-500 hover:border-cyan-500 hover:text-gray-900 transition-all duration-300">Home</a>
                     
                     <!-- Shop Dropdown (Mega Menu) -->
@@ -214,30 +327,53 @@
         <!-- Mobile Menu (hidden by default) -->
         <div class="sm:hidden hidden" id="mobile-menu">
             <div class="pt-2 pb-3 space-y-1">
+                <!-- Set 'Contact Us' as active -->
                 <a href="index.html" class="block pl-3 pr-4 py-2 border-l-4 border-transparent text-base font-medium text-gray-500 hover:bg-gray-50 hover:border-gray-300 hover:text-gray-700">Home</a>
                 
                 <!-- Shop Section -->
                 <div class="pt-2">
-                    <span class="block pl-3 pr-4 py-2 border-l-4 border-transparent text-base font-medium text-gray-500">Shop</span>
-                    <div class="mt-1 space-y-1" role="menu" aria-orientation="vertical">
+                    <button class="mobile-menu-dropdown-toggle flex justify-between items-center w-full pl-3 pr-4 py-2 border-l-4 border-transparent text-base font-medium text-gray-500">
+                        <span>Shop</span>
+                        <svg class="w-5 h-5 transform transition-transform duration-200" fill="currentColor" viewBox="0 0 20 20">
+                            <path fill-rule="evenodd" d="M7.293 8.293a1 1 0 011.414 0L10 9.586l1.293-1.293a1 1 0 111.414 1.414l-2 2a1 1 0 01-1.414 0l-2-2a1 1 0 010-1.414z" clip-rule="evenodd" />
+                        </svg>
+                    </button>
+                    <div class="mobile-menu-dropdown-content hidden mt-1 space-y-1" role="menu" aria-orientation="vertical">
                         <!-- Men Sub-menu -->
-                        <span class="block pl-8 pr-4 py-2 text-base font-medium text-gray-800">Men</span>
-                        <div class="mt-1 space-y-1" role="menu" aria-orientation="vertical">
+                        <button class="mobile-menu-dropdown-toggle flex justify-between items-center w-full pl-8 pr-4 py-2 text-base font-medium text-gray-800">
+                            <span>Men</span>
+                            <svg class="w-5 h-5 transform transition-transform duration-200" fill="currentColor" viewBox="0 0 20 20">
+                                <path fill-rule="evenodd" d="M7.293 8.293a1 1 0 011.414 0L10 9.586l1.293-1.293a1 1 0 111.414 1.414l-2 2a1 1 0 01-1.414 0l-2-2a1 1 0 010-1.414z" clip-rule="evenodd" />
+                            </svg>
+                        </button>
+                        <div class="mobile-menu-dropdown-content hidden mt-1 space-y-1" role="menu" aria-orientation="vertical">
                             <a href="men.html#pu-slippers" class="block pl-12 pr-4 py-2 text-base font-medium text-gray-600 hover:bg-gray-50 hover:text-gray-800" role="menuitem">PU Slippers</a>
                             <a href="men.html#eva" class="block pl-12 pr-4 py-2 text-base font-medium text-gray-600 hover:bg-gray-50 hover:text-gray-800" role="menuitem">EVA (Sports, Sliders)</a>
                             <a href="men.html#hawai" class="block pl-12 pr-4 py-2 text-base font-medium text-gray-600 hover:bg-gray-50 hover:text-gray-800" role="menuitem">Hawai & Fabrication</a>
                             <a href="safety-shoes.html" class="block pl-12 pr-4 py-2 text-base font-medium text-cyan-600 hover:bg-gray-50 hover:text-cyan-700" role="menuitem">Safety Shoes</a>
                         </div>
+                        
                         <!-- Women Sub-menu -->
-                        <span class="block pl-8 pr-4 py-2 text-base font-medium text-gray-800 mt-2">Women</span>
-                        <div class="mt-1 space-y-1" role="menu" aria-orientation="vertical">
+                        <button class="mobile-menu-dropdown-toggle flex justify-between items-center w-full pl-8 pr-4 py-2 text-base font-medium text-gray-800 mt-2">
+                            <span>Women</span>
+                            <svg class="w-5 h-5 transform transition-transform duration-200" fill="currentColor" viewBox="0 0 20 20">
+                                <path fill-rule="evenodd" d="M7.293 8.293a1 1 0 011.414 0L10 9.586l1.293-1.293a1 1 0 111.414 1.414l-2 2a1 1 0 01-1.414 0l-2-2a1 1 0 010-1.414z" clip-rule="evenodd" />
+                            </svg>
+                        </button>
+                        <div class="mobile-menu-dropdown-content hidden mt-1 space-y-1" role="menu" aria-orientation="vertical">
                             <a href="women.html#pu-slippers" class="block pl-12 pr-4 py-2 text-base font-medium text-gray-600 hover:bg-gray-50 hover:text-gray-800" role="menuitem">PU Slippers</a>
                             <a href="women.html#eva" class="block pl-12 pr-4 py-2 text-base font-medium text-gray-600 hover:bg-gray-50 hover:text-gray-800" role="menuitem">EVA (Sandals, Sliders)</a>
                             <a href="women.html#hawai" class="block pl-12 pr-4 py-2 text-base font-medium text-gray-600 hover:bg-gray-50 hover:text-gray-800" role="menuitem">Hawai Slippers</a>
                         </div>
+                        
                         <!-- Kids Sub-menu -->
-                        <span class="block pl-8 pr-4 py-2 text-base font-medium text-gray-800 mt-2">Kids</span>
-                        <div class="mt-1 space-y-1" role="menu" aria-orientation="vertical">
+                        <button class="mobile-menu-dropdown-toggle flex justify-between items-center w-full pl-8 pr-4 py-2 text-base font-medium text-gray-800 mt-2">
+                            <span>Kids</span>
+                            <svg class="w-5 h-5 transform transition-transform duration-200" fill="currentColor" viewBox="0 0 20 20">
+                                <path fill-rule="evenodd" d="M7.293 8.293a1 1 0 011.414 0L10 9.586l1.293-1.293a1 1 0 111.414 1.414l-2 2a1 1 0 01-1.414 0l-2-2a1 1 0 010-1.414z" clip-rule="evenodd" />
+                            </svg>
+                        </button>
+                        <div class="mobile-menu-dropdown-content hidden mt-1 space-y-1" role="menu" aria-orientation="vertical">
                             <a href="school-shoes.html" class="block pl-12 pr-4 py-2 text-base font-medium text-cyan-600 hover:bg-gray-50 hover:text-cyan-700" role="menuitem">School Shoes</a>
                             <a href="kids.html#pu-slippers" class="block pl-12 pr-4 py-2 text-base font-medium text-gray-600 hover:bg-gray-50 hover:text-gray-800" role="menuitem">PU Slippers</a>
                             <a href="kids.html#eva" class="block pl-12 pr-4 py-2 text-base font-medium text-gray-600 hover:bg-gray-50 hover:text-gray-800" role="menuitem">EVA (Sports, Sliders)</a>
@@ -248,8 +384,13 @@
 
                 <!-- Brands Section -->
                 <div class="pt-2">
-                    <span class="block pl-3 pr-4 py-2 border-l-4 border-transparent text-base font-medium text-gray-500">Brands</span>
-                    <div class="mt-1 space-y-1" role="menu" aria-orientation="vertical">
+                    <button class="mobile-menu-dropdown-toggle flex justify-between items-center w-full pl-3 pr-4 py-2 border-l-4 border-transparent text-base font-medium text-gray-500">
+                        <span>Brands</span>
+                        <svg class="w-5 h-5 transform transition-transform duration-200" fill="currentColor" viewBox="0 0 20 20">
+                            <path fill-rule="evenodd" d="M7.293 8.293a1 1 0 011.414 0L10 9.586l1.293-1.293a1 1 0 111.414 1.414l-2 2a1 1 0 01-1.414 0l-2-2a1 1 0 010-1.414z" clip-rule="evenodd" />
+                        </svg>
+                    </button>
+                    <div class="mobile-menu-dropdown-content hidden mt-1 space-y-1" role="menu" aria-orientation="vertical">
                         <a href="indus-gold.html" class="block pl-8 pr-4 py-2 text-base font-medium text-gray-600 hover:bg-gray-50 hover:text-gray-800" role="menuitem">Indus Gold</a>
                         <a href="indus-lite.html" class="block pl-8 pr-4 py-2 text-base font-medium text-gray-600 hover:bg-gray-50 hover:text-gray-800" role="menuitem">Induslite</a>
                         <a href="indus-prime.html" class="block pl-8 pr-4 py-2 text-base font-medium text-gray-600 hover:bg-gray-50 hover:text-gray-800" role="menuitem">Indus Prime</a>
@@ -261,7 +402,7 @@
                 <a href="contact.html" class="block pl-3 pr-4 py-2 border-l-4 border-cyan-500 bg-cyan-50 text-base font-medium text-cyan-700">Contact Us</a>
                 
                 <!-- Updated Mobile Enquire Now Button -->
-                <a href="https://wa.me/910000000000" target="_blank" rel="noopener noreferrer" class="flex items-center justify-center gap-2 w-full text-left bg-cyan-600 text-white px-4 py-3 rounded-md font-semibold hover:bg-cyan-700 transition-all duration-300 mt-2">
+                <a href="https://wa.me/+919251954762" target="_blank" rel="noopener noreferrer" class="flex items-center justify-center gap-2 w-full text-left bg-cyan-600 text-white px-4 py-3 rounded-md font-semibold hover:bg-cyan-700 transition-all duration-300 mt-2">
                     <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
                        <path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91C2.13 13.66 2.59 15.36 3.43 16.88L2.06 21.94L7.31 20.61C8.79 21.39 10.38 21.82 12.04 21.82C17.5 21.82 21.95 17.37 21.95 11.91C21.95 6.45 17.5 2 12.04 2ZM17.22 15.28C16.99 15.79 16.08 16.26 15.52 16.32C15.02 16.38 14.34 16.42 13.91 16.27C13.48 16.11 12.83 15.86 12.23 15.54C11.02 14.87 10.03 13.91 9.21 12.8C8.78 12.21 8.44 11.56 8.3 11.07C8.16 10.58 8.18 10.14 8.28 9.77C8.4 9.32 8.65 9.04 8.95 8.78C9.25 8.52 9.56 8.42 9.86 8.42C10.16 8.42 10.42 8.42 10.63 8.42C10.82 8.42 10.98 8.41 11.13 8.81C11.3 9.23 11.66 10.15 11.72 10.29C11.78 10.43 11.8 10.6 11.73 10.74C11.65 10.88 11.58 10.97 11.43 11.13C11.27 11.31 11.13 11.46 11.02 11.6C10.9 11.75 10.8 11.88 11.01 12.13C11.21 12.36 11.67 13.04 12.32 13.6C13.08 14.26 13.72 14.56 13.97 14.73C14.23 14.91 14.36 14.85 14.53 14.68C14.68 14.53 14.88 14.27 15.11 14.02C15.36 13.75 15.63 13.68 15.89 13.76C16.14 13.84 17.02 14.28 17.2 14.47C17.38 14.66 17.47 14.8 17.5 14.94C17.53 15.08 17.45 15.28 17.22 15.28Z"/>
                     </svg>
@@ -371,7 +512,7 @@
         <div class="container mx-auto px-4 sm:px-6 lg:px-8 py-8"> <!-- Reduced padding from py-12 to py-8 -->
             
             <div class="flex justify-start mb-8"> <!-- Aligned logo left -->
-                <img class="h-16 w-auto" src="assets/img/indus-logo.png" alt="Indus Footwear"> <!-- Increased logo size -->
+                <img class="h-16 w-auto" src="assets/img/indus-logo.png" alt="Indus Footwear" onerror="this.src='https://placehold.co/200x64/ffffff/333?text=Indus+Logo'"> <!-- Increased logo size -->
             </div>
             
             <div class="grid grid-cols-2 md:grid-cols-4 gap-8">
@@ -390,7 +531,7 @@
                     <ul class="mt-4 space-y-4">
                         <li><a href="indus-gold.html" class="text-base text-gray-600 hover:text-gray-900">Indus Gold</a></li>
                         <li><a href="indus-lite.html" class="text-base text-gray-600 hover:text-gray-900">Induslite</a></li>
-                        <li><a href="indus-prime.html" class="text-base text-gray-600 hover:text-gray-900">Indus Prime</a></li>
+                        <li><a href="indus-prime.html" class="text-base text-gray-600 hover:text-gray-900">Indus Prime</a>
                         <li><a href="#" class="text-base text-gray-600 hover:text-gray-900">Indus Originals</a></li>
                     </ul>
                 </div>
@@ -442,14 +583,58 @@
                     </div>
                 </div>
             </div>
-            <div class="mt-8 border-t border-gray-200 pt-8 text-center"> <!-- Updated border color -->
-                <p class="text-base text-gray-500">&copy; 2024 Indus Footprints Limited. All rights reserved.</p> <!-- Updated text color -->
+            <div class="mt-8 border-t border-gray-200 pt-8 text-center">
+                <p class="text-base text-gray-500">&copy; 2024 Indus Footprints Limited. All rights reserved.</p>
             </div>
         </div>
     </footer>
 
     <script>
-        // Mobile menu toggle
+        // --- PRELOADER FIX ---
+        document.addEventListener('DOMContentLoaded', () => {
+            const preloader = document.getElementById('preloader');
+            // Unlike index.html, this page doesn't have a hero banner to animate,
+            // so we just fade out the preloader.
+            
+            if (!preloader) return;
+            
+            // 1. Wait for logo animation, then start fade-out
+            setTimeout(() => {
+                preloader.classList.add('opacity-0');
+            }, 800); // 0.8s wait
+
+            // 3. Hide preloader completely after fade-out
+            setTimeout(() => {
+                preloader.classList.add('hidden');
+            }, 1300); // 0.8s wait + 0.5s fade-out
+        });
+        // --- END PRELOADER FIX ---
+
+        // --- Mobile Menu Dropdown Logic ---
+        document.querySelectorAll('.mobile-menu-dropdown-toggle').forEach(button => {
+            button.addEventListener('click', () => {
+                const content = button.nextElementSibling;
+                const icon = button.querySelector('svg');
+                
+                if (content.classList.contains('hidden')) {
+                    content.classList.remove('hidden');
+                    icon.classList.add('rotate-180');
+                } else {
+                    content.classList.add('hidden');
+                    icon.classList.remove('rotate-180');
+                    
+                    // Close all sub-dropdowns within this one
+                    content.querySelectorAll('.mobile-menu-dropdown-content').forEach(subContent => {
+                        subContent.classList.add('hidden');
+                    });
+                    content.querySelectorAll('.mobile-menu-dropdown-toggle svg').forEach(subIcon => {
+                        subIcon.classList.remove('rotate-180');
+                    });
+                }
+            });
+        });
+
+        // --- Main Mobile Menu Toggle ---
         const mobileMenuButton = document.getElementById('mobile-menu-button');
         const mobileMenu = document.getElementById('mobile-menu');
         if (mobileMenuButton && mobileMenu) {
@@ -462,21 +647,17 @@
         const cursorDot = document.getElementById('cursor-dot');
         const cursorOutline = document.getElementById('cursor-outline');
         
-        // 1. Move the followers
         window.addEventListener('mousemove', (e) => {
             if (cursorDot) {
-                // Use left/top to set position, CSS transform will handle centering
                 cursorDot.style.left = `${e.clientX}px`;
                 cursorDot.style.top = `${e.clientY}px`;
             }
             if (cursorOutline) {
-                // Use left/top to set position, CSS transform will handle centering
                 cursorOutline.style.left = `${e.clientX}px`;
                 cursorOutline.style.top = `${e.clientY}px`;
             }
         });
 
-        // 2. Animate on click
         window.addEventListener('mousedown', () => {
             if (cursorDot) cursorDot.classList.add('clicked');
             if (cursorOutline) cursorOutline.classList.add('clicked');
@@ -486,7 +667,6 @@
             if (cursorOutline) cursorOutline.classList.remove('clicked');
         });
 
-        // 3. Animate on hover over links/buttons
         const clickableElements = document.querySelectorAll(
             'a, button, .cursor-pointer, input[type="checkbox"], select'
         );
@@ -501,7 +681,6 @@
                 if (cursorOutline) cursorOutline.classList.remove('hover-link');
             });
         });
-
     </script>
 
 </body>
