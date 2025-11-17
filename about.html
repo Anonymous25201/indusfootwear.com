@@ -97,39 +97,18 @@
             line-height: 1.75;
         }
         .content-section h2 {
-            font-size: 1.875rem; /* text-3xl */
-            font-weight: 700; /* bold */
-            color: #1f2937; /* gray-800 */
-            margin-bottom: 1.5rem; /* mb-6 */
-            padding-bottom: 0.5rem; /* pb-2 */
-            border-bottom: 2px solid #e5e7eb; /* border-gray-200 */
-        }
-         .content-section h3 {
-            font-size: 1.5rem; /* text-2xl */
+            font-size: 1.5rem; /* 24px */
             font-weight: 600; /* semibold */
             color: #1f2937; /* gray-800 */
             margin-top: 2rem; /* mt-8 */
             margin-bottom: 1rem; /* mb-4 */
+            padding-bottom: 0.5rem; /* pb-2 */
+            border-bottom: 2px solid #e5e7eb; /* border-gray-200 */
         }
         .content-section ul {
-            list-style-type: none;
-            padding-left: 0;
-        }
-        .content-section li {
-            position: relative;
-            padding-left: 1.75rem; /* pl-7 */
-            margin-bottom: 0.75rem; /* mb-3 */
-            font-size: 1.125rem; /* text-lg */
-            color: #374151; /* gray-700 */
-        }
-        /* Custom bullet */
-        .content-section li::before {
-            content: '✓'; /* Checkmark */
-            position: absolute;
-            left: 0;
-            top: 0.125rem; /* 2px */
-            color: #0d9488; /* cyan-600 */
-            font-weight: 700;
+            list-style-type: disc;
+            padding-left: 1.5rem;
+            margin-bottom: 1.5rem;
         }
 
     </style>
@@ -148,7 +127,7 @@
                 <!-- Logo -->
                 <div class="flex-shrink-0 flex items-center">
                     <a href="index.html">
-                        <img class="h-14 w-auto" src="assets/img/indus-logo.png" alt="Indus Footwear"> <!-- Increased logo size -->
+                        <img class="h-14 w-auto" src="assets/img/indus-logo.png" alt="Indus Footwear" onerror="this.src='https://placehold.co/150x56/ffffff/333333?text=Indus+Logo'"> <!-- Increased logo size -->
                     </a>
                 </div>
 
@@ -220,7 +199,7 @@
                     <a href="contact.html" class="inline-flex items-center px-1 pt-1 border-b-2 border-transparent text-sm font-medium text-gray-500 hover:border-cyan-500 hover:text-gray-900 transition-all duration-300">Contact Us</a>
                     
                     <!-- Updated Enquire Now Button -->
-                    <a href="https://wa.me/910000000000" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 bg-cyan-600 text-white px-5 py-2 rounded-full font-semibold hover:bg-cyan-700 transition-all duration-300 shadow-lg ml-4">
+                    <a href="https://wa.me/+919251954762" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 bg-cyan-600 text-white px-5 py-2 rounded-full font-semibold hover:bg-cyan-700 transition-all duration-300 shadow-lg ml-4">
                         <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
                            <path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91C2.13 13.66 2.59 15.36 3.43 16.88L2.06 21.94L7.31 20.61C8.79 21.39 10.38 21.82 12.04 21.82C17.5 21.82 21.95 17.37 21.95 11.91C21.95 6.45 17.5 2 12.04 2ZM17.22 15.28C16.99 15.79 16.08 16.26 15.52 16.32C15.02 16.38 14.34 16.42 13.91 16.27C13.48 16.11 12.83 15.86 12.23 15.54C11.02 14.87 10.03 13.91 9.21 12.8C8.78 12.21 8.44 11.56 8.3 11.07C8.16 10.58 8.18 10.14 8.28 9.77C8.4 9.32 8.65 9.04 8.95 8.78C9.25 8.52 9.56 8.42 9.86 8.42C10.16 8.42 10.42 8.42 10.63 8.42C10.82 8.42 10.98 8.41 11.13 8.81C11.3 9.23 11.66 10.15 11.72 10.29C11.78 10.43 11.8 10.6 11.73 10.74C11.65 10.88 11.58 10.97 11.43 11.13C11.27 11.31 11.13 11.46 11.02 11.6C10.9 11.75 10.8 11.88 11.01 12.13C11.21 12.36 11.67 13.04 12.32 13.6C13.08 14.26 13.72 14.56 13.97 14.73C14.23 14.91 14.36 14.85 14.53 14.68C14.68 14.53 14.88 14.27 15.11 14.02C15.36 13.75 15.63 13.68 15.89 13.76C16.14 13.84 17.02 14.28 17.2 14.47C17.38 14.66 17.47 14.8 17.5 14.94C17.53 15.08 17.45 15.28 17.22 15.28Z"/>
                         </svg>
@@ -246,26 +225,48 @@
                 
                 <!-- Shop Section -->
                 <div class="pt-2">
-                    <span class="block pl-3 pr-4 py-2 border-l-4 border-transparent text-base font-medium text-gray-500">Shop</span>
-                    <div class="mt-1 space-y-1" role="menu" aria-orientation="vertical">
+                    <button class="mobile-menu-dropdown-toggle flex justify-between items-center w-full pl-3 pr-4 py-2 border-l-4 border-transparent text-base font-medium text-gray-500">
+                        <span>Shop</span>
+                        <svg class="w-5 h-5 transform transition-transform duration-200" fill="currentColor" viewBox="0 0 20 20">
+                            <path fill-rule="evenodd" d="M7.293 8.293a1 1 0 011.414 0L10 9.586l1.293-1.293a1 1 0 111.414 1.414l-2 2a1 1 0 01-1.414 0l-2-2a1 1 0 010-1.414z" clip-rule="evenodd" />
+                        </svg>
+                    </button>
+                    <div class="mobile-menu-dropdown-content hidden mt-1 space-y-1" role="menu" aria-orientation="vertical">
                         <!-- Men Sub-menu -->
-                        <span class="block pl-8 pr-4 py-2 text-base font-medium text-gray-800">Men</span>
-                        <div class="mt-1 space-y-1" role="menu" aria-orientation="vertical">
+                        <button class="mobile-menu-dropdown-toggle flex justify-between items-center w-full pl-8 pr-4 py-2 text-base font-medium text-gray-800">
+                            <span>Men</span>
+                            <svg class="w-5 h-5 transform transition-transform duration-200" fill="currentColor" viewBox="0 0 20 20">
+                                <path fill-rule="evenodd" d="M7.293 8.293a1 1 0 011.414 0L10 9.586l1.293-1.293a1 1 0 111.414 1.414l-2 2a1 1 0 01-1.414 0l-2-2a1 1 0 010-1.414z" clip-rule="evenodd" />
+                            </svg>
+                        </button>
+                        <div class="mobile-menu-dropdown-content hidden mt-1 space-y-1" role="menu" aria-orientation="vertical">
                             <a href="men.html#pu-slippers" class="block pl-12 pr-4 py-2 text-base font-medium text-gray-600 hover:bg-gray-50 hover:text-gray-800" role="menuitem">PU Slippers</a>
                             <a href="men.html#eva" class="block pl-12 pr-4 py-2 text-base font-medium text-gray-600 hover:bg-gray-50 hover:text-gray-800" role="menuitem">EVA (Sports, Sliders)</a>
                             <a href="men.html#hawai" class="block pl-12 pr-4 py-2 text-base font-medium text-gray-600 hover:bg-gray-50 hover:text-gray-800" role="menuitem">Hawai & Fabrication</a>
                             <a href="safety-shoes.html" class="block pl-12 pr-4 py-2 text-base font-medium text-cyan-600 hover:bg-gray-50 hover:text-cyan-700" role="menuitem">Safety Shoes</a>
                         </div>
+                        
                         <!-- Women Sub-menu -->
-                        <span class="block pl-8 pr-4 py-2 text-base font-medium text-gray-800 mt-2">Women</span>
-                        <div class="mt-1 space-y-1" role="menu" aria-orientation="vertical">
+                        <button class="mobile-menu-dropdown-toggle flex justify-between items-center w-full pl-8 pr-4 py-2 text-base font-medium text-gray-800 mt-2">
+                            <span>Women</span>
+                            <svg class="w-5 h-5 transform transition-transform duration-200" fill="currentColor" viewBox="0 0 20 20">
+                                <path fill-rule="evenodd" d="M7.293 8.293a1 1 0 011.414 0L10 9.586l1.293-1.293a1 1 0 111.414 1.414l-2 2a1 1 0 01-1.414 0l-2-2a1 1 0 010-1.414z" clip-rule="evenodd" />
+                            </svg>
+                        </button>
+                        <div class="mobile-menu-dropdown-content hidden mt-1 space-y-1" role="menu" aria-orientation="vertical">
                             <a href="women.html#pu-slippers" class="block pl-12 pr-4 py-2 text-base font-medium text-gray-600 hover:bg-gray-50 hover:text-gray-800" role="menuitem">PU Slippers</a>
                             <a href="women.html#eva" class="block pl-12 pr-4 py-2 text-base font-medium text-gray-600 hover:bg-gray-50 hover:text-gray-800" role="menuitem">EVA (Sandals, Sliders)</a>
                             <a href="women.html#hawai" class="block pl-12 pr-4 py-2 text-base font-medium text-gray-600 hover:bg-gray-50 hover:text-gray-800" role="menuitem">Hawai Slippers</a>
                         </div>
+                        
                         <!-- Kids Sub-menu -->
-                        <span class="block pl-8 pr-4 py-2 text-base font-medium text-gray-800 mt-2">Kids</span>
-                        <div class="mt-1 space-y-1" role="menu" aria-orientation="vertical">
+                        <button class="mobile-menu-dropdown-toggle flex justify-between items-center w-full pl-8 pr-4 py-2 text-base font-medium text-gray-800 mt-2">
+                            <span>Kids</span>
+                            <svg class="w-5 h-5 transform transition-transform duration-200" fill="currentColor" viewBox="0 0 20 20">
+                                <path fill-rule="evenodd" d="M7.293 8.293a1 1 0 011.414 0L10 9.586l1.293-1.293a1 1 0 111.414 1.414l-2 2a1 1 0 01-1.414 0l-2-2a1 1 0 010-1.414z" clip-rule="evenodd" />
+                            </svg>
+                        </button>
+                        <div class="mobile-menu-dropdown-content hidden mt-1 space-y-1" role="menu" aria-orientation="vertical">
                             <a href="school-shoes.html" class="block pl-12 pr-4 py-2 text-base font-medium text-cyan-600 hover:bg-gray-50 hover:text-cyan-700" role="menuitem">School Shoes</a>
                             <a href="kids.html#pu-slippers" class="block pl-12 pr-4 py-2 text-base font-medium text-gray-600 hover:bg-gray-50 hover:text-gray-800" role="menuitem">PU Slippers</a>
                             <a href="kids.html#eva" class="block pl-12 pr-4 py-2 text-base font-medium text-gray-600 hover:bg-gray-50 hover:text-gray-800" role="menuitem">EVA (Sports, Sliders)</a>
@@ -276,8 +277,13 @@
 
                 <!-- Brands Section -->
                 <div class="pt-2">
-                    <span class="block pl-3 pr-4 py-2 border-l-4 border-transparent text-base font-medium text-gray-500">Brands</span>
-                    <div class="mt-1 space-y-1" role="menu" aria-orientation="vertical">
+                    <button class="mobile-menu-dropdown-toggle flex justify-between items-center w-full pl-3 pr-4 py-2 border-l-4 border-transparent text-base font-medium text-gray-500">
+                        <span>Brands</span>
+                        <svg class="w-5 h-5 transform transition-transform duration-200" fill="currentColor" viewBox="0 0 20 20">
+                            <path fill-rule="evenodd" d="M7.293 8.293a1 1 0 011.414 0L10 9.586l1.293-1.293a1 1 0 111.414 1.414l-2 2a1 1 0 01-1.414 0l-2-2a1 1 0 010-1.414z" clip-rule="evenodd" />
+                        </svg>
+                    </button>
+                    <div class="mobile-menu-dropdown-content hidden mt-1 space-y-1" role="menu" aria-orientation="vertical">
                         <a href="indus-gold.html" class="block pl-8 pr-4 py-2 text-base font-medium text-gray-600 hover:bg-gray-50 hover:text-gray-800" role="menuitem">Indus Gold</a>
                         <a href="indus-lite.html" class="block pl-8 pr-4 py-2 text-base font-medium text-gray-600 hover:bg-gray-50 hover:text-gray-800" role="menuitem">Induslite</a>
                         <a href="indus-prime.html" class="block pl-8 pr-4 py-2 text-base font-medium text-gray-600 hover:bg-gray-50 hover:text-gray-800" role="menuitem">Indus Prime</a>
@@ -289,7 +295,7 @@
                 <a href="contact.html" class="block pl-3 pr-4 py-2 border-l-4 border-transparent text-base font-medium text-gray-500 hover:bg-gray-50 hover:border-gray-300 hover:text-gray-700">Contact Us</a>
                 
                 <!-- Updated Mobile Enquire Now Button -->
-                <a href="https://wa.me/910000000000" target="_blank" rel="noopener noreferrer" class="flex items-center justify-center gap-2 w-full text-left bg-cyan-600 text-white px-4 py-3 rounded-md font-semibold hover:bg-cyan-700 transition-all duration-300 mt-2">
+                <a href="https://wa.me/+919251954762" target="_blank" rel="noopener noreferrer" class="flex items-center justify-center gap-2 w-full text-left bg-cyan-600 text-white px-4 py-3 rounded-md font-semibold hover:bg-cyan-700 transition-all duration-300 mt-2">
                     <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
                        <path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91C2.13 13.66 2.59 15.36 3.43 16.88L2.06 21.94L7.31 20.61C8.79 21.39 10.38 21.82 12.04 21.82C17.5 21.82 21.95 17.37 21.95 11.91C21.95 6.45 17.5 2 12.04 2ZM17.22 15.28C16.99 15.79 16.08 16.26 15.52 16.32C15.02 16.38 14.34 16.42 13.91 16.27C13.48 16.11 12.83 15.86 12.23 15.54C11.02 14.87 10.03 13.91 9.21 12.8C8.78 12.21 8.44 11.56 8.3 11.07C8.16 10.58 8.18 10.14 8.28 9.77C8.4 9.32 8.65 9.04 8.95 8.78C9.25 8.52 9.56 8.42 9.86 8.42C10.16 8.42 10.42 8.42 10.63 8.42C10.82 8.42 10.98 8.41 11.13 8.81C11.3 9.23 11.66 10.15 11.72 10.29C11.78 10.43 11.8 10.6 11.73 10.74C11.65 10.88 11.58 10.97 11.43 11.13C11.27 11.31 11.13 11.46 11.02 11.6C10.9 11.75 10.8 11.88 11.01 12.13C11.21 12.36 11.67 13.04 12.32 13.6C13.08 14.26 13.72 14.56 13.97 14.73C14.23 14.91 14.36 14.85 14.53 14.68C14.68 14.53 14.88 14.27 15.11 14.02C15.36 13.75 15.63 13.68 15.89 13.76C16.14 13.84 17.02 14.28 17.2 14.47C17.38 14.66 17.47 14.8 17.5 14.94C17.53 15.08 17.45 15.28 17.22 15.28Z"/>
                     </svg>
@@ -302,47 +308,45 @@
     <!-- Main Content Area -->
     <div class="container mx-auto px-4 sm:px-6 lg:px-8 py-8">
         
-        <!-- Main Content -->
-        <!-- FIX: Changed 'class_alias' to 'class' to apply styles -->
-        <div class="bg-white rounded-lg shadow-lg p-6 md:p-10 content-section max-w-4xl mx-auto">
+        <div class="bg-white rounded-lg shadow-lg p-6 md:p-10 max-w-4xl mx-auto">
             
-            <!-- Page Title -->
-            <h1 class="text-4xl font-bold text-gray-800 mb-6">About Indus Footwear</h1>
+            <div class="content-section text-gray-700">
+                <h1 class="text-4xl font-bold text-gray-800 mb-6">About Us</h1>
 
-            <!-- Our History Section -->
-            <h2>Our History</h2>
-            <p class="text-gray-700 text-lg">
-                Founded in 1999 in Khairthal, Rajasthan, by Mr. Mahesh Kumar Chachlani, Indus Footwear began with a focus on slipper distribution, starting with a small team and basic resources. Over time, we expanded our operations and adopted advanced machinery to improve our manufacturing capabilities.
-            </p>
-            <p class="text-gray-700 text-lg">
-                In 2011, we introduced a new line of men's footwear, marking a key phase in our growth. We expanded internationally, particularly into the Middle East, while maintaining a strong presence in India. 
-            </p>
+                <!-- Our History -->
+                <h2>Our History</h2>
+                <p>
+                    Founded in 1999 in Khairthal, Rajasthan, by Mr. Mahesh Kumar Chachlani, Indus Footwear began with a focus on slipper distribution, starting with a small team and basic resources. Over time, we expanded our operations and adopted advanced machinery to improve our manufacturing capabilities.
+                </p>
+                <p>
+                    In 2011, we introduced a new line of men's footwear, marking a key phase in our growth. We expanded internationally, particularly into the Middle East, while maintaining a strong presence in India.
+                </p>
 
-            <!-- Our Vision Section -->
-            <h2>Our Vision & Mission</h2>
-            <p class="text-gray-700 text-lg">
-                Today, we serve markets in the Middle East, Africa, and India, with plans for further global expansion. We aim to become one of India's largest footwear brands, delivering high-quality, comfortable, and durable footwear. 
-            </p>
-            <p class="text-gray-700 text-lg">
-                We prioritize innovation, sustainable practices, and meeting diverse customer needs, all while continuing to push boundaries in the footwear industry.
-            </p>
+                <!-- Our Vision & Mission -->
+                <h2>Our Vision & Mission</h2>
+                <p>
+                    Today, we serve markets in the Middle East, Africa, and India, with plans for further global expansion. We aim to become one of India's largest footwear brands, delivering high-quality, comfortable, and durable footwear.
+                </p>
+                <p>
+                    We prioritize innovation, sustainable practices, and meeting diverse customer needs, all while continuing to push boundaries in the footwear industry.
+                </p>
 
-            <!-- Board of Directors Section -->
-            <h2>Our Board of Directors</h2>
-            <p class="text-gray-700 text-lg">
-                Indus Footwear is led by a dynamic and experienced Board of Directors, responsible for guiding the company’s strategic growth and vision.
-            </p>
-            <ul class="text-gray-700 text-lg">
-                <li><strong>Mr. Mahesh Kumar Chachlani</strong> - Managing Director</li>
-                <li><strong>CA S.L. Agrawal</strong> – CEO & Executive Director</li>
-                <li><strong>Mr. Sachin Chachlani</strong> – Whole Time Director</li>
-                <li><strong>Mr. Anil Chachlani</strong> – Whole Time Director</li>
-                <li><strong>Mr. Nikhil Chachlani</strong> – International Sales Director</li>
-            </ul>
-            <p class="text-gray-700 text-lg mt-6">
-                The Board’s focus on innovation, quality, and market expansion has positioned Indus Footwear as a leading player in India’s footwear industry, with a strong presence in international markets such as the Middle East and Africa.
-            </p>
-
+                <!-- Board of Directors -->
+                <h2>Our Board of Directors</h2>
+                <p>
+                    Indus Footwear is led by a dynamic and experienced Board of Directors, responsible for guiding the company’s strategic growth and vision.
+                </p>
+                <ul class="space-y-2 mb-6">
+                    <li><strong>Mr. Mahesh Kumar Chachlani</strong> - Managing Director</li>
+                    <li><strong>CA S.L. Agrawal</strong> – CEO & Executive Director</li>
+                    <li><strong>Mr. Sachin Chachlani</strong> – Whole Time Director</li>
+                    <li><strong>Mr. Anil Chachlani</strong> – Whole Time Director</li>
+                    <li><strong>Mr. Nikhil Chachlani</strong> – International Sales Director</li>
+                </ul>
+                <p>
+                    The Board’s focus on innovation, quality, and market expansion has positioned Indus Footwear as a leading player in India’s footwear industry, with a strong presence in international markets such as the Middle East and Africa.
+                </p>
+            </div>
         </div>
 
     </div>
@@ -352,7 +356,7 @@
         <div class="container mx-auto px-4 sm:px-6 lg:px-8 py-8"> <!-- Reduced padding from py-12 to py-8 -->
             
             <div class="flex justify-start mb-8"> <!-- Aligned logo left -->
-                <img class="h-16 w-auto" src="assets/img/indus-logo.png" alt="Indus Footwear"> <!-- Increased logo size -->
+                <img class="h-16 w-auto" src="assets/img/indus-logo.png" alt="Indus Footwear" onerror="this.src='https://placehold.co/200x64/ffffff/333?text=Indus+Logo'"> <!-- Increased logo size -->
             </div>
             
             <div class="grid grid-cols-2 md:grid-cols-4 gap-8">
@@ -371,7 +375,7 @@
                     <ul class="mt-4 space-y-4">
                         <li><a href="indus-gold.html" class="text-base text-gray-600 hover:text-gray-900">Indus Gold</a></li>
                         <li><a href="indus-lite.html" class="text-base text-gray-600 hover:text-gray-900">Induslite</a></li>
-                        <li><a href="indus-prime.html" class="text-base text-gray-600 hover:text-gray-900">Indus Prime</a></li>
+                        <li><a href="indus-prime.html" class="text-base text-gray-600 hover:text-gray-900">Indus Prime</a>
                         <li><a href="#" class="text-base text-gray-600 hover:text-gray-900">Indus Originals</a></li>
                     </ul>
                 </div>
@@ -417,7 +421,7 @@
                         </a>
                         <a href="#" class="text-gray-500 hover:text-cyan-600 transition-colors duration-300" aria-label="YouTube">
                             <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                                <path fill-rule="evenodd" d="M21.582 7.188c-.218-.813-.882-1.477-1.695-1.695C18.265 5 12 5 12 5s-6.265 0-7.887.493c-.813.218-1.477.882-1.695 1.695C2 8.81 2 12 2 12s0 3.19.493 4.812c.218.813.882 1.477 1.695 1.695C5.735 19 12 19 12 19s6.265 0 7.887-.493c.813-.218 1.477-.882 1.695-1.695C22 15.19 22 12 22 12s0-3.19-.418-4.812zM9.75 15.5V8.5l6 3.5-6 3.5z" clip-rule="evenodd" />
+                                <path fill-rule="evenodd" d="M21.582 7.188c-.218-.813-.882-1.477-1.695-1.695C18.265 5 12 5 12 5s-6.265 0-7.887.493c-.813.218-1.477.882-1.695 1.695C2 8.81 2 12 2 12s0 3.19.493 4.812c.218.813.882 1.477 1.695 1.695C5.735 19 12 19 12 19s6.265 0 7.887-.493c.813-.218 1.477-.882-1.695-1.695C22 15.19 22 12 22 12s0-3.19-.418-4.812zM9.75 15.5V8.5l6 3.5-6 3.5z" clip-rule="evenodd" />
                             </svg>
                         </a>
                     </div>
@@ -430,7 +434,31 @@
     </footer>
 
     <script>
-        // Mobile menu toggle
+        // --- Mobile Menu Dropdown Logic ---
+        document.querySelectorAll('.mobile-menu-dropdown-toggle').forEach(button => {
+            button.addEventListener('click', () => {
+                const content = button.nextElementSibling;
+                const icon = button.querySelector('svg');
+                
+                if (content.classList.contains('hidden')) {
+                    content.classList.remove('hidden');
+                    icon.classList.add('rotate-180');
+                } else {
+                    content.classList.add('hidden');
+                    icon.classList.remove('rotate-180');
+                    
+                    // Close all sub-dropdowns within this one
+                    content.querySelectorAll('.mobile-menu-dropdown-content').forEach(subContent => {
+                        subContent.classList.add('hidden');
+                    });
+                    content.querySelectorAll('.mobile-menu-dropdown-toggle svg').forEach(subIcon => {
+                        subIcon.classList.remove('rotate-180');
+                    });
+                }
+            });
+        });
+
+        // --- Main Mobile Menu Toggle ---
         const mobileMenuButton = document.getElementById('mobile-menu-button');
         const mobileMenu = document.getElementById('mobile-menu');
         if (mobileMenuButton && mobileMenu) {
@@ -443,21 +471,17 @@
         const cursorDot = document.getElementById('cursor-dot');
         const cursorOutline = document.getElementById('cursor-outline');
         
-        // 1. Move the followers
         window.addEventListener('mousemove', (e) => {
             if (cursorDot) {
-                // Use left/top to set position, CSS transform will handle centering
                 cursorDot.style.left = `${e.clientX}px`;
                 cursorDot.style.top = `${e.clientY}px`;
             }
             if (cursorOutline) {
-                // Use left/top to set position, CSS transform will handle centering
                 cursorOutline.style.left = `${e.clientX}px`;
                 cursorOutline.style.top = `${e.clientY}px`;
             }
         });
 
-        // 2. Animate on click
         window.addEventListener('mousedown', () => {
             if (cursorDot) cursorDot.classList.add('clicked');
             if (cursorOutline) cursorOutline.classList.add('clicked');
@@ -467,7 +491,6 @@
             if (cursorOutline) cursorOutline.classList.remove('clicked');
         });
 
-        // 3. Animate on hover over links/buttons
         const clickableElements = document.querySelectorAll(
             'a, button, .cursor-pointer, input[type="checkbox"], select'
         );
@@ -482,7 +505,6 @@
                 if (cursorOutline) cursorOutline.classList.remove('hover-link');
             });
         });
-
     </script>
 
 </body>
