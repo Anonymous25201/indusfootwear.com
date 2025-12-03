@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Men's Collection | Indus Footwear</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body class="bg-slate-50">
+
+    <!-- 1. HEADER PLACEHOLDER -->
+    <div id="header-placeholder"></div>
+
+    <!-- 2. MAIN PAGE CONTENT -->
+    <div class="relative h-64 bg-slate-900 flex items-center justify-center overflow-hidden">
+        <img src="https://placehold.co/1920x400/1e293b/white?text=Mens+Collection" alt="Men's Collection" class="absolute inset-0 w-full h-full object-cover opacity-60">
+        <div class="absolute inset-0 bg-gradient-to-r from-slate-900 via-transparent to-slate-900 opacity-70"></div>
+        <div class="relative z-10 text-center px-4 animate-fade-in-up">
+            <h1 class="text-4xl md:text-5xl font-bold text-white tracking-widest uppercase shadow-sm">Men's Collection</h1>
+            <p class="text-slate-200 mt-2">Strength & Comfort Combined</p>
+        </div>
+    </div>
+
+    <div class="container mx-auto px-4 sm:px-6 lg:px-8 py-12">
+        <div class="flex flex-col lg:flex-row gap-8">
+            
+            <!-- Sidebar Filters -->
+            <aside class="w-full lg:w-1/4">
+                <div class="bg-white p-6 rounded-lg shadow-sm sticky top-24 border border-slate-200">
+                    <h3 class="font-bold text-lg mb-4 border-b pb-2 text-slate-700">Filters</h3>
+                    
+                    <div class="mb-6">
+                        <h4 class="font-semibold text-gray-700 mb-2">Category</h4>
+                        <ul class="space-y-2 text-sm text-gray-600">
+                            <li><a href="#" class="flex items-center hover:text-blue-600"><span class="w-4 h-4 border border-slate-300 rounded mr-2 inline-block"></span> Safety Shoes</a></li>
+                            <li><a href="#" class="flex items-center hover:text-blue-600"><span class="w-4 h-4 border border-slate-300 rounded mr-2 inline-block"></span> Gents PU</a></li>
+                            <li><a href="#" class="flex items-center hover:text-blue-600"><span class="w-4 h-4 border border-slate-300 rounded mr-2 inline-block"></span> Hawai & Fabrication</a></li>
+                            <li><a href="#" class="flex items-center hover:text-blue-600"><span class="w-4 h-4 border border-slate-300 rounded mr-2 inline-block"></span> Sports & Sneakers</a></li>
+                        </ul>
+                    </div>
+
+                    <div class="mb-6">
+                        <h4 class="font-semibold text-gray-700 mb-2">Brand</h4>
+                        <ul class="space-y-2 text-sm text-gray-600">
+                            <li><a href="#" class="flex items-center hover:text-blue-600"><span class="w-4 h-4 border border-slate-300 rounded mr-2 inline-block"></span> Indus Safety</a></li>
+                            <li><a href="#" class="flex items-center hover:text-blue-600"><span class="w-4 h-4 border border-slate-300 rounded mr-2 inline-block"></span> Indus Gold</a></li>
+                            <li><a href="#" class="flex items-center hover:text-blue-600"><span class="w-4 h-4 border border-slate-300 rounded mr-2 inline-block"></span> Induslite</a></li>
+                            <li><a href="#" class="flex items-center hover:text-blue-600"><span class="w-4 h-4 border border-slate-300 rounded mr-2 inline-block"></span> Indus Prime</a></li>
+                        </ul>
+                    </div>
+                    <button class="w-full bg-slate-800 text-white py-2 rounded-md hover:bg-slate-900 transition">Apply Filters</button>
+                </div>
+            </aside>
+
+            <!-- Product Grid -->
+            <main class="w-full lg:w-3/4">
+                <div class="flex justify-between items-center mb-6">
+                    <p class="text-gray-500 text-sm">Showing 8 Products</p>
+                    <select class="border-gray-300 rounded-md text-sm focus:ring-blue-500 focus:border-blue-500 p-2 border">
+                        <option>Sort by: Popularity</option>
+                        <option>Price: Low to High</option>
+                        <option>Price: High to Low</option>
+                    </select>
+                </div>
+
+                <div class="grid grid-cols-2 md:grid-cols-3 gap-6">
+                    
+                    <!-- 1. Safety Shoes (Indus Safety) -->
+                    <div class="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-xl transition-shadow group">
+                        <div class="aspect-[4/3] overflow-hidden">
+                            <img src="assets/img/products/RHINO-01.jpg" alt="Rhino-01 Safety" class="w-full h-full object-contain group-hover:scale-110 transition-transform" onerror="this.src='https://placehold.co/400x400/f1f5f9/1e293b?text=RHINO-01'">
+                        </div>
+                        <div class="p-4">
+                            <p class="text-xs text-blue-600 font-semibold uppercase">Indus Safety</p>
+                            <h3 class="text-gray-900 font-medium">Rhino-01 Steel Toe</h3>
+                            <p class="text-gray-800 font-bold mt-1">₹369</p>
+                        </div>
+                    </div>
+
+                    <!-- 2. Gents PU (Indus Gold) -->
+                    <div class="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-xl transition-shadow group">
+                        <div class="aspect-[4/3] overflow-hidden">
+                            <img src="assets/img/products/IG-201 BRN.jpg" alt="IG-201 PU Sandal" class="w-full h-full object-contain group-hover:scale-110 transition-transform" onerror="this.src='https://placehold.co/400x400/f1f5f9/1e293b?text=IG-201'">
+                        </div>
+                        <div class="p-4">
+                            <p class="text-xs text-blue-600 font-semibold uppercase">Indus Gold</p>
+                            <h3 class="text-gray-900 font-medium">IG-201 Classic PU</h3>
+                            <p class="text-gray-800 font-bold mt-1">₹589</p>
+                        </div>
+                    </div>
+
+                    <!-- 3. Hawai & Fabrication (Induslite) -->
+                    <div class="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-xl transition-shadow group">
+                        <div class="aspect-[4/3] overflow-hidden">
+                            <img src="assets/img/products/fab-slipper.jpg" alt="Fabrication Slipper" class="w-full h-full object-contain group-hover:scale-110 transition-transform" onerror="this.src='https://placehold.co/400x400/f1f5f9/1e293b?text=Fabrication+Slipper'">
+                        </div>
+                        <div class="p-4">
+                            <p class="text-xs text-blue-600 font-semibold uppercase">Induslite</p>
+                            <h3 class="text-gray-900 font-medium">Daily Fabrication Slide</h3>
+                            <p class="text-gray-800 font-bold mt-1">₹199</p>
+                        </div>
+                    </div>
+
+                    <!-- 4. Sports & Sneakers (Indus Prime) -->
+                    <div class="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-xl transition-shadow group">
+                        <div class="aspect-[4/3] overflow-hidden">
+                            <img src="assets/img/products/prime-runner.jpg" alt="Prime Runner 500" class="w-full h-full object-contain group-hover:scale-110 transition-transform" onerror="this.src='https://placehold.co/400x400/f1f5f9/1e293b?text=Prime+Runner'">
+                        </div>
+                        <div class="p-4">
+                            <p class="text-xs text-blue-600 font-semibold uppercase">Indus Prime</p>
+                            <h3 class="text-gray-900 font-medium">Prime Runner 500</h3>
+                            <p class="text-gray-800 font-bold mt-1">₹899</p>
+                        </div>
+                    </div>
+
+                    <!-- 5. Safety Shoes (Indus Safety) -->
+                    <div class="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-xl transition-shadow group">
+                        <div class="aspect-[4/3] overflow-hidden">
+                            <img src="assets/img/products/RHINO-51.jpg" alt="Rhino-51 Gum Boot" class="w-full h-full object-contain group-hover:scale-110 transition-transform" onerror="this.src='https://placehold.co/400x400/f1f5f9/1e293b?text=RHINO-51'">
+                        </div>
+                        <div class="p-4">
+                            <p class="text-xs text-blue-600 font-semibold uppercase">Indus Safety</p>
+                            <h3 class="text-gray-900 font-medium">Rhino-51 Gum Boot</h3>
+                            <p class="text-gray-800 font-bold mt-1">₹409</p>
+                        </div>
+                    </div>
+
+                    <!-- 6. Gents PU (Indus Gold) -->
+                    <div class="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-xl transition-shadow group">
+                        <div class="aspect-[4/3] overflow-hidden">
+                            <img src="assets/img/products/IG-205 BLK.jpg" alt="IG-205 Formal PU" class="w-full h-full object-contain group-hover:scale-110 transition-transform" onerror="this.src='https://placehold.co/400x400/f1f5f9/1e293b?text=IG-205'">
+                        </div>
+                        <div class="p-4">
+                            <p class="text-xs text-blue-600 font-semibold uppercase">Indus Gold</p>
+                            <h3 class="text-gray-900 font-medium">IG-205 Formal PU</h3>
+                            <p class="text-gray-800 font-bold mt-1">₹649</p>
+                        </div>
+                    </div>
+
+                    <!-- 7. Hawai & Fabrication (Induslite) -->
+                    <div class="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-xl transition-shadow group">
+                        <div class="aspect-[4/3] overflow-hidden">
+                            <img src="assets/img/products/hawai-print.jpg" alt="Printed Hawai" class="w-full h-full object-contain group-hover:scale-110 transition-transform" onerror="this.src='https://placehold.co/400x400/f1f5f9/1e293b?text=Printed+Hawai'">
+                        </div>
+                        <div class="p-4">
+                            <p class="text-xs text-blue-600 font-semibold uppercase">Induslite</p>
+                            <h3 class="text-gray-900 font-medium">Classic Printed Hawai</h3>
+                            <p class="text-gray-800 font-bold mt-1">₹149</p>
+                        </div>
+                    </div>
+
+                    <!-- 8. Sports & Sneakers (Indus Prime) -->
+                    <div class="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-xl transition-shadow group">
+                        <div class="aspect-[4/3] overflow-hidden">
+                            <img src="assets/img/products/prime-sneaker.jpg" alt="Urban Sneaker" class="w-full h-full object-contain group-hover:scale-110 transition-transform" onerror="this.src='https://placehold.co/400x400/f1f5f9/1e293b?text=Urban+Sneaker'">
+                        </div>
+                        <div class="p-4">
+                            <p class="text-xs text-blue-600 font-semibold uppercase">Indus Prime</p>
+                            <h3 class="text-gray-900 font-medium">Urban Canvas Sneaker</h3>
+                            <p class="text-gray-800 font-bold mt-1">₹599</p>
+                        </div>
+                    </div>
+
+                </div>
+            </main>
+        </div>
+    </div>
+
+    <!-- 3. FOOTER PLACEHOLDER -->
+    <div id="footer-placeholder"></div>
+
+    <!-- 4. JAVASCRIPT -->
+    <script src="assets/js/main.js"></script>
+
+</body>
+</html>
