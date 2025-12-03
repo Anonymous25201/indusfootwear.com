@@ -1,0 +1,255 @@
+/* =========================================
+   1. GLOBAL & FONTS
+   ========================================= */
+body {
+    font-family: 'Inter', sans-serif;
+}
+
+/* =========================================
+   2. PRELOADER ANIMATIONS
+   ========================================= */
+@keyframes growOutward {
+    from { opacity: 0; transform: scale(0.5); }
+    to { opacity: 1; transform: scale(1); }
+}
+
+.logo-preloader {
+    animation: growOutward 0.8s ease-out forwards;
+}
+
+/* =========================================
+   3. CUSTOM CURSOR
+   ========================================= */
+/* Hide the default OS cursor */
+body, a[href], button, .cursor-pointer {
+    cursor: none !important; 
+}
+
+/* Hide custom cursor on mobile/touch devices */
+@media (hover: none) {
+    body, a[href], button, .cursor-pointer {
+        cursor: auto !important;
+    }
+    #cursor-dot, #cursor-outline {
+        display: none !important;
+    }
+}
+
+/* The inner "full" dot */
+#cursor-dot {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 8px;
+    height: 8px;
+    background-color: rgba(22, 163, 163, 0.8); 
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 9999;
+    transform: translate(-50%, -50%);
+    transition: top 0.1s ease-out, left 0.1s ease-out, width 0.3s ease, height 0.3s ease, background-color 0.3s ease, transform 0.3s ease;
+}
+
+/* The outer "empty" circle */
+#cursor-outline {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 40px;
+    height: 40px;
+    background-color: transparent;
+    border: 2px solid rgba(22, 163, 163, 0.5); 
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 9999;
+    transform: translate(-50%, -50%);
+    transition: top 0.2s ease-out, left 0.2s ease-out, width 0.3s ease, height 0.3s ease, background-color 0.3s ease, border-color 0.3s ease, transform 0.3s ease;
+}
+
+/* Interaction State: Hovering over links */
+#cursor-dot.hover-link {
+    width: 6px;
+    height: 6px;
+}
+
+#cursor-outline.hover-link {
+    width: 60px;
+    height: 60px;
+    background-color: rgba(22, 163, 163, 0.1);
+    border-color: transparent;
+}
+
+/* Interaction State: Clicking */
+#cursor-dot.clicked {
+    transform: translate(-50%, -50%) scale(1.5);
+}
+
+#cursor-outline.clicked {
+    transform: translate(-50%, -50%) scale(0.9);
+}
+
+/* =========================================
+   4. COMPONENT STYLES
+   ========================================= */
+
+/* --- Brand Card Ripple Effect --- */
+.brand-card {
+    position: relative;
+    overflow: hidden;
+}
+
+.brand-card::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 100px;
+    height: 100px;
+    background: rgba(22, 163, 163, 0.1); 
+    border-radius: 50%;
+    transform: translate(-50%, -50%) scale(0);
+    opacity: 0;
+    transition: transform 0.4s ease-out, opacity 0.4s ease-out;
+    z-index: 1;
+}
+
+.brand-card:hover::before {
+    transform: translate(-50%, -50%) scale(3.5);
+    opacity: 1;
+    animation: fade-out-ripple 0.5s 0.2s forwards;
+}
+
+.brand-card > * {
+     position: relative;
+     z-index: 2; 
+}
+
+@keyframes fade-out-ripple {
+    to { opacity: 0; }
+}
+
+/* --- Auto-height Carousel --- */
+.carousel-container {
+    position: relative;
+    width: 100%;
+    margin-bottom: 3rem;
+    overflow: hidden;
+    border-radius: 0.5rem;
+    box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+    transition: height 0.5s ease-in-out;
+}
+
+.carousel-slider {
+    display: flex;
+    transition: transform 0.7s ease-in-out;
+}
+
+.carousel-slide {
+    flex-shrink: 0;
+    width: 100%;
+    position: relative;
+}
+
+.carousel-slide img {
+    width: 100%;
+    height: auto;
+    display: block;
+}
+
+.carousel-dots {
+    position: absolute;
+    bottom: 1.25rem;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 0.5rem;
+    z-index: 10;
+}
+
+.carousel-dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background-color: rgba(255, 255, 255, 0.5);
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.carousel-dot.active {
+    background-color: #ffffff;
+}
+
+/* --- Horizontal Scroller (Mobile Cards) --- */
+.horizontal-scroller {
+    display: grid;
+    grid-auto-flow: column;
+    grid-auto-columns: 45%; /* Mobile: Show 2+ items */
+    gap: 1rem;
+    overflow-x: auto;
+    padding: 1rem;
+    margin: -1rem;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none; /* Firefox */
+}
+
+.horizontal-scroller::-webkit-scrollbar {
+    display: none; /* Chrome/Safari */
+}
+
+@media (min-width: 640px) {
+    .horizontal-scroller {
+        grid-auto-columns: 30%;
+    }
+}
+
+@media (min-width: 1024px) {
+    .horizontal-scroller {
+        grid-auto-columns: 24%;
+    }
+}
+
+/* =========================================
+   5. UTILITIES & ANIMATIONS
+   ========================================= */
+.text-shadow-heavy {
+    text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.7);
+}
+
+.animate-fade-in-up {
+    animation: fadeInUp 0.8s ease-out forwards;
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* =========================================
+   6. TEXT CONTENT STYLES (About/Contact)
+   ========================================= */
+.content-section p {
+    margin-bottom: 1.5rem;
+    line-height: 1.75;
+}
+
+.content-section h2 {
+    font-size: 1.5rem; /* 24px */
+    font-weight: 600; /* semibold */
+    color: #1f2937; /* gray-800 */
+    margin-top: 2rem;
+    margin-bottom: 1rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 2px solid #e5e7eb; /* gray-200 */
+}
+
+.content-section ul {
+    list-style-type: disc;
+    padding-left: 1.5rem;
+    margin-bottom: 1.5rem;
+}
